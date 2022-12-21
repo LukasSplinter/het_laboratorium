@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Lato:wght@300;400&family=Londrina+Solid&family=Open+Sans:wght@400..800&family=Prata&display=swap');
+/*
+font-family: 'Fredericka the Great', cursive;
+font-family: 'Lato', sans-serif;
+font-family: 'Londrina Solid', cursive;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Prata', serif;
+*/
+
+@mixin speech-bubble {
+    font-family: 'Londrina Solid', cursive;
+    font-size: 3.2rem;
+
+    color: $white;
+}
+
+@mixin shadow-orange {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 6.8rem;
+    font-weight: 800;
+    color: transparent;
+
+    -webkit-text-stroke-width: .2rem;
+    -webkit-text-stroke-color: $primary;
+
+    position: absolute;
+    left: 1rem;
+    top: .75rem;
+    z-index: -1;
+}
+
+@mixin counter-number {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+@mixin title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 6.4rem;
+    font-weight: 800;
+    color: $white;
+}
+
+@mixin label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: .3rem;
+    color: #fff;
+
+    text-transform: uppercase;
+}
+
+@mixin paragraph {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: $white;
+}
+
+.title-container {
+    padding-bottom: 2rem;
+    margin-bottom: 15.2rem;
+
+    .title {
+        @include title;
+
+        &-part {
+            position: relative;
+
+            &::after {
+                @include shadow-orange;
+            }
+            &:nth-of-type(1)::after{
+                content: "STROOM";
+            }
+            &:nth-of-type(2)::after{
+                content: "GEEFT";
+            }
+            &:nth-of-type(3)::after{
+                content: "ENERGIE";
+            }
+        }
+    }
+}
+
+.paragraph-container {
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+
+    .paragraph {
+        @include paragraph;
+
+        margin-bottom: 2rem;
+    }
+}

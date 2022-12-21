@@ -1,0 +1,55 @@
+@import 'Colors';
+@import 'Typestyles';
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 6rem;
+    padding: 1rem 4rem;
+
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-color: $secondary;
+
+    &__navigation {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+
+        height: 3rem;
+        width: 4rem;
+
+        .bar {
+            display: block;
+            width: 100%;
+            height: .3rem;
+            background-color: $white;
+            border-radius: .3rem;
+            overflow: hidden;
+        }
+    }
+
+    &__roomcode {
+        padding: 1rem 4rem;
+        border: .2rem solid $white;
+        border-radius: 2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: .2rem;
+            color: #fff;
+        }
+    }
+}

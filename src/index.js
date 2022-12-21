@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(
-    <h1>Hello World please work</h1>,
-    document.getElementById('root')
-);
+import "./styles/Reset.scss";
+
+//components
+import { Header } from './components/Header';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Header roomcode="1234" />);
