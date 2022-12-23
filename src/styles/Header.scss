@@ -2,11 +2,10 @@
 @import 'Typestyles';
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 6rem;
+    $height: 6rem;
+    height: $height;
     padding: 1rem 4rem;
+    width: 100%;
 
     position: sticky;
     top: 0;
@@ -15,41 +14,181 @@
 
     background-color: $secondary;
 
-    &__navigation {
+    &__bar {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         align-items: center;
-        position: relative;
+        justify-content: space-between;
 
-        height: 3rem;
-        width: 4rem;
-
-        .bar {
+        &__navigation {
             display: block;
-            width: 100%;
-            height: .3rem;
-            background-color: $white;
-            border-radius: .3rem;
-            overflow: hidden;
+            position: relative;
+
+            height: 3rem;
+            width: 4rem;
+
+            cursor: pointer;
+
+            .bar {
+                display: block;
+                width: 100%;
+                height: .4rem;
+
+                background-color: $white;
+                // border-radius: .rem;
+
+                position: absolute;
+                left: 0;
+                right: 0;
+                transform: translateY(-50%);
+
+                transition: .4s top, .4s transform, .4s opacity;
+                &:nth-of-type(1) {
+                    top: 10%;
+                }
+                &:nth-of-type(2) {
+                    top: 43%;
+                }
+                &:nth-of-type(3) {
+                    top: 76%;
+                }
+            }
+
+            &.close {
+                .bar {
+                    &:nth-of-type(1) {
+                        transform: rotate(45deg);
+                        top: 43%;
+                    }
+                    &:nth-of-type(2) {
+                        opacity: 0;
+                    }
+                    &:nth-of-type(3) {
+                        transform: rotate(-45deg);
+                        top: 43%;
+                    }
+                }
+            }
+        }
+
+        &__roomcode {
+            padding: 1rem 4rem;
+            border: .2rem solid $white;
+            border-radius: 2rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            h3 {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 1.4rem;
+                font-weight: 800;
+                letter-spacing: .2rem;
+                color: #fff;
+            }
         }
     }
 
-    &__roomcode {
-        padding: 1rem 4rem;
-        border: .2rem solid $white;
-        border-radius: 2rem;
+    .nav {
+        position: absolute;
+        left: 0;
+        top: $height;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: block;
+        width: 0;
+        height: calc(100vh - #{$height});
+        background-color: $secondary;
 
-        h3 {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: .2rem;
-            color: #fff;
+        transition: width .4s;
+        overflow: hidden;
+
+        &.open {
+            width: 60%;
+
+            li {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        &__list {
+            display: flex;
+            height: 100%;
+            width: 100%;
+
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            padding: 0;
+            margin: 0;
+
+            li {
+                position: relative;
+
+                display: flex;
+                width: 0;
+                opacity: 0;
+                padding: 5rem 5rem;
+                border-top: .1rem solid $black-transparent;
+
+                justify-content: center;
+                align-items: center;
+
+                cursor: pointer;
+
+                @for $i from 1 through 3 {
+                  &:nth-of-type(#{$i}) {
+                      transition: width .4s, opacity .4s;
+                      transition-delay: calc(.1s + (#{$i} * .2s))
+                  }
+                }
+
+
+                &:hover {
+                    h3 {
+                        &::before {
+                            width: 100%;
+                        }
+                        &::after {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                h3 {
+                    display: block;
+                    position: relative;
+                    padding: 1rem 2rem;
+
+                    @include label;
+                    color: $white;
+
+                    pointer-events: none;
+                    user-select: none;
+
+                    &::before, &::after {
+                        content: "";
+                        display: block;
+                        width: 0;
+                        height: .3rem;
+                        background-color: $white;
+
+                        position: absolute;
+                        transform: translateY(-50%);
+
+                        transition: opacity .4s, width .4s;
+                    }
+                    &::before {
+                        top: 0;
+                        left: 0;
+                    }
+                    &::after {
+                        bottom: 0;
+                        right: 0;
+                    }
+                }
+            }
         }
     }
 }

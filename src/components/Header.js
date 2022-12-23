@@ -6,12 +6,16 @@ import "../styles/Header.scss";
 export class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {roomcode: this.props.roomcode};
+        this.state = {
+            roomcode: (this.props.roomcode ? this.props.roomcode : "0000"),
+            navOpen: false,
+        };
     }
 
     render() {
         const toggleNav = e => {
-            console.log('You clicked nav.');
+            let currentState = this.state.navOpen;
+            this.setState({navOpen: !currentState});
         }
 
         const switchRoomCode = e => {
@@ -20,17 +24,28 @@ export class Header extends React.Component {
 
         return (
             <header className="header">
-                <button className="header__navigation" onClick={toggleNav}>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                </button>
-                <button className="header__roomcode" onClick={switchRoomCode}>
-                    <h3>{this.state.roomcode}</h3>
-                </button>
-                <div className="nav">
-                    <ul classname="nav">
-                        <li></li>
+                <div className="header__bar">
+                    <button className={"header__bar__navigation " + (this.state.navOpen ? "close" : "")} onClick={toggleNav}>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                    </button>
+                    <button className="header__bar__roomcode" onClick={switchRoomCode}>
+                        <h3>{this.state.roomcode}</h3>
+                    </button>
+                </div>
+
+                <div className={"nav " + (this.state.navOpen ? "open" : "")}>
+                    <ul className="nav__list">
+                        <li onClick={() => {this.props.navigationHook("home"); this.setState({navOpen: false})}}>
+                            <h3>Beginscherm</h3>
+                        </li>
+                        <li onClick={() => {this.props.navigationHook("teacher"); this.setState({navOpen: false})}}>
+                            <h3>Docentenscherm</h3>
+                        </li>
+                        <li onClick={() => {this.props.navigationHook("student"); this.setState({navOpen: false})}}>
+                            <h3>Leerlingenscherm</h3>
+                        </li>
                     </ul>
                 </div>
             </header>

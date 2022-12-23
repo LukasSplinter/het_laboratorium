@@ -1,0 +1,91 @@
+@import 'Colors';
+@import 'Typestyles';
+
+.modal {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+
+    justify-content: center;
+    align-items:center;
+
+    background-color: rgba(0,0,0,0.8);
+
+    &__window {
+        width: 80vw;
+        height: fit-content;
+
+        background-color: $secondary;
+
+
+        .content {
+            padding: 6rem 4rem;
+
+            .title {
+                @include label;
+                color: $black;
+            }
+
+            .text {
+                @include paragraph;
+                color: $black;
+                font-size: 1.2rem;
+            }
+
+            .button {
+                display: inline-block;
+                padding: 1.5rem 3rem;
+
+                @include label;
+                color: $black;
+                font-size: 1.2rem;
+
+                margin-top: 2rem;
+                margin-right: 2rem;
+
+                transition: .4s transform;
+
+                border: .1rem solid $black;
+
+                &:hover {
+                    transform: scale(.95);
+                }
+
+                &--confirm {
+                    background-color: $primary;
+                    border: none;
+                }
+            }
+
+            input {
+                display: inline-block;
+                padding: 1.4rem .5rem;
+
+                @include label;
+                font-size: 1.2rem;
+                margin-right: 2rem;
+
+                border-bottom: .1rem solid $black;
+                color: $black;
+
+                text-align: center;
+
+                &.error {
+                    color: $failure;
+                    border-bottom-color: $failure;
+                    animation: 1s ease-in-out 0s shake;
+                }
+
+                &.succes {
+                    color: $succes;
+                    border-bottom-color: $succes;
+                }
+            }
+        }
+    }
+
+    &.open {
+        display: flex;
+    }
+}
