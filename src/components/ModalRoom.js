@@ -14,7 +14,7 @@ export class ModalRoom extends React.Component {
 
     render() {
         return (
-            <Modal opened={this.state.opened}>
+            <Modal opened={this.state.opened} hasCloseButton={this.props.hasCloseButton}>
                 <h2>test</h2>
             </Modal>
         );

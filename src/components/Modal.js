@@ -25,14 +25,15 @@ export class Modal extends React.Component {
                 "modal " +
                 (this.state.opened ? "open" : "") +
                 (this.props.classNames ? " " + this.props.classNames : "")}>
-                
+
                 <div className="modal__window container">
-                    <div class="image d-none d-md-block col-4">
+                    <div className="image d-none d-md-block col-4">
                         {/*image here*/}
                     </div>
-                    <div class="content col-8">
+                    <div className="content col-8">
                         {this.props.children}
                     </div>
+                    {this.props.hasCloseButton && <button className="close">X</button>}
                 </div>
             </section>
         );

@@ -15,7 +15,7 @@ export class Teacher extends React.Component {
         return (
             <section className="Teacher">
                 <h1>Teacher</h1>
-                <ModalRoom opened="true" />
+                <ModalRoom opened="true"/>
             </section>
         );
     }
