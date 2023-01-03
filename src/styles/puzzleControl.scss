@@ -1,0 +1,107 @@
+@import 'typestyles';
+@import 'colors';
+
+.puzzleControl {
+    width: 60%;
+    height: 11.6rem;
+    padding: 3rem 10rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    &__counter {
+        display: flex;
+        width: 3rem;
+        height: 3rem;
+
+        background-color: $primary;
+        border-radius: 50%;
+
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+
+        span {
+          @include counter-number;
+          display: block;
+          font-size: 1.4rem;
+        }
+    }
+
+    &__name {
+        @include title;
+        color: $black;
+
+        //overrides
+        font-size: 1.4rem;
+        font-weight: 500;
+
+        margin-bottom: 0;
+        padding-left: 3rem;
+    }
+
+    &__reward {
+        position: relative;
+        margin-left: auto;
+
+        display: block;
+        padding: 1.2rem 5rem;
+
+        font-size: 1.3rem;
+
+        background-color: $primary;
+        border-radius: 2rem;
+        color: $white;
+        font-weight: 600;
+
+        transition: .4s background-color, .4s color;
+
+        &:not(.success):hover {
+            background-color: $white;
+            color: $primary;
+        }
+
+        &.success {
+            background-color: $succes;
+            color: $succes;
+
+            &::after {
+                content: "✔";
+
+                display: block;
+                width: 2rem;
+                height: 2rem;
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                // background-image: url("../assets/icon-information.svg");
+                // background-size: 100% 100%;
+                // background-position: 50% 50%;
+                // background-repeat: no-repeat;
+            }
+        }
+    }
+
+    &__info {
+        padding: 0rem;
+        padding-left: 2rem;
+        img {
+            height: 3rem;
+            width: auto;
+
+            transition: .4s transform;
+        }
+
+        &:hover {
+            img {
+                transform: scale(0.90);
+            }
+        }
+    }
+}

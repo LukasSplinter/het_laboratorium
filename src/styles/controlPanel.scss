@@ -1,0 +1,17 @@
+@import 'colors';
+
+.controlPanel {
+    position: relative;
+    & > .loadingIcon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    & > .puzzleControl {
+        &:nth-of-type(even) {
+            background-color: $primary-transparent;
+        }
+    }
+}

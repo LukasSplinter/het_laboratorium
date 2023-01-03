@@ -1,0 +1,55 @@
+@import 'Colors';
+
+.loadingIcon {
+    display: block;
+    height: 5rem;
+    width: 5rem;
+
+    position: relative;
+
+    & .dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        display: block;
+        height: 50%;
+        width: 50%;
+
+        @for $i from 0 through 6 {
+            &:nth-of-type(#{$i}) {
+                animation: 2s ease-in-out ($i * .15s) infinite spin;
+                //transform: rotateZ(40deg * $i);
+            }
+        }
+
+
+        &::after {
+            content: '';
+
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: block;
+            height: .5rem;
+            width: .5rem;
+            border-radius: 50%;
+            background-color: $white;
+        }
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+}

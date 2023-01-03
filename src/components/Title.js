@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import "../styles/xx.scss";
+import "../styles/title.scss";
 import { Modal } from "./Modal"
 
-export class ModalRoom extends React.Component {
+export class Title extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,9 +14,11 @@ export class ModalRoom extends React.Component {
 
     render() {
         return (
-            <Modal opened={this.state.opened} hasCloseButton={this.props.hasCloseButton}>
-                <h2>aa</h2>
-            </Modal>
+            <section className="title">
+                <h1>STROOM</h1>
+                <h1>GEEFT</h1>
+                <h1>ENERGIE</h1>
+            </section>
         );
     }
 }

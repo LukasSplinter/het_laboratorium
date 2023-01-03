@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // import "../styles/xx.scss";
+import "../styles/screen.scss";
 
 export class Student extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ export class Student extends React.Component {
 
     render() {
         return (
-            <section className="student">
+            <section className="student screen">
                 <h1>Student</h1>
             </section>
         );

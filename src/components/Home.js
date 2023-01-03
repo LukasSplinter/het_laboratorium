@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // import "../styles/xx.scss";
+import "../styles/screen.scss";
+
+import { Title } from "./Title";
 
 export class Home extends React.Component {
     constructor(props) {
@@ -12,9 +15,8 @@ export class Home extends React.Component {
 
     render() {
         return (
-            <section className="home">
-                <h1>STROOM<br />GEEFT<br />ENERGIE</h1>
-
+            <section className="home screen">
+                <Title />
 
             </section>
         );

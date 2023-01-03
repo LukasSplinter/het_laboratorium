@@ -1,0 +1,12 @@
+@import 'colors';
+
+main.main {
+    padding: 0rem 0rem;
+    background-color: $secondary;
+
+    min-height: 100vh;
+
+    .screen {
+        padding: 4rem;
+    }
+}

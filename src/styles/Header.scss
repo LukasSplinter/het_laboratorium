@@ -11,6 +11,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 99;
 
     background-color: $secondary;
 
@@ -85,6 +86,8 @@
                 font-weight: 800;
                 letter-spacing: .2rem;
                 color: #fff;
+
+                margin-bottom: 0;
             }
         }
     }

@@ -128,3 +128,5 @@ dist
 
 #firebase public
 public/
+
+.idea/
