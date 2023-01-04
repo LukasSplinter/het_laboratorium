@@ -7,10 +7,14 @@ import "../styles/Header.scss";
 export class Header extends React.Component {
     constructor(props) {
         super(props);
+        this.roomInput = React.createRef();
         this.state = {
-            roomcode: (this.props.roomcode ? this.props.roomcode : "0000"),
+            roomcode: (this.props.roomcode ? this.props.roomcode : "000"),
             navOpen: false,
             modalOpen: false,
+            activeWindow: this.props.activeWindow,
+            codeInput: null,
+            db: this.props.db
         };
     }
 
@@ -28,8 +32,8 @@ export class Header extends React.Component {
 
     render() {
         return (
-            <header className="header">
-                <div className="header__bar">
+            <header className="header row">
+                <div className="header__bar col-12">
                     <button className={"header__bar__navigation " + (this.state.navOpen ? "close" : "")} onClick={this.toggleNav.bind(this)}>
                         <div className="bar"></div>
                         <div className="bar"></div>
@@ -42,13 +46,22 @@ export class Header extends React.Component {
 
                 <div className={"nav " + (this.state.navOpen ? "open" : "")}>
                     <ul className="nav__list">
-                        <li onClick={() => {this.props.navigationHook("home"); this.setState({navOpen: false})}}>
+                        <li className={this.state.activeWindow === "home" ? "active" : ""} onClick={() => {
+                            this.props.navigationHook("home");
+                            this.setState({navOpen: false, activeWindow: "home"})
+                        }}>
                             <h3>Beginscherm</h3>
                         </li>
-                        <li onClick={() => {this.props.navigationHook("teacher"); this.setState({navOpen: false})}}>
+                        <li className={this.state.activeWindow === "teacher" ? "active" : ""} onClick={() => {
+                            this.props.navigationHook("teacher");
+                            this.setState({navOpen: false, activeWindow: "teacher"})
+                        }}>
                             <h3>Docentenscherm</h3>
                         </li>
-                        <li onClick={() => {this.props.navigationHook("student"); this.setState({navOpen: false})}}>
+                        <li className={this.state.activeWindow === "student" ? "active" : ""} onClick={() => {
+                            this.props.navigationHook("student");
+                            this.setState({navOpen: false, activeWindow: "student"})
+                        }}>
                             <h3>Leerlingenscherm</h3>
                         </li>
                     </ul>
@@ -58,8 +71,10 @@ export class Header extends React.Component {
                     <Modal opened="true" hasCloseButton={"true"} onCloseHook={this.closeRoomModal.bind(this)}>
                         <h2>Voer de code van een kamer in</h2>
                         <div>
-                            <input type="text" className={"input"}/>
-                            <button className="confirm">gereed</button>
+                            <input type="text" className={"input"} ref={this.roomInput}/>
+                            <button className="button confirm" onClick={()=>{
+                                this.props.switchRoomHook(this.roomInput.current.value, this.roomInput.current);
+                            }}>gereed</button>
                         </div>
                     </Modal>
                 }

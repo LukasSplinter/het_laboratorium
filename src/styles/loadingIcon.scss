@@ -7,6 +7,15 @@
 
     position: relative;
 
+    &.large {
+        width: 8rem;
+        height: 8rem;
+    }
+    &.small {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
     & .dot {
         position: absolute;
         left: 50%;

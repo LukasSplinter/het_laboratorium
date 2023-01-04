@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
+import iconScrolldown from '../assets/icon-arrow-circle.svg';
 
 import { Title } from "./Title";
+import { RoomNav } from "./RoomNav";
 
 export class Home extends React.Component {
     constructor(props) {
@@ -18,6 +20,16 @@ export class Home extends React.Component {
             <section className="home screen">
                 <Title />
 
+                <div className="row">
+                    <p className={"paragraph introduction col-12 col-lg-4"}>Het docentportaal voor de interactieve introductie voor het onderwijsprogramma 'stroom geeft energie'.</p>
+                </div>
+                <div className="row">
+                    <div className="scrollDown col-1">
+                        <img className={"scrollDown__icon"} src={iconScrolldown} alt="scroll down icon"/>
+                    </div>
+                </div>
+
+                <RoomNav />
             </section>
         );
     }

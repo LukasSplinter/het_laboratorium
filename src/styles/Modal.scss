@@ -90,13 +90,13 @@
 
                 text-align: center;
 
-                &.error {
+                &.failure {
                     color: $failure;
                     border-bottom-color: $failure;
                     animation: 1s ease-in-out 0s shake;
                 }
 
-                &.succes {
+                &.success {
                     color: $succes;
                     border-bottom-color: $succes;
                 }
@@ -106,5 +106,26 @@
 
     &.open {
         display: flex;
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    10%, 90% {
+        transform: translate3d(-.2rem, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(.4rem, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-.6rem, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(.6rem, 0, 0);
     }
 }

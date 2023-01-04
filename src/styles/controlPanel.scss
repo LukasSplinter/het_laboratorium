@@ -1,7 +1,11 @@
-@import 'colors';
+@import 'Colors';
+@import 'Typestyles';
 
 .controlPanel {
     position: relative;
+
+    margin-top: 5rem;
+
     & > .loadingIcon {
         position: absolute;
         left: 50%;
@@ -12,6 +16,88 @@
     & > .puzzleControl {
         &:nth-of-type(even) {
             background-color: $primary-transparent;
+        }
+    }
+
+    & .pointControl {
+        background-color: $primary-transparent;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        width: 60%;
+        padding: 3rem 10rem;
+
+        & .score {
+            display: block;
+            width: 8rem;
+            padding: 1.2rem 2rem;
+
+            margin-right: 3rem;
+            position: relative;
+
+            &__label {
+                display: block;
+                width: 100%;
+
+                position: absolute;
+                bottom: 0rem;
+                left: 0rem;
+
+                @include label;
+                font-size: .8rem;
+                color: $white;
+                text-align: center;
+            }
+
+            &__value {
+                @include label;
+            }
+        }
+
+        & .pointButton {
+            display: block;
+            height: 4rem;
+            width: 4rem;
+            border-radius: 50%;
+
+            background-color: white;
+
+            position: relative;
+
+            &::after {
+                content: '';
+
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+
+                display: block;
+                width: 80%;
+                height: 80%;
+
+                background-image: url("../assets/icon-arrow-circle.svg");
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+                -webkit-background-size: 100% 100%;
+                background-size: 100% 100%;
+            }
+
+            &--increase {
+                background-color: $succes;
+
+                margin: 0 2rem;
+            }
+            &--decrease {
+                background-color: $failure;
+
+                &::after {
+                    transform: translate(-50%, -50%) rotateZ(180deg);
+                }
+            }
         }
     }
 }

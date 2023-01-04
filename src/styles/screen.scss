@@ -1,12 +1,34 @@
 @import 'colors';
+@import 'Typestyles';
 
-main.main {
-    padding: 0rem 0rem;
+#root {
     background-color: $secondary;
 
-    min-height: 100vh;
+    main.main {
+        padding: 0rem 0rem;
 
-    .screen {
-        padding: 4rem;
+        min-height: 100vh;
+
+        .screen {
+            padding: 4rem 0rem;
+
+            .paragraph {
+                @include paragraph;
+            }
+
+            .introduction {
+                margin-top: 16.1rem;
+            }
+
+            .scrollDown {
+
+                &__icon{
+                    transform: rotateZ(180deg);
+
+                }
+
+            }
+        }
     }
 }
+

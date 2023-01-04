@@ -4,7 +4,7 @@
 .header {
     $height: 6rem;
     height: $height;
-    padding: 1rem 4rem;
+    padding: 1rem 0rem;
     width: 100%;
 
     position: sticky;
@@ -147,6 +147,14 @@
                   }
                 }
 
+                &.active h3 {
+                    color: $primary;
+
+                    &::after, &::before {
+                        background-color: $primary;
+                        width: 100%;
+                    }
+                }
 
                 &:hover {
                     h3 {
