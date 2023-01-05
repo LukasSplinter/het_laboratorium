@@ -9,12 +9,12 @@ import "../styles/controlPanel.scss";
 
 import { PuzzleControl } from "./PuzzleControl";
 import { LoadingIcon } from "./LoadingIcon";
+import * as DATABASE from "../Database";
 
 export class ControlPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            db: this.props.db,
             roomcode: this.props.roomcode,
             puzzles: null,
             score: 0
@@ -23,81 +23,57 @@ export class ControlPanel extends React.Component {
 
 
     componentDidMount() {
-        this.fetchPuzzles(this.state.roomcode, this.state.db);
+        this.fetchScore();
+        this.fetchPuzzles();
 
-        let dbRef = ref(this.state.db);
-        get(child(dbRef, "rooms/" + this.state.roomcode + "/score")).then((snapshot) => {
-            let currentPoints = snapshot.val();
-
-            this.setState({score: currentPoints});
-        }).catch((err) => {
-            console.error(err);
-        })
+        DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
+            (score)=>{this.setState({score: score})});
     }
 
-    //gets puzzles from database
-    fetchPuzzles(roomcode, db) {
-        let dbRef = ref(db);
-        get(child(dbRef, "puzzles")).then((snapshot) => {
-            //if data exists
-            if (snapshot.exists()) {
-                //create array with puzzle data as elements
-                let puzzleData = Object.values(snapshot.val());
-                let puzzleArray = puzzleData.map((item, index) => {
-                    return <PuzzleControl
+    async fetchScore() {
+        try {
+            let response = await DATABASE.getData("rooms/" + this.state.roomcode + "/score");
+            this.setState({score: response});
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    async fetchPuzzles() {
+        try {
+            let response = await DATABASE.getData("puzzles");
+
+            //create array with puzzle data as elements
+            let puzzleData = Object.values(response);
+            let puzzleArray = puzzleData.map((item, index) => {
+                return <PuzzleControl
                     key={index}
                     counter={index + 1}
                     name={item.name}
                     data={item}
-                    awardPointsHook={this.rewardPuzzlePoints.bind(this)}/>
-                })
-                //set array as state
-                this.setState({puzzles: puzzleArray})
-            } else {
-                //no puzzles in the database
-                window.alert("Geen puzzles in de database gevonden, controleer het adminpaneel");
-            }
-        }).catch((err) => {
-            console.error(err);
-        })
+                    awardPointsHook={()=>{this.changeScore(this.state.score + item.worth)}}/>
+            })
+            //set array as state
+            this.setState({puzzles: puzzleArray})
+        } catch (err) {
+            window.alert("Geen puzzles in de database gevonden, controleer het adminpaneel");
+            console.error(err)
+        }
     }
-
-
-    rewardPuzzlePoints (pointsToAdd) {
-        let dbRef = ref(this.state.db);
-        get(child(dbRef, "rooms/" + this.state.roomcode + "/score")).then((snapshot) => {
-            let currentPoints = snapshot.val();
-
-            let newPoints = currentPoints + pointsToAdd;
-            let newData = {};
-            newData['rooms/' + this.state.roomcode + '/score'] = newPoints;
-
-            update(ref(this.state.db), newData);
-
-            this.setState({score: newPoints});
-
-        }).catch((err) => {
-            console.error(err);
-        })
-    }
-
 
     //function to manually change the score, used to increment or decrement the score of the room
-    changeScore (score) {
+    async changeScore (score) {
         //guard statement for negative scores
         if (score < 0) return;
 
-        let dbRef = ref(this.state.db);
+        try {
+            let response = await DATABASE.changeScore(this.state.roomcode, score);
 
-        let newData = {};
-        newData['rooms/' + this.state.roomcode + '/score'] = score;
-        update(dbRef, newData).then(() => {
-            this.setState({score: score});
-        }).catch((err) => {
-            console.error(err)
-        })
+            this.setState({score});
 
-
+        } catch(err) {
+            console.error(err);
+        }
     }
 
 

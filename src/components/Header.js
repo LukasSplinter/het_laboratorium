@@ -13,8 +13,7 @@ export class Header extends React.Component {
             navOpen: false,
             modalOpen: false,
             activeWindow: this.props.activeWindow,
-            codeInput: null,
-            db: this.props.db
+            codeInput: null
         };
     }
 
@@ -63,6 +62,12 @@ export class Header extends React.Component {
                             this.setState({navOpen: false, activeWindow: "student"})
                         }}>
                             <h3>Leerlingenscherm</h3>
+                        </li>
+                        <li className={this.state.activeWindow === "admin" ? "active" : ""} onClick={() => {
+                            this.props.navigationHook("admin");
+                            this.setState({navOpen: false, activeWindow: "admin"})
+                        }}>
+                            <h3>Beheerscherm</h3>
                         </li>
                     </ul>
                 </div>

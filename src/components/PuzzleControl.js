@@ -12,7 +12,6 @@ export class PuzzleControl extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            db: this.props.db,
             pointsClicked: false,
             description: "closed"
         };

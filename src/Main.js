@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as DATABASE from "./Database";
 
 //components
 import { Header } from './components/Header';
 import { Home } from './components/Home';
 import { Teacher } from './components/Teacher';
 import { Student } from './components/Student';
+import { Admin } from './components/Admin';
 
-const allowedScreens = ["home", "teacher", "student"];
+const allowedScreens = ["home", "teacher", "student", "admin"];
 
 //FIREBASE
 // Import the functions you need from the SDKs you need
@@ -60,34 +62,28 @@ export class Main extends React.Component {
      * @param roomcode
      * @param queryElement - element which search was conducted from, used for feedback
      */
-    switchRoomHook (roomcode, queryElement) {
+    async switchRoomHook (roomcode, queryElement) {
         //empty roomcode guard
         if (roomcode === "") return;
 
-        let dbRef = ref(database);
+        let roomExists = false;
 
-        //get room code from db
-        get(child(dbRef, 'rooms/' + roomcode)).then((snapshot) => {
-            //returns false if the roomcode doesn't exist
-            if (snapshot.exists()) {
-                this.setState({roomcode: roomcode});
+        try {
+            roomExists = await DATABASE.checkIfRoomExists(roomcode);
+            this.setState({roomcode: roomcode});
+            //user feedback
+            queryElement.classList.add("success");
+        } catch (err) {
+            //user feedback
+            queryElement.value = "geen kamer";
+            queryElement.classList.add("failure");
+        }
 
-                //user feedback
-                queryElement.classList.add("success");
-            } else {
-                //user feedback
-                queryElement.classList.add("failure");
-            }
-
-            //timeout with feedback clear
-            setTimeout(()=>{
-                queryElement.classList.remove("success", "failure");
-                queryElement.value = "";
-            }, 1000)
-        }).catch((err) => {
-            console.error("error in switching room code GET request")
-            console.error(err);
-        });
+        //timeout with feedback clear
+        setTimeout(()=>{
+            queryElement.classList.remove("success", "failure");
+            queryElement.value = "";
+        }, 1000);
     }
 
     render() {
@@ -96,11 +92,12 @@ export class Main extends React.Component {
                 <Header key={this.state.roomcode} roomcode={this.state.roomcode}
                         navigationHook={this.screenNavigationHook.bind(this)}
                         switchRoomHook={this.switchRoomHook.bind(this)}
-                        activeWindow={this.state.window} db={database}/>
+                        activeWindow={this.state.window}/>
 
-                {this.state.window === "home" && < Home db={database} roomcode={this.state.roomcode}/>}
-                {this.state.window === "teacher" && < Teacher db={database} roomcode={this.state.roomcode}/>}
-                {this.state.window === "student" && < Student db={database} roomcode={this.state.roomcode}/>}
+                {this.state.window === "home" && <Home roomcode={this.state.roomcode}/>}
+                {this.state.window === "teacher" && <Teacher roomcode={this.state.roomcode}/>}
+                {this.state.window === "student" && <Student roomcode={this.state.roomcode}/>}
+                {this.state.window === "admin" && <Admin />}
 
                 {this.state.window === "fallback" && < Home/>}
             </main>

@@ -61,32 +61,6 @@ font-family: 'Prata', serif;
     color: $white;
 }
 
-.title-container {
-    padding-bottom: 2rem;
-    margin-bottom: 15.2rem;
-
-    .title {
-        @include title;
-
-        &-part {
-            position: relative;
-
-            &::after {
-                @include shadow-orange;
-            }
-            &:nth-of-type(1)::after{
-                content: "STROOM";
-            }
-            &:nth-of-type(2)::after{
-                content: "GEEFT";
-            }
-            &:nth-of-type(3)::after{
-                content: "ENERGIE";
-            }
-        }
-    }
-}
-
 .paragraph-container {
     padding-bottom: 2rem;
     margin-bottom: 4rem;

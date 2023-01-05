@@ -22,7 +22,7 @@ export class Teacher extends React.Component {
             <section className="Teacher screen">
                 <Title />
 
-                <ControlPanel db={this.props.db} roomcode={this.state.roomcode}/>
+                <ControlPanel roomcode={this.state.roomcode}/>
             </section>
         );
     }

@@ -153,7 +153,7 @@
 
                 cursor: pointer;
 
-                @for $i from 1 through 3 {
+                @for $i from 1 through 5 {
                   &:nth-of-type(#{$i}) {
                       transition: width .4s, opacity .4s;
                       transition-delay: calc(.1s + (#{$i} * .2s))
