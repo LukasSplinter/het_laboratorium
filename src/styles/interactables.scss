@@ -1,0 +1,62 @@
+@import "typestyles";
+@import "colors";
+
+@mixin button  {
+    padding: 1.25rem 2rem;
+    border-radius: 2.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $primary;
+    color: $white;
+
+    @include label;
+    font-size: 1.3rem;
+
+    transition: .4s background-color, .4s color;
+
+    &:hover {
+        background-color: $white;
+        color: $primary;
+    }
+
+
+}
+
+@mixin button--ghost {
+    @include button;
+
+    border: .2rem solid $white;
+    background-color: transparent;
+}
+
+@mixin input {
+    display: inline-block;
+    padding: 1.4rem .5rem;
+
+    @include label;
+    font-size: 1.2rem;
+    margin-right: 2rem;
+
+    border-bottom: .1rem solid $black;
+    color: $black;
+
+    text-align: center;
+
+    &::placeholder {
+        color: $grey-5;
+    }
+
+    &.failure {
+        color: $failure;
+        border-bottom-color: $failure;
+        animation: 1s ease-in-out 0s shake;
+    }
+
+    &.success {
+        color: $succes;
+        border-bottom-color: $succes;
+    }
+}

@@ -97,6 +97,7 @@ export class Main extends React.Component {
                         navigationHook={this.screenNavigationHook.bind(this)}
                         switchRoomHook={this.switchRoomHook.bind(this)}
                         activeWindow={this.state.window} db={database}/>
+
                 {this.state.window === "home" && < Home db={database} roomcode={this.state.roomcode}/>}
                 {this.state.window === "teacher" && < Teacher db={database} roomcode={this.state.roomcode}/>}
                 {this.state.window === "student" && < Student db={database} roomcode={this.state.roomcode}/>}

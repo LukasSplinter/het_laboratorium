@@ -1,2 +1,69 @@
 @import "Colors";
+@import "interactables";
 
+.roomNav {
+    display: block;
+
+    margin-top: 39.2rem;
+
+    &__button {
+        width: 29rem;
+
+        margin-bottom: 1.7rem;
+
+        &.primary {
+            @include button;
+            letter-spacing: normal;
+        }
+        &.secondary {
+            @include button--ghost;
+            letter-spacing: normal;
+        }
+    }
+
+    .input {
+        width: 29rem;
+        input {
+            @include input;
+            margin: 0;
+        }
+
+        &--create {
+            input {
+                width: 45%;
+
+                &:last-of-type {
+                    float: right;
+                }
+            }
+        }
+
+        &--join {
+            input {
+                width: 100%;
+            }
+        }
+
+        .submit {
+            display: block;
+            width: 4rem;
+            height: 4rem;
+
+            float: right;
+            margin-top: 2rem;
+            transform: rotateZ(90deg);
+
+            background-image: url("../assets/icon-arrow-circle.svg");
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+
+            transition: .4s transform;
+
+            &:hover {
+                transform: rotateZ(90deg) scale(0.90);
+            }
+        }
+    }
+}
