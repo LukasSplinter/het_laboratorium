@@ -44,7 +44,7 @@ export class Main extends React.Component {
         super(props);
         this.state = {
             roomcode: "00000",
-            window: "home",
+            window: "admin",
         };
     }
 

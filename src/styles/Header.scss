@@ -1,5 +1,6 @@
 @import 'Colors';
 @import 'Typestyles';
+@import 'breakpoints';
 
 .header {
     $height: 6rem;
@@ -110,16 +111,23 @@
         left: 0;
         top: $height;
 
+        padding: 0;
+
         display: block;
         width: 0;
         height: calc(100vh - #{$height});
-        background-color: $secondary;
+        background-color: transparentize($off-black, 0.2);
+        backdrop-filter: blur(.5rem);
 
         transition: width .4s;
         overflow: hidden;
 
         &.open {
-            width: 60%;
+            width: 100%;
+
+            @include md {
+                width: 60%;
+            }
 
             li {
                 width: 100%;

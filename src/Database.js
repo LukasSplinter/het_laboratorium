@@ -21,6 +21,7 @@ export const analytics = getAnalytics(app);
 export const database = getDatabase();
 export const dbRef = ref(database);
 
+
 /**
  * Get all rooms in an object from the database
  * @returns {Promise<unknown>}
@@ -75,6 +76,32 @@ export const changeScore = (roomcode, score) => {
             reject(err);
         })
 
+    })
+}
+
+
+/**
+ * TODO: room template incorporation
+ * updates a room, given roomnumber and data
+ * @param roomcode
+ * @param data
+ * @returns {Promise<unknown>}
+ */
+export const updateRoom = (roomcode, data) => {
+    return new Promise((resolve, reject) => {
+        let newData = {};
+        newData['rooms/' + roomcode] = {
+            introductionIndex: data.introductionIndex,
+            name: data.name,
+            school: data.school,
+            score: data.score
+        };
+
+        update(dbRef, newData).then(()=> {
+            resolve(newData);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 }
 

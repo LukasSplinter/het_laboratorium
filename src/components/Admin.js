@@ -22,7 +22,6 @@ export class Admin extends React.Component {
         this.fetchRooms();
     }
 
-
     async fetchRooms() {
         try {
             let response = await DATABASE.getRooms();
@@ -33,10 +32,12 @@ export class Admin extends React.Component {
                 return <RoomControl
                     key={roomKey}
                     roomKey={roomKey}
+                    data={item}
                     name={item.name}
                     school={item.school}
                     score={item.score}
                     date={"0"}
+                    refreshRoomsHook={this.fetchRooms.bind(this)}
                 />
             });
             this.setState({rooms: roomList})
@@ -55,7 +56,12 @@ export class Admin extends React.Component {
                     <div className={"edit edit--puzzles"}>
                     </div>
                     <div className={"edit edit--rooms"}>
-                        {this.state.rooms}
+                        {this.state.rooms.length > 0
+                            ? this.state.rooms
+                            : <div>
+                                <p>Er zijn momenteel geen sessies gevonden in de database!</p>
+                            </div>
+                        }
                     </div>
                     <div className={"edit edit--text"}></div>
                 </Tabs>

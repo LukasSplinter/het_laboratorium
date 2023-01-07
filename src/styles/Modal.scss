@@ -42,12 +42,12 @@
         .content {
             padding: 6rem 4rem;
 
-            .title {
+            .title, h2 {
                 @include label;
                 color: $black;
             }
 
-            .text {
+            .text, p {
                 @include paragraph;
                 color: $black;
                 font-size: 1.2rem;

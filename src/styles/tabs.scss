@@ -24,6 +24,7 @@
 
             background-color: $primary;
             border: .1rem solid $primary;
+            border-bottom: none;
             color: $white;
 
             @include label;
@@ -34,11 +35,13 @@
             &.selected {
                 background-color: transparent;
                 border: .1rem solid $white;
+                border-bottom: none;
             }
 
             &:hover:not(.selected) {
                 background-color: $white;
                 border: .1rem solid $white;
+                border-bottom: none;
                 color: $primary;
             }
         }
@@ -49,6 +52,7 @@
         & .tab {
             padding: 2rem 2rem 4rem;
             //border-left: 1rem solid $primary;
+            border-top: 1rem solid $primary;
         }
     }
 }
