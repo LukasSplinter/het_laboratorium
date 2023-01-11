@@ -28,6 +28,22 @@
                 }
 
             }
+
+            .textsection {
+                margin-top: 14rem;
+                margin-bottom: 8rem;
+
+                .title {
+                    @include title;
+                    margin: 0;
+                }
+
+                .paragraph {
+                    @include paragraph;
+                    font-size: 1.8rem;
+                    margin: 0;
+                }
+            }
         }
     }
 }

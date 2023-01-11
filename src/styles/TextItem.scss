@@ -1,0 +1,74 @@
+@import "Colors";
+@import "interactables";
+
+.textItem {
+    padding: 5rem 3rem;
+
+    position: relative;
+
+    &:nth-of-type(even) {
+        background-color: $primary-transparent;
+    }
+
+    & .value {
+        position: relative;
+
+        &:has(&__input:focus) &__label {
+            transform: translateY(-1.5rem);
+            color: $black;
+        }
+
+        &__label {
+            position: absolute;
+            left: 1rem;
+            top: -.5rem;
+
+            transition: .4s transform, .4s color;
+
+            @include paragraph;
+            color: $off-black;
+            font-size: 1.2rem;
+        }
+
+        &__input {
+            @include input;
+            padding-top: 1rem;
+        }
+    }
+
+
+    & .controlbar {
+
+        & .value {
+            width: 8rem;
+
+            &__input {
+                width: 100%;
+            }
+        }
+
+        &__actions {
+
+        }
+    }
+
+    & .content {
+        padding-top: 2rem;
+
+        .value {
+            width: 100%;
+
+            &__input {
+                @include input;
+                text-transform: none;
+                letter-spacing: normal;
+                padding-top: 1rem;
+
+                width: 100%;
+
+                text-align: left;
+                resize: none;
+            }
+        }
+    }
+}

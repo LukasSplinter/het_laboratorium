@@ -1,6 +1,7 @@
 @import 'Colors';
 @import 'Typestyles';
 @import 'breakpoints';
+@import "interactables";
 
 .header {
     $height: 6rem;
@@ -166,6 +167,20 @@
                       transition: width .4s, opacity .4s;
                       transition-delay: calc(.1s + (#{$i} * .2s))
                   }
+                }
+
+                &.noRoomCode {
+                    @include stateNotification(transparentize($failure, 0.8), "Voer een kamercode in");
+                    pointer-events: none;
+
+                    background-image: url("../assets/icon-cancel.svg");
+                    background-repeat: no-repeat;
+                    background-position: 50% 50%;
+                    background-size: 50% 50%;
+
+                    &::after {
+                        top: 25%;
+                    }
                 }
 
                 &.active h3 {

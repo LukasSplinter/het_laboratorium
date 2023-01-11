@@ -1,4 +1,5 @@
 import React from 'react';
+import textData from "../data/data.json";
 
 import * as DATABASE from "../Database";
 
@@ -6,7 +7,10 @@ import * as DATABASE from "../Database";
 import "../styles/screen.scss";
 import { Title } from './Title';
 import { Tabs } from './Tabs';
-import { RoomControl } from "./roomControl";
+import { RoomAdmin } from "./RoomAdmin";
+import { PuzzleAdmin } from "./PuzzleAdmin";
+import { PuzzleCreate } from "./PuzzleCreate";
+import {TextPanel} from "./TextPanel";
 
 export class Admin extends React.Component {
     constructor(props) {
@@ -14,12 +18,14 @@ export class Admin extends React.Component {
         this.roomList = [];
         this.state = {
             roomcode: this.props.roomcode,
-            rooms: []
+            rooms: [],
+            puzzles: []
         };
     }
 
     componentDidMount(){
         this.fetchRooms();
+        this.fetchPuzzles();
     }
 
     async fetchRooms() {
@@ -29,14 +35,10 @@ export class Admin extends React.Component {
 
             let roomList = roomData.map((item, index) => {
                 let roomKey = Object.keys(response)[index];
-                return <RoomControl
+                return <RoomAdmin
                     key={roomKey}
                     roomKey={roomKey}
                     data={item}
-                    name={item.name}
-                    school={item.school}
-                    score={item.score}
-                    date={"0"}
                     refreshRoomsHook={this.fetchRooms.bind(this)}
                 />
             });
@@ -46,24 +48,64 @@ export class Admin extends React.Component {
         }
     }
 
+    async fetchPuzzles() {
+        try {
+            let response = await DATABASE.getData("puzzles");
+            let puzzleData = Object.values(response);
+
+            let puzzleList = puzzleData.map((item, index) => {
+                let puzzleID = Object.keys(response)[index];
+
+                return <PuzzleAdmin
+                    key={puzzleID}
+                    data={item}
+                    puzzleID={puzzleID}
+                    refreshPuzzlesHook={this.fetchPuzzles.bind(this)}
+                />
+            });
+
+            this.setState({puzzles: puzzleList});
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     render() {
         return (
             <section className="Admin screen">
                 <Title />
 
-                <h1 className="title">aanpassen</h1>
+                <div className="textsection row">
+                    <p className="paragraph col-12 col-lg-6">{textData.adminscreen.explanation}</p>
+                </div>
+
                 <Tabs tabTitles={['opdrachten', 'sessies', 'tekst']}>
                     <div className={"edit edit--puzzles"}>
+                        <PuzzleCreate
+                            refreshPuzzlesHook={this.fetchPuzzles.bind(this)}
+                        />
+
+                        {this.state.puzzles.length > 0
+                            ? this.state.puzzles
+                            : <div>
+                                <p>{textData.adminscreen.puzzles_empty}</p>
+                            </div>
+                        }
                     </div>
                     <div className={"edit edit--rooms"}>
                         {this.state.rooms.length > 0
                             ? this.state.rooms
                             : <div>
-                                <p>Er zijn momenteel geen sessies gevonden in de database!</p>
+                                <p>{textData.adminscreen.rooms_empty}</p>
                             </div>
                         }
                     </div>
-                    <div className={"edit edit--text"}></div>
+                    <div className={"edit edit--text"}>
+                        <TextPanel title={textData.adminscreen.start_introduction_title} path={"introduction"}/>
+                        <TextPanel title={textData.adminscreen.start_lesson_title} path={"startLesson"}/>
+                        <TextPanel title={textData.adminscreen.end_lesson_title} path={"endLesson"}/>
+                    </div>
                 </Tabs>
             </section>
         );

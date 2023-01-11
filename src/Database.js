@@ -1,8 +1,10 @@
+import data from "./data/data.json";
+
 //FIREBASE
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {getDatabase, ref, get, child, update, onValue, remove} from "firebase/database";
+import {getDatabase, ref, get, set, child, update, onValue, remove} from "firebase/database";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
@@ -52,7 +54,8 @@ export const checkIfRoomExists = (roomCode) => {
             if (snapshot.exists()) {
                 resolve(true);
             } else {
-                reject("Room does not exist!");
+                resolve(false);
+                // reject(false);
             }
         })
     })
@@ -81,7 +84,7 @@ export const changeScore = (roomcode, score) => {
 
 
 /**
- * TODO: room template incorporation
+ * TODO: room template incorporation, move to abstract function?
  * updates a room, given roomnumber and data
  * @param roomcode
  * @param data
@@ -97,8 +100,46 @@ export const updateRoom = (roomcode, data) => {
             score: data.score
         };
 
-        update(dbRef, newData).then(()=> {
+        update(dbRef, newData).then(() => {
             resolve(newData);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+
+/**
+ * takes data object and path to update database
+ * @param path
+ * @param data
+ * @returns {Promise<unknown>}
+ */
+export const updateData = (path, data) => {
+    return new Promise((resolve, reject) => {
+        let newData = {};
+        newData[path] = {...data};
+
+        update(dbRef, newData).then(() => {
+            resolve(newData);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+
+/**
+ * takes data object and adds it to given path in database
+ * @param path
+ * @param data
+ * @returns {Promise<unknown>}
+ */
+export const setData = (path, data) => {
+    return new Promise((resolve, reject) => {
+
+        set(child(dbRef, path), data).then(() => {
+            resolve(data);
         }).catch((err) => {
             reject(err);
         })
@@ -139,6 +180,11 @@ export const attachListener = (path, func) => {
 }
 
 
+/**
+ * removes node at given path from database
+ * @param path
+ * @returns {Promise<unknown>}
+ */
 export const removeNode = (path) => {
     return new Promise((resolve, reject) => {
         let pathRef = ref(database, path);
@@ -149,4 +195,59 @@ export const removeNode = (path) => {
         });
     })
 
+}
+
+
+export const createRoom = async (className, schoolName) => {
+    let key = generateKey();
+
+    //edgecase that the same key is generated twice
+    while (true) {
+        try {
+            let roomExists = await checkIfRoomExists(key);
+
+            if (roomExists !== true) {
+                break;
+            } else {
+                key = generateKey();
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    //post data to db
+    return new Promise((resolve, reject) => {
+        //use template from data
+        let newRoom = {... data.room_template};
+        newRoom.name = className;
+        newRoom.school = schoolName;
+
+        set(child(dbRef, "rooms/" + key), newRoom).then(() => {
+            resolve(key);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+
+/**
+ * generating a pseudo-random key based on current time.
+ * Google firebase generates random ids - but these are hashes, and not numerical - which is what we are looking for
+ * @returns {number}
+ */
+const generateKey = () => {
+    let date = new Date();
+    let timestamp = date.getTime();
+
+    //get last 3 ms of timestamp
+    let dropFirst = timestamp.toString().slice(-3);
+    //get random int of char length 2 (0 - 99)
+    let randomInt = Math.floor(Math.random() * 10) + "" + Math.floor(Math.random() * 10000);
+
+    let key = dropFirst * randomInt;
+    key = key.toString().slice(0,5).padEnd(5, "0");
+
+    return parseInt(key);
 }

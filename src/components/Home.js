@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import textData from "../data/data.json";
 
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
@@ -29,10 +29,10 @@ export class Home extends React.Component {
                     </div>
                 </div>
 
-                <RoomNav createRoomHook joinRoomHook/>
+                <RoomNav joinRoomHook={this.props.switchRoomHook.bind(this)}/>
 
                 <div className="row">
-                    <p className={"paragraph introduction col-12 col-lg-4"}>Maak de kamer in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal.</p>
+                    <p className={"paragraph introduction col-12 col-lg-4"}>{textData.homescreen.room_explanation}</p>
                 </div>
             </section>
         );

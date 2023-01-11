@@ -9,7 +9,7 @@ export class Header extends React.Component {
         super(props);
         this.roomInput = React.createRef();
         this.state = {
-            roomcode: (this.props.roomcode ? this.props.roomcode : "000"),
+            roomcode: (this.props.roomcode ? this.props.roomcode : ""),
             navOpen: false,
             modalOpen: false,
             activeWindow: this.props.activeWindow,
@@ -39,31 +39,39 @@ export class Header extends React.Component {
                         <div className="bar"></div>
                     </button>
                     <button className="header__bar__roomcode" onClick={this.openRoomModal.bind(this)}>
-                        <h3>{this.state.roomcode}</h3>
+                        <h3>{this.state.roomcode !== "" ? this.state.roomcode : "xxxxx"}</h3>
                     </button>
                 </div>
 
-                <div className={"nav " + (this.state.navOpen ? "open" : "")}>
+                <div className={"nav " +
+                    (this.state.navOpen ? "open " : "")}>
                     <ul className="nav__list">
-                        <li className={this.state.activeWindow === "home" ? "active" : ""} onClick={() => {
+                        <li className={
+                            (this.state.activeWindow === "home" ? "active " : "")}
+                            onClick={() => {
                             this.props.navigationHook("home");
                             this.setState({navOpen: false, activeWindow: "home"})
                         }}>
                             <h3>Beginscherm</h3>
                         </li>
-                        <li className={this.state.activeWindow === "teacher" ? "active" : ""} onClick={() => {
+                        <li className={this.state.activeWindow === "teacher" ? "active" : "" +
+                            (this.state.roomcode !== "" ? "" : "noRoomCode ")}
+                            onClick={() => {
                             this.props.navigationHook("teacher");
                             this.setState({navOpen: false, activeWindow: "teacher"})
                         }}>
                             <h3>Docentenscherm</h3>
                         </li>
-                        <li className={this.state.activeWindow === "student" ? "active" : ""} onClick={() => {
+                        <li className={this.state.activeWindow === "student" ? "active" : "" +
+                            (this.state.roomcode !== "" ? "" : "noRoomCode ")}
+                            onClick={() => {
                             this.props.navigationHook("student");
                             this.setState({navOpen: false, activeWindow: "student"})
                         }}>
                             <h3>Leerlingenscherm</h3>
                         </li>
-                        <li className={this.state.activeWindow === "admin" ? "active" : ""} onClick={() => {
+                        <li className={this.state.activeWindow === "admin" ? "active" : ""}
+                            onClick={() => {
                             this.props.navigationHook("admin");
                             this.setState({navOpen: false, activeWindow: "admin"})
                         }}>

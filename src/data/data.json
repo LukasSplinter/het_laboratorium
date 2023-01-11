@@ -1,2 +1,28 @@
 {
+  "room_template": {
+    "introductionIndex": "0",
+    "startLessonIndex": "0",
+    "endLessonIndex": "0",
+    "score": "0",
+    "school": "",
+    "name": ""
+  },
+  "homescreen": {
+    "room_explanation": "Maak de kamer in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal."
+  },
+  "adminscreen": {
+    "explanation": "Dit is het beheerscherm! Hier kunnen de verschillende aspecten van de applicatie aangepast en onderhouden worden. ",
+    "rooms_empty": "Er zijn momenteel geen sessies gevonden in de database! - probeer het later opnieuw of voeg deze toe",
+    "puzzles_empty": "Er zijn momenteel geen opdrachten gevonden in de database! - probeer het later opnieuw of voeg deze toe",
+    "text_empty": "Er zijn momenteel geen tekstartikelen gevonden in de database! - probeer het later opnieuw of voeg deze toe",
+    "start_introduction_title": "Start van de introductie",
+    "start_lesson_title": "Einde introductie / Start van de les",
+    "end_lesson_title":  "Einde van de les"
+
+  },
+  "buttons": {
+    "create_room": "KAMER AANMAKEN",
+    "join_room": "CODE INVOEREN"
+  }
+
 }

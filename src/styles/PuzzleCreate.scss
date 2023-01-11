@@ -1,0 +1,39 @@
+@import "breakpoints";
+@import "Typestyles";
+@import "Colors";
+@import "interactables";
+
+.puzzleCreate {
+    padding: 5rem 3rem 8rem;
+    position: relative;
+
+    .title {
+        @include title;
+        font-size: 1.6rem;
+
+        margin-bottom: 2rem;
+        color: $primary;
+
+        @include lg {
+            font-size: 2.4rem;
+        }
+    }
+
+    .confirm {
+        @include button;
+
+        width: fit-content;
+
+        position: relative;
+        margin: 2rem 2rem 0 auto;
+    }
+
+    //state
+    &.saveSuccesful {
+        @include stateNotification(transparentize($succes, .2), "Opdracht toegevoegd!")
+    }
+
+    &.saveFailure {
+        @include stateNotification($black-transparent, "Opdracht toevoegen niet gelukt! Zijn alle velden ingevuld?");
+    }
+}

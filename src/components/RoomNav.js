@@ -1,4 +1,5 @@
 import React from 'react';
+import textData from "../data/data.json";
 
 import * as DATABASE from "../Database";
 
@@ -9,7 +10,7 @@ import "../styles/roomNav.scss";
 export class RoomNav extends React.Component {
     constructor(props) {
         super(props);
-        this.joinRoom = React.createRef();
+        this.joinRoomCode = React.createRef();
         this.joinClassname = React.createRef();
         this.joinSchoolname = React.createRef();
         this.state = {
@@ -18,31 +19,47 @@ export class RoomNav extends React.Component {
     }
 
 
+    joinRoom(){
+        let roomCode = this.joinRoomCode.current.value;
+        this.props.joinRoomHook(roomCode, this.joinRoomCode.current);
+    }
+
+
+    async createRoom() {
+        let className = this.joinClassname.current.value;
+        let schoolName = this.joinSchoolname.current.value;
+
+        try {
+            let roomCode = await DATABASE.createRoom(className, schoolName);
+
+            this.props.joinRoomHook(roomCode, this.joinSchoolname.current);
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+
     render() {
         return (
             <section className={"roomNav"}>
                 <button className={"roomNav__button primary"} onClick={()=>{
                     this.setState({joinType: "create"});
-                }}>Kamer aanmaken</button>
+                }}>{textData.buttons.create_room}</button>
                 <button className={"roomNav__button secondary"} onClick={()=>{
                     this.setState({joinType: "join"});
-                }}>Code invoeren</button>
+                }}>{textData.buttons.join_room}</button>
 
                 {this.state.joinType === "create" &&
                     <div className="input input--create">
                         <input type="text" placeholder={"schoolnaam"} ref={this.joinSchoolname}/>
                         <input type="text" placeholder={"klas"} ref={this.joinClassname}/>
-                        <button className={"submit"} onClick={()=> {
-                            this.props.createRoomHook(this.joinClassname.current.value, this.joinSchoolname.current.value)
-                        }}></button>
+                        <button className={"submit"} onClick={this.createRoom.bind(this)}></button>
                     </div>
                 }
                 {this.state.joinType === "join" &&
                     <div className="input input--join">
-                        <input className={""} type="text" placeholder={"kamercode"} ref={this.joinRoom}/>
-                        <button className={"submit"} onClick={async () => {
-                            this.props.joinRoomHook(this.joinInput.current.value, this.joinInput.current);
-                        }}></button>
+                        <input className={""} type="text" placeholder={"kamercode"} ref={this.joinRoomCode}/>
+                        <button className={"submit"} onClick={this.joinRoom.bind(this)}></button>
                     </div>
                 }
             </section>

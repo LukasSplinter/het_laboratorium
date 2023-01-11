@@ -1,0 +1,144 @@
+@import "Colors";
+@import "interactables";
+
+.room {
+    padding: 5rem 3rem;
+
+    position: relative;
+
+    &:nth-of-type(even) {
+        background-color: $primary-transparent;
+    }
+
+    &__info {
+        position: absolute;
+        left: 3rem;
+        top: 2rem;
+
+        
+
+        &__roomcode, &__date {
+            @include paragraph;
+            font-size: 1.2rem;
+            color: $off-black;
+
+            display: inline-block;
+
+            & .value {
+                color: $black;
+            }
+        }
+
+        &__date {
+            margin-left: 2rem;
+        }
+
+    }
+
+    &__value {
+        position: relative;
+        padding: 0rem 1rem;
+
+        &:has(&__input:focus) &__label {
+            transform: translateY(-1.5rem);
+            color: $black;
+        }
+
+        &__label {
+            position: absolute;
+            left: 1rem;
+            top: -.5rem;
+
+            transition: .4s transform, .4s color;
+
+            @include paragraph;
+            color: $off-black;
+            font-size: 1.2rem;
+        }
+
+        &__input {
+            @include input;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        &__button {
+            border-radius: .4rem;
+            width: 4rem;
+            height: 4rem;
+
+            position: relative;
+
+            background-color: $primary;
+
+            transition: .4s background-color;
+
+            & > .icon {
+                transition: .4s filter;
+                pointer-events: none;
+                filter: invert(100%);
+            }
+
+            &--save {
+                &:hover {
+                    background-color: $button-green;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
+            }
+
+            &--deleteCheck {
+                margin-left: 1rem;
+
+                &:hover {
+                    background-color: $button-red;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
+            }
+
+            //delete confirm/cancel buttons
+            &--deleteConfirm {
+                z-index: 3;
+                margin-left: 1rem;
+
+                &:hover {
+                    background-color: $button-green;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
+            }
+            &--deleteCancel {
+                z-index: 3;
+
+                &:hover {
+                    background-color: $button-red;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
+            }
+        }
+    }
+
+    //states
+    &.deleteCheck {
+        @include stateNotification($black-transparent, "Weet je zeker dat je deze kamer wilt verwijderen?");
+    }
+
+    &.saveSuccesful {
+        @include stateNotification(transparentize($succes, .2), "Veranderingen opgeslagen")
+    }
+}

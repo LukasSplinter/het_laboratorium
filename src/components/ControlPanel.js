@@ -51,7 +51,7 @@ export class ControlPanel extends React.Component {
                     counter={index + 1}
                     name={item.name}
                     data={item}
-                    awardPointsHook={()=>{this.changeScore(this.state.score + item.worth)}}/>
+                    awardPointsHook={()=>{this.changeScore(parseInt(this.state.score) + parseInt(item.worth))}}/>
             })
             //set array as state
             this.setState({puzzles: puzzleArray})

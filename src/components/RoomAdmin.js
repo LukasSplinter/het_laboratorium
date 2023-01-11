@@ -7,9 +7,9 @@ import iconDelete from "../assets/icon-delete.svg";
 import iconConfirm from "../assets/icon-checkmark.svg";
 import iconCancel from "../assets/icon-cancel.svg";
 
-import "../styles/roomControl.scss";
+import "../styles/RoomAdmin.scss";
 
-export class RoomControl extends React.Component {
+export class RoomAdmin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +62,7 @@ export class RoomControl extends React.Component {
     }
 
     render() {
-        const { name, school, score, date } = this.props;
+        const { name, school, score, date } = this.props.data;
 
         return (
             <article className={"room row " +
@@ -71,12 +71,12 @@ export class RoomControl extends React.Component {
             }>
                 <div className="room__info">
                     <p className={"room__info__roomcode"}>sessiecode: "<span className={"value"}>{this.props.roomKey}"</span></p>
-                    <p className="room__info__date">datum: "<span className={"value"}>{this.props.date}"</span></p>
+                    <p className="room__info__date">datum: "<span className={"value"}>{date}"</span></p>
                 </div>
 
                 <div className="room__value col-6 col-md-3">
                     <label className={"room__value__label"} htmlFor="name">klasnaam</label>
-                    <input id={"name"} className={"room__value__input"} name="name" defaultValue={name} onChange={this.handleChange} />
+                    <input id={"name"} className={"room__value__input"} name="naam" defaultValue={name} onChange={this.handleChange} />
                 </div>
 
                 <div className="room__value col-6 col-md-3">
