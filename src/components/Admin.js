@@ -80,7 +80,7 @@ export class Admin extends React.Component {
                     <p className="paragraph col-12 col-lg-6">{textData.adminscreen.explanation}</p>
                 </div>
 
-                <Tabs tabTitles={['opdrachten', 'sessies', 'tekst']}>
+                <Tabs tabTitles={['opdrachten', 'sessies', 'tekst', 'algemeen']}>
                     <div className={"edit edit--puzzles"}>
                         <PuzzleCreate
                             refreshPuzzlesHook={this.fetchPuzzles.bind(this)}
@@ -105,6 +105,9 @@ export class Admin extends React.Component {
                         <TextPanel title={textData.adminscreen.start_introduction_title} path={"introduction"}/>
                         <TextPanel title={textData.adminscreen.start_lesson_title} path={"startLesson"}/>
                         <TextPanel title={textData.adminscreen.end_lesson_title} path={"endLesson"}/>
+                    </div>
+                    <div className="edit edit--settings">
+                        <h2>todo: tijd aanpassen setting</h2>
                     </div>
                 </Tabs>
             </section>

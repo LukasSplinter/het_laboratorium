@@ -25,9 +25,24 @@ export class ControlPanel extends React.Component {
     componentDidMount() {
         this.fetchScore();
         this.fetchPuzzles();
+        this.fetchDuration();
 
-        DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
+        this.unsubscribe = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
             (score)=>{this.setState({score: score})});
+    }
+
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    async fetchDuration() {
+        try {
+            let duration = await DATABASE.getData("settings/duration");
+            this.setState({duration: duration});
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     async fetchScore() {
@@ -81,14 +96,18 @@ export class ControlPanel extends React.Component {
 
         return (
             <section className="controlPanel">
-                <div className="pointControl">
-                    <div className="score">
+                <div className="pointControl row">
+                    <div className="score col-12 col-md-6">
                         <span className="score__label">punten</span>
 
                         <span className="score__value">{this.state.score}</span>
                     </div>
-                    <button className="pointButton pointButton--decrease" onClick={()=>{this.changeScore(this.state.score - 1)}}> </button>
-                    <button className="pointButton pointButton--increase" onClick={()=>{this.changeScore(this.state.score + 1)}}> </button>
+
+                    <div className="col-12 col-md-6">
+                        <button className="pointButton pointButton--decrease" onClick={()=>{this.changeScore(this.state.score - 1)}}> </button>
+                        <button className="pointButton pointButton--increase" onClick={()=>{this.changeScore(this.state.score + 1)}}> </button>
+                    </div>
+
                 </div>
 
                 {this.state.puzzles !== null

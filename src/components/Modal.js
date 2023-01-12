@@ -45,7 +45,7 @@ export class Modal extends React.Component {
                     <div className="content col-8">
                         {this.props.children}
                     </div>
-                    {this.props.hasCloseButton && <button className="close" onClick={this.modalClose.bind(this)}>X</button>}
+                    {this.props.hasCloseButton && <button className="close" onClick={this.modalClose.bind(this)}></button>}
                 </div>
             </section>
         );

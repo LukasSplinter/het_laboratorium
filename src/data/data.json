@@ -7,6 +7,11 @@
     "school": "",
     "name": ""
   },
+  "studentscreen": {
+    "volta_line_copper": "koper",
+    "volta_line_zinc": "",
+    "volta_line_foil": ""
+  },
   "homescreen": {
     "room_explanation": "Maak de kamer in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal."
   },

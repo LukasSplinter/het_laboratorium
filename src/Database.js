@@ -172,7 +172,7 @@ export const getData = (path) => {
  */
 export const attachListener = (path, func) => {
     let pathRef = ref(database, path);
-    onValue(pathRef, snapshot => {
+    return onValue(pathRef, snapshot => {
         if (snapshot.exists()) {
             func(snapshot.val());
         }

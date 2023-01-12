@@ -28,19 +28,19 @@ export class PuzzleControl extends React.Component {
 
     render() {
         return (
-            <article className="puzzleControl">
-                <div className="puzzleControl__counter"><span>{this.props.counter}</span></div>
-                <h3 className="puzzleControl__name">{this.props.name}</h3>
+            <article className="puzzleControl row">
+                <div className="puzzleControl__counter col-4 col-lg-2"><span>{this.props.counter}</span></div>
+                <h3 className="puzzleControl__name col-7 offset-1 col-lg-5 offset-lg-0">{this.props.name}</h3>
 
                 <button disabled={this.state.pointsClicked}
-                className={"puzzleControl__reward " + (this.state.pointsClicked ? "success" : "")}
+                className={"puzzleControl__reward col-6 col-lg-4 " + (this.state.pointsClicked ? "success" : "")}
                 onClick={ () => {
                     this.props.awardPointsHook(this.props.data.worth);
                     this.setState({pointsClicked: true});
                     setTimeout(()=>{this.setState({pointsClicked: false})}, 1000);
                     }}>Keur goed</button>
 
-                <button className="puzzleControl__info"
+                <button className="puzzleControl__info col-2 offset-4 col-lg-1 offset-lg-0"
                 onClick={this.openPuzzleInformation.bind(this)}>
                     <img src={iconInformation} alt="information icon"/>
                 </button>

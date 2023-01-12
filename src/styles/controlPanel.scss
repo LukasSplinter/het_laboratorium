@@ -1,5 +1,6 @@
 @import 'Colors';
 @import 'Typestyles';
+@import 'breakpoints';
 
 .controlPanel {
     position: relative;
@@ -19,6 +20,7 @@
         }
     }
 
+
     & .pointControl {
         background-color: $primary-transparent;
 
@@ -27,15 +29,16 @@
         align-items: center;
         justify-content: flex-start;
 
-        width: 60%;
-        padding: 3rem 10rem;
+        padding: 3rem 5rem;
+        @include md {
+            padding: 3rem 10rem;
+        }
 
         & .score {
             display: block;
             width: 8rem;
             padding: 1.2rem 2rem;
 
-            margin-right: 3rem;
             position: relative;
 
             &__label {
@@ -58,7 +61,6 @@
         }
 
         & .pointButton {
-            display: block;
             height: 4rem;
             width: 4rem;
             border-radius: 50%;

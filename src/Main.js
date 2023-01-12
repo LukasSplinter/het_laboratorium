@@ -17,7 +17,7 @@ export class Main extends React.Component {
         super(props);
         this.state = {
             roomcode: "",
-            window: "home",
+            window: "student",
         };
     }
 
@@ -36,7 +36,6 @@ export class Main extends React.Component {
      * @param queryElement - element which search was conducted from, used for feedback
      */
     async switchRoomHook (roomcode, queryElement) {
-        console.log(roomcode)
         //empty roomcode guard
         if (roomcode === "") return;
 

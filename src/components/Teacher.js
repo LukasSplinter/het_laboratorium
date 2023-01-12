@@ -6,6 +6,8 @@ import "../styles/screen.scss";
 import { ModalRoom } from './ModalRoom';
 import { Title } from './Title';
 import { ControlPanel } from './ControlPanel';
+import {ProgressBar} from "./ProgressBar";
+import * as DATABASE from "../Database";
 
 
 
@@ -21,7 +23,6 @@ export class Teacher extends React.Component {
         return (
             <section className="Teacher screen">
                 <Title />
-
                 <ControlPanel roomcode={this.state.roomcode}/>
             </section>
         );
