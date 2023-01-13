@@ -74,22 +74,22 @@ export class RoomAdmin extends React.Component {
                     <p className="room__info__date">datum: "<span className={"value"}>{date}"</span></p>
                 </div>
 
-                <div className="room__value col-6 col-md-3">
+                <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="name">klasnaam</label>
                     <input id={"name"} className={"room__value__input"} name="naam" defaultValue={name} onChange={this.handleChange} />
                 </div>
 
-                <div className="room__value col-6 col-md-3">
+                <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="school">schoolnaam</label>
                     <input id={"school"} className={"room__value__input"} name="school" defaultValue={school} onChange={this.handleChange} />
                 </div>
 
-                <div className="room__value col-6 col-md-3">
+                <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="score">aantal punten</label>
                     <input id={"score"} className={"room__value__input"} name="score" defaultValue={score} onChange={this.handleChange} />
                 </div>
 
-                <div className="actions col-6 col-md-2 offset-md-1">
+                <div className="actions col-6 col-lg-2 offset-lg-1">
                     {this.state.deleteCheck == false
                         ? <button title={"sla veranderingen op"} className={"room__actions__button room__actions__button--save"} onClick={this.handleSave.bind(this, this.props.roomKey)}>
                             <img className={"icon"} src={iconSave} alt="save icon"/>

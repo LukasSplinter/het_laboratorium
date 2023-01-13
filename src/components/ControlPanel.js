@@ -95,7 +95,7 @@ export class ControlPanel extends React.Component {
     render() {
 
         return (
-            <section className="controlPanel">
+            <section className="controlPanel container">
                 <div className="pointControl row">
                     <div className="score col-12 col-md-6">
                         <span className="score__label">punten</span>

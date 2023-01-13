@@ -70,17 +70,17 @@ export class PuzzleAdmin extends React.Component {
                 (this.state.saveSuccesful ? "saveSuccesful" : "")
             }>
                 <div className="row">
-                    <div className="puzzlecard__value puzzlecard__value--name col-6">
+                    <div className="puzzlecard__value puzzlecard__value--name col-6 order-2 order-lg-1">
                         <label htmlFor="name" className="puzzlecard__value__label">Naam</label>
                         <input id={"name"} name={"name"} type="text" className="puzzlecard__value__input puzzlecard__value--name__input"
                                defaultValue={name} onChange={this.handleChange}/>
                     </div>
-                    <div className="puzzlecard__value col-4">
+                    <div className="puzzlecard__value col-6 col-lg-4 order-3 order-lg-2">
                         <label htmlFor="worth" className="puzzlecard__value__label">Puntenwaarde opdracht</label>
                         <input id={"worth"} name={"worth"} type="number" className="puzzlecard__value__input"
                                defaultValue={worth} onChange={this.handleChange}/>
                     </div>
-                    <div className="actions col-2">
+                    <div className="actions col-4 offset-8 col-lg-2 mb-5 order offset-lg-0 mb-lg-0 order-1 order-lg-3">
                         {this.state.deleteCheck == false
                             ? <button title={"sla veranderingen op"} className={"room__actions__button room__actions__button--save"}
                                       onClick={this.handleSave.bind(this, this.props.puzzleID)}>

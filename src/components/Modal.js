@@ -42,7 +42,7 @@ export class Modal extends React.Component {
                     <div className="image d-none d-md-block col-4">
                         {/*image here*/}
                     </div>
-                    <div className="content col-8">
+                    <div className="content col-12 d-md-8">
                         {this.props.children}
                     </div>
                     {this.props.hasCloseButton && <button className="close" onClick={this.modalClose.bind(this)}></button>}

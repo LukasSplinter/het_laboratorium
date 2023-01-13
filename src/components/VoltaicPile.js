@@ -28,13 +28,26 @@ export class VoltaicPile extends React.Component {
         }
 
         let layerElems = [];
-        //todo: optimalise: maybe only update list for differential in score instead of full refresh
-
+        /*todo: optimalise: maybe only update list for differential in score instead of full refresh
+        * this might work?
+        * if new amount > old amount:
+        *   amount to add = new - old
+        *   create elements
+        *   add to index, interval to add class > animate
+        *   add to array with old elements
+        * else:
+        *   array.slice(difference)
+        *
+        * state.array = array
+        *
+        */
+        console.log("old score: ", this.state.score);
+        console.log("new score", score)
         for (let i = 0; i < score; i++) {
             layerElems.push(<div key={i}
                                  className={"layer " +
                                      (score > this.state.score ? "new " : "") +
-                                     (this.state.score == 0 ? "first " : "")}></div>)
+                                     (this.state.score == 0 ? "first " : "")}/>)
         }
         this.setState({layers: layerElems});
     }

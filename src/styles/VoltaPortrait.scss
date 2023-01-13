@@ -1,0 +1,30 @@
+.VoltaPortrait {
+    position: absolute;
+    left: 40%;
+    bottom: 0;
+
+    & .img {
+        width: 18rem;
+        transition: 2s width, 2s transform;
+
+        transform: rotateY(180deg);
+    }
+
+    & .speechbubble {
+        top: -2rem;
+        left: 60%;
+        transform: translate(-50%, -100%);
+    }
+
+    &.focussed {
+        & .img {
+            width: 28rem;
+
+            transform: rotateY(0deg);
+        }
+
+        & .speechbubble {
+
+        }
+    }
+}
