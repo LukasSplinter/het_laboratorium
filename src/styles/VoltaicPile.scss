@@ -24,21 +24,21 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
 
-            &:nth-of-type(1n) {
+            &.copper {
                 background-image: url("../assets/copper.svg");
 
                 max-height: 6.3rem;
                 width: 12rem;
                 margin-top: -5rem;
             }
-            &:nth-of-type(2n) {
+            &.foil {
                 background-image: url("../assets/foil.svg");
 
                 max-height: 5.3rem;
                 width: 13.4rem;
                 margin-top: -4rem;
             }
-            &:nth-of-type(3n) {
+            &.zinc {
                 background-image: url("../assets/zinc.svg");
 
                 max-height: 4.3rem;
@@ -52,12 +52,6 @@
 
             &.new {
                 animation: 1s cubic-bezier(.73, .07, .96, .44) 0s fallDown forwards;
-
-                @for $i from 1 through 50 {
-                    &:nth-of-type(#{$i}) {
-                        animation-delay: calc(.15s * #{$i});
-                    }
-                }
             }
 
             //&.first {

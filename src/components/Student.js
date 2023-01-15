@@ -1,5 +1,6 @@
 import React from 'react';
 import * as DATABASE from "../Database";
+import textData from "../data/data.json";
 
 import { VoltaicPile } from "./VoltaicPile";
 import { ProgressBar } from "./ProgressBar";
@@ -15,6 +16,7 @@ export class Student extends React.Component {
         super(props);
         this.progressBar = React.createRef();
         this.state = {
+            dialogue: textData.studentscreen.volta_lines.start,
             text: {},
             roomcode: this.props.roomcode,
             score: 0,
@@ -32,10 +34,16 @@ export class Student extends React.Component {
 
         this.fetchDuration();
         this.setState({startTimer: true});
+
+        this.hintInterval = setInterval(()=>{
+                this.setState({dialogue: textData.studentscreen.volta_lines.hint[
+                    Math.floor(Math.random() * textData.studentscreen.volta_lines.hint.length)]})
+            }, 30000)
     }
 
     componentWillUnmount() {
         this.unsubscribeScore();
+        clearInterval(this.hintInterval);
     }
 
 
@@ -89,18 +97,23 @@ export class Student extends React.Component {
     }
 
 
+    getLastLayerHook(layer) {
+        this.setState({dialogue: textData.studentscreen.volta_lines[layer]});
+    }
+
+
     render() {
         return (
             <section className="student screen">
                 <ProgressBar duration={this.state.duration} start={this.state.startTimer}/>
                 <div className="voltaContainer">
                     <div className="score">{this.state.score}</div>
-                    <VoltaicPile score={this.state.score}/>
+                    <VoltaicPile score={this.state.score} getLastLayerHook={this.getLastLayerHook.bind(this)}/>
                 </div>
 
 
 
-                <VoltaPortrait dialogue={"oh wow, jullie hebben nu al " + this.state.score + " punten!"} />
+                <VoltaPortrait dialogue={this.state.dialogue} />
 
                 <section className="unlockable">
                 </section>

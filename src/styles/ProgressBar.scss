@@ -19,9 +19,14 @@
         top: 0;
 
         height: 100%;
+        max-width: 100%;
 
         background-color: $primary;
 
-        //transition: .5s width;
+        transition: .5s color;
+
+        &.finished {
+            background-color: $failure;
+        }
     }
 }

@@ -16,7 +16,7 @@ export class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomcode: "18423",
+            roomcode: "30315",
             window: "student",
         };
     }

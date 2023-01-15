@@ -8,9 +8,16 @@
     "name": ""
   },
   "studentscreen": {
-    "volta_line_copper": "koper",
-    "volta_line_zinc": "",
-    "volta_line_foil": ""
+    "volta_lines" : {
+      "start": "Hallo leerlingen! Helpen jullie mij met wat onderzoek?",
+      "copper": "Er is een laagje van koper bij gekomen! Wat goed!",
+      "zinc": "Jullie hebben een laagje gemaakt van zink gevonden!",
+      "foil": "Wat is dit? Een stuk folie met zuur, net zoals een citroen!",
+      "hint": [
+        "Zuur, koper en zink - dat doet me denken aan een proefje met een citroen!",
+        "Wat zijn jullie goed bezig! Valt jullie wat op aan alle laagjes?",
+        "Blijf zo doorgaan!"]
+    }
   },
   "homescreen": {
     "room_explanation": "Maak de kamer in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal."

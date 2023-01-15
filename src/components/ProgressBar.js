@@ -11,6 +11,7 @@ export class ProgressBar extends React.Component {
         this.duration = this.props.duration;
         this.stepSize = 100 / this.duration;
         this.state = {
+            finished: false,
             time: 0,
         };
     }
@@ -43,13 +44,14 @@ export class ProgressBar extends React.Component {
     startTimer() {
         this.interval = setInterval(()=> {
             let currentTime = this.state.time;
-            this.setState({time: currentTime + 1});
-            this.updateProgressBar();
-
-            if (currentTime == this.duration) {
+            if (currentTime >= this.duration) {
                 this.stopTimer();
+                this.setState({finished: true});
                 if (this.props.endHook !== undefined ) this.props.endHook();
             }
+
+            this.setState({time: currentTime + 1});
+            this.updateProgressBar();
         }, 1000);
     }
     stopTimer() {
@@ -68,7 +70,9 @@ export class ProgressBar extends React.Component {
     render() {
         return (
             <div className="progressBar">
-                <div className="progressBar__bar" ref={this.progressBar}></div>
+                <div className={"progressBar__bar " +
+                    (this.state.finished ? "finished" : "")}
+                     ref={this.progressBar} />
             </div>
 
         );

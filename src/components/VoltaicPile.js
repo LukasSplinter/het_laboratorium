@@ -7,6 +7,7 @@ import "../styles/VoltaicPile.scss";
 export class VoltaicPile extends React.Component {
     constructor(props) {
         super(props);
+        this.layers = ["copper", "foil", "zinc"];
         this.state = {
             layers: [],
             score: 0
@@ -16,9 +17,10 @@ export class VoltaicPile extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps === this.props) return;
 
-        this.updateLayers(this.props.score);
+        let newScore = parseInt(this.props.score);
 
-        this.setState({score: this.props.score});
+        this.updateLayers(newScore);
+        this.setState({score: newScore});
 
     }
 
@@ -28,28 +30,21 @@ export class VoltaicPile extends React.Component {
         }
 
         let layerElems = [];
-        /*todo: optimalise: maybe only update list for differential in score instead of full refresh
-        * this might work?
-        * if new amount > old amount:
-        *   amount to add = new - old
-        *   create elements
-        *   add to index, interval to add class > animate
-        *   add to array with old elements
-        * else:
-        *   array.slice(difference)
-        *
-        * state.array = array
-        *
-        */
-        console.log("old score: ", this.state.score);
-        console.log("new score", score)
         for (let i = 0; i < score; i++) {
-            layerElems.push(<div key={i}
-                                 className={"layer " +
-                                     (score > this.state.score ? "new " : "") +
-                                     (this.state.score == 0 ? "first " : "")}/>)
+            let layer = <div key={i}
+                             //add .layer class, layer types and .new class if its a newly added layer
+                             className={"layer " + this.layers[i % 3] + " " +
+                                 (i > this.state.score - 1 ? "new " : "")}
+                             //this styling is to handle animation-delays with newly added layers
+                             style={{
+                                 animationDelay: (i > this.state.score - 1 ? 150 * (i - this.state.score) : 0) + "ms",
+                                 opacity: (i > this.state.score - 1 ? "0" : "1")}}/>
+            layerElems.push(layer);
         }
         this.setState({layers: layerElems});
+
+        //return last layer to parent
+        this.props.getLastLayerHook(this.layers[(layerElems.length - 1) % 3]);
     }
 
 
