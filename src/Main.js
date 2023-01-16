@@ -16,8 +16,8 @@ export class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomcode: "30315",
-            window: "student",
+            roomcode: "",
+            window: "home",
         };
     }
 
@@ -43,9 +43,14 @@ export class Main extends React.Component {
 
         try {
             roomExists = await DATABASE.checkIfRoomExists(roomcode);
-            this.setState({roomcode: roomcode});
-            //user feedback
-            queryElement.classList.add("success");
+            if (roomExists) {
+                this.setState({roomcode: roomcode});
+                //user feedback
+                queryElement.classList.add("success");
+            } else {
+                throw "NoSuchRoom";
+            }
+
         } catch (err) {
             //user feedback
             queryElement.value = "geen kamer";

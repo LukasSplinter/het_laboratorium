@@ -8,6 +8,14 @@ font-family: 'Open Sans', sans-serif;
 font-family: 'Prata', serif;
 */
 
+@mixin material {
+    font-family:  'Fredericka the Great', cursive;
+    font-size: 3.2rem;
+    font-weight: 600;
+
+    color: $black;
+}
+
 @mixin speech-bubble {
     font-family: 'Londrina Solid', cursive;
     font-size: 3.2rem;

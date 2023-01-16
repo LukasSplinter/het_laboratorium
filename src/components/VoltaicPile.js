@@ -10,6 +10,7 @@ export class VoltaicPile extends React.Component {
         this.layers = ["copper", "foil", "zinc"];
         this.state = {
             layers: [],
+            bolts: [],
             score: 0
         };
     }
@@ -19,9 +20,17 @@ export class VoltaicPile extends React.Component {
 
         let newScore = parseInt(this.props.score);
 
-        this.updateLayers(newScore);
-        this.setState({score: newScore});
+        let newBolts = [];
+        for (let i = 0; i < 20; i++) {
+            newBolts.push(<div className={"lightning-bolt"}
+                                   key={i}
+                                   style={{opacity: (this.state.score > i * 2 ? "1" : "0")}} />)
+        }
 
+        this.updateLayers(newScore);
+        this.setState({
+            score: newScore,
+            bolts: newBolts});
     }
 
     updateLayers(score) {
@@ -55,7 +64,7 @@ export class VoltaicPile extends React.Component {
                     {this.state.layers}
                 </section>
                 <section className="voltaicPile__effects">
-                    
+                    {this.state.bolts}
                 </section>
             </div>
         );

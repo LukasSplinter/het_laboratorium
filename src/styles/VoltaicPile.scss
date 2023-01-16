@@ -1,8 +1,11 @@
+@import 'Typestyles';
+
 .voltaicPile {
     position: relative;
     width: 80%;
     height: 100%;
 
+    padding-top: 25%;
     margin: 0 10%;
 
     &__layers {
@@ -19,6 +22,7 @@
             flex-grow: 1;
 
             position: relative;
+            z-index: 1;
 
             background-position: center;
             background-size: 100% 100%;
@@ -54,9 +58,106 @@
                 animation: 1s cubic-bezier(.73, .07, .96, .44) 0s fallDown forwards;
             }
 
-            //&.first {
-            //
-            //}
+            //magnification glass on last element
+            &:last-of-type {
+                &::before {
+                    content: '';
+
+                    display: block;
+                    width: 20rem;
+                    height: 13rem;
+
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    transform: translate(110%, -40%);
+                    z-index: 2;
+
+                    background-image: url("../assets/magnifying-glass.svg");
+                    background-position: 50% 50%;
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
+                }
+
+                &::after {
+                    display: block;
+                    width: 20rem;
+
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    transform: translate(120%, -40%);
+                    z-index: 2;
+
+                    @include material;
+                    color: $off-black;
+                    text-align: center;
+                }
+
+                &.zinc::after {
+                    content: "zink";
+                }
+                &.copper::after {
+                    content: "koper";
+                }
+                &.foil::after {
+                    content: "zuur";
+                }
+            }
+        }
+    }
+
+    &__effects {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 100%;
+
+        .lightning-bolt {
+            position: absolute;
+
+            min-width: 4rem;
+            min-height: 6rem;
+
+            background-image: url("../assets/lightning-bolt1.svg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: 50% 50%;
+
+            opacity: 0;
+            transition: .4s opacity;
+
+            @for $i from 0 through 20 {
+                &:nth-of-type(#{$i}) {
+                    $width: 4rem + ($i * .25rem);
+                    width: $width;
+                    height: $width * 1.5;
+
+                    bottom: calc(#{$i} * 2.5rem);
+
+                    $type: random(3);
+                    background-image: url("../assets/lightning-bolt" + $type + ".svg");
+
+                    $delay: random(2000) + ms;
+
+                    //flip half the bolts
+                    @if $i % 2 == 0 {
+                        &:nth-of-type(#{$i}) {
+                            right: 1.5rem - ($i * 0.3rem);
+                            animation: 3s linear $delay infinite bolt-shake;
+                        }
+                    } @else {
+                        &:nth-of-type(#{$i}) {
+                            left: 1.5rem - ($i * 0.3rem);
+
+                            transform: scaleX(-1);
+                            animation: 3s linear $delay infinite bolt-shake-mirrored;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -74,5 +175,39 @@
     100% {
         transform: translate3d(0, 0, 0) scale(1,1);
         opacity: 1;
+    }
+}
+@keyframes bolt-shake {
+    0% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    25% {
+        transform: rotate(5deg) translate3d(0, .5rem, 0);
+    }
+    50% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    75% {
+        transform: rotate(-5deg) translate3d(0, -.5rem, 0);
+    }
+    100% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+}
+@keyframes bolt-shake-mirrored {
+    0% {
+        transform: scaleX(-1) rotate(0deg) translate3d(0, 0, 0);
+    }
+    25% {
+        transform: scaleX(-1) rotate(5deg) translate3d(0, .5rem, 0);
+    }
+    50% {
+        transform: scaleX(-1) rotate(0deg) translate3d(0, 0, 0);
+    }
+    75% {
+        transform: scaleX(-1) rotate(-5deg) translate3d(0, -.5rem, 0);
+    }
+    100% {
+        transform: scaleX(-1) rotate(0deg) translate3d(0, 0, 0);
     }
 }
