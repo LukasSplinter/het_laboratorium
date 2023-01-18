@@ -10,7 +10,9 @@ import { Tabs } from './Tabs';
 import { RoomAdmin } from "./RoomAdmin";
 import { PuzzleAdmin } from "./PuzzleAdmin";
 import { PuzzleCreate } from "./PuzzleCreate";
-import {TextPanel} from "./TextPanel";
+import { TextPanel } from "./TextPanel";
+import { SettingAdmin } from "./SettingAdmin";
+import {LoadingIcon} from "./LoadingIcon";
 
 export class Admin extends React.Component {
     constructor(props) {
@@ -19,13 +21,16 @@ export class Admin extends React.Component {
         this.state = {
             roomcode: this.props.roomcode,
             rooms: [],
-            puzzles: []
+            puzzles: [],
+            settings: [],
+            text: []
         };
     }
 
     componentDidMount(){
         this.fetchRooms();
         this.fetchPuzzles();
+        this.fetchSettings();
     }
 
     async fetchRooms() {
@@ -71,6 +76,24 @@ export class Admin extends React.Component {
         }
     }
 
+    async fetchSettings() {
+        try {
+            let response = await DATABASE.getData("settings");
+            let settingNames = Object.keys(response);
+
+            let settings = settingNames.map((item, index) => {
+                return <SettingAdmin
+                    key={item}
+                    id={item}
+                    data={{name: response[item].name, value: response[item].value}}/>
+            });
+
+            this.setState({settings: settings});
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     render() {
         return (
             <section className="Admin screen">
@@ -107,7 +130,10 @@ export class Admin extends React.Component {
                         <TextPanel title={textData.adminscreen.end_lesson_title} path={"endLesson"}/>
                     </div>
                     <div className="edit edit--settings">
-                        <h2>todo: tijd aanpassen setting</h2>
+                        {this.state.settings.length > 0
+                            ? this.state.settings
+                            : <LoadingIcon />
+                        }
                     </div>
                 </Tabs>
             </section>

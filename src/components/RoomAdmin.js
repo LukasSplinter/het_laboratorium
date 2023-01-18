@@ -12,6 +12,7 @@ import "../styles/RoomAdmin.scss";
 export class RoomAdmin extends React.Component {
     constructor(props) {
         super(props);
+        this.initalState = this.props.data;
         this.state = {
             deleteCheck: false,
             saveSuccesful: false,
@@ -45,14 +46,15 @@ export class RoomAdmin extends React.Component {
 
     }
 
-    async handleSave(roomKey) {
+    async handleSave(roomKey, element) {
+        if (this.state.data[element.name] === undefined) return
         try {
             let response = await DATABASE.updateRoom(roomKey, this.state.data)
 
             //pop up succes feedback
-            this.setState({ saveSuccesful: true });
+            element.classList.add("success");
             setTimeout(() => {
-                this.setState({saveSuccesful: false})
+                element.classList.remove("success")
             }, 1000);
 
         } catch (err) {
@@ -66,8 +68,7 @@ export class RoomAdmin extends React.Component {
 
         return (
             <article className={"room row " +
-                (this.state.deleteCheck ? "deleteCheck " : "") +
-                (this.state.saveSuccesful ? "saveSuccesful" : "")
+                (this.state.deleteCheck ? "deleteCheck " : "")
             }>
                 <div className="room__info">
                     <p className={"room__info__roomcode"}>sessiecode: "<span className={"value"}>{this.props.roomKey}"</span></p>
@@ -76,25 +77,28 @@ export class RoomAdmin extends React.Component {
 
                 <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="name">klasnaam</label>
-                    <input id={"name"} className={"room__value__input"} name="naam" defaultValue={name} onChange={this.handleChange} />
+                    <input id={"name"} className={"room__value__input"} name="naam" defaultValue={name}
+                           onChange={this.handleChange}
+                           onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
 
                 <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="school">schoolnaam</label>
-                    <input id={"school"} className={"room__value__input"} name="school" defaultValue={school} onChange={this.handleChange} />
+                    <input id={"school"} className={"room__value__input"} name="school" defaultValue={school}
+                           onChange={this.handleChange}
+                           onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
 
                 <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="score">aantal punten</label>
-                    <input id={"score"} className={"room__value__input"} name="score" defaultValue={score} onChange={this.handleChange} />
+                    <input id={"score"} className={"room__value__input"} name="score" defaultValue={score}
+                           onChange={this.handleChange}
+                           onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
 
-                <div className="actions col-6 col-lg-2 offset-lg-1">
-                    {this.state.deleteCheck == false
-                        ? <button title={"sla veranderingen op"} className={"room__actions__button room__actions__button--save"} onClick={this.handleSave.bind(this, this.props.roomKey)}>
-                            <img className={"icon"} src={iconSave} alt="save icon"/>
-                        </button>
-                        : <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"} onClick={()=>{this.setState({deleteCheck: false})}}>
+                <div className="room__actions col-6 col-lg-2 offset-lg-1">
+                    {this.state.deleteCheck &&
+                        <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"} onClick={()=>{this.setState({deleteCheck: false})}}>
                             <img className={"icon"} src={iconCancel} alt="cancel icon"/>
                         </button>
                     }

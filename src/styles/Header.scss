@@ -74,35 +74,95 @@
         }
 
         &__roomcode {
-            padding: 1rem 4rem;
-            border: .2rem solid $white;
-            border-radius: 2rem;
+            position: relative;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            .button {
+                padding: 1rem 4rem;
+                border: .2rem solid $white;
+                border-radius: 2rem;
 
-            transition: .4s background-color;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-            &:hover {
-                background-color: $white;
+                transition: .4s background-color;
+
+                &:hover {
+                    background-color: $white;
+
+                    h3 {
+                        color: $primary;
+                    }
+                }
 
                 h3 {
-                    color: $primary;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 1.4rem;
+                    font-weight: 800;
+                    letter-spacing: .2rem;
+                    color: #fff;
+
+                    margin-bottom: 0;
+
+                    transition: .4s color;
+
                 }
             }
 
-            h3 {
-                font-family: 'Open Sans', sans-serif;
-                font-size: 1.4rem;
-                font-weight: 800;
-                letter-spacing: .2rem;
-                color: #fff;
+        }
 
-                margin-bottom: 0;
+        .roomcode__tooltip {
+            position: absolute;
+            right: 50%;
+            top: calc(100% + 3rem);
+            z-index: 2;
 
-                transition: .4s color;
+            background-color: $tertiary;
+            width: 20rem;
+            height: 15rem;
 
+            border-radius: 2rem 2rem 2rem 2rem;
+
+            box-shadow: transparentize($black-transparent, 0.2) .3rem .3rem 1rem;
+            padding: 2rem 2rem;
+
+            .input {
+                @include input;
+
+                display: block;
+                width: 100%;
+
+                color: $white;
+                border-bottom: .3rem solid $white;
+
+                &:focus {
+                    color: $primary;
+                    border-bottom: .3rem solid $primary;
+                }
+            }
+
+            .button {
+                float: right;
+                margin-top: 2rem;
+
+                @include button--ghost;
+                padding: 1rem 2rem;
+            }
+
+            //pointer triangle
+            &::before {
+                content: '';
+
+                position: absolute;
+                right: 2rem;
+                bottom: 100%;
+
+                width: 0;
+                height: 0;
+                border-left: 2rem solid transparent;
+                border-right: 2rem solid transparent;
+
+                border-bottom: 2rem solid $tertiary;
             }
         }
     }
@@ -170,7 +230,7 @@
                 }
 
                 &.noRoomCode {
-                    @include stateNotification(transparentize($failure, 0.8), "Voer een kamercode in");
+                    @include stateNotification(transparentize($failure, 0.8), "Voer een sessiecode in");
                     pointer-events: none;
 
                     background-image: url("../assets/icon-cancel.svg");

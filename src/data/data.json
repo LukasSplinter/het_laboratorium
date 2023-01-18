@@ -5,7 +5,8 @@
     "endLessonIndex": "0",
     "score": "0",
     "school": "",
-    "name": ""
+    "name": "",
+    "date": ""
   },
   "studentscreen": {
     "volta_lines" : {
@@ -20,7 +21,7 @@
     }
   },
   "homescreen": {
-    "room_explanation": "Maak de kamer in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal."
+    "room_explanation": "Maak de sessie in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal."
   },
   "adminscreen": {
     "explanation": "Dit is het beheerscherm! Hier kunnen de verschillende aspecten van de applicatie aangepast en onderhouden worden. ",
@@ -33,7 +34,7 @@
 
   },
   "buttons": {
-    "create_room": "KAMER AANMAKEN",
+    "create_room": "SESSIE AANMAKEN",
     "join_room": "CODE INVOEREN"
   }
 

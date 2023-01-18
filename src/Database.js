@@ -4,7 +4,7 @@ import data from "./data/data.json";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {getDatabase, ref, get, set, child, update, onValue, remove} from "firebase/database";
+import {getDatabase, ref, get, set, child, update, onValue, remove, push} from "firebase/database";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
@@ -148,6 +148,23 @@ export const setData = (path, data) => {
 
 
 /**
+ * works the same as setData(), but instead of pushing to absolute path, pushes to child with firebase KEY
+ * @param path
+ * @param data
+ */
+export const pushChild = (path, data) => {
+    return new Promise((resolve, reject) => {
+
+        let keyPath = push(child(dbRef, path));
+        set(keyPath, data).then(()=> {
+            resolve({key: keyPath.key, data: data});
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+/**
  * gets data from specified path and returns it with resolve
  * @param path
  * @returns {Promise<unknown>}
@@ -197,7 +214,12 @@ export const removeNode = (path) => {
 
 }
 
-
+/**
+ * Creates room with room template
+ * @param className
+ * @param schoolName
+ * @returns {Promise<unknown>}
+ */
 export const createRoom = async (className, schoolName) => {
     let key = generateKey();
 
@@ -222,6 +244,7 @@ export const createRoom = async (className, schoolName) => {
         let newRoom = {... data.room_template};
         newRoom.name = className;
         newRoom.school = schoolName;
+        newRoom.data = new Date().toLocaleDateString();
 
         set(child(dbRef, "rooms/" + key), newRoom).then(() => {
             resolve(key);
@@ -230,7 +253,6 @@ export const createRoom = async (className, schoolName) => {
         })
     })
 }
-
 
 /**
  * generating a pseudo-random key based on current time.

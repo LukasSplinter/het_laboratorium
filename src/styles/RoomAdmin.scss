@@ -63,8 +63,8 @@
 
     &__actions {
         display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
         align-items: center;
 
         &__button {
@@ -84,16 +84,6 @@
                 filter: invert(100%);
             }
 
-            &--save {
-                &:hover {
-                    background-color: $button-green;
-
-                    & > .icon {
-                        filter: invert(100%);
-                    }
-                }
-            }
-
             &--deleteCheck {
                 margin-left: 1rem;
 
@@ -109,7 +99,7 @@
             //delete confirm/cancel buttons
             &--deleteConfirm {
                 z-index: 3;
-                margin-left: 1rem;
+                margin-right: 1rem;
 
                 &:hover {
                     background-color: $button-green;
@@ -135,7 +125,7 @@
 
     //states
     &.deleteCheck {
-        @include stateNotification($black-transparent, "Weet je zeker dat je deze kamer wilt verwijderen?");
+        @include stateNotification($black-transparent, "Weet je zeker dat je deze sessie wilt verwijderen?");
     }
 
     &.saveSuccesful {

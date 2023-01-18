@@ -11,7 +11,7 @@ export class Header extends React.Component {
         this.state = {
             roomcode: (this.props.roomcode ? this.props.roomcode : ""),
             navOpen: false,
-            modalOpen: false,
+            modalOpen: this.props.activeWindow === "home" ? true : false,
             activeWindow: this.props.activeWindow,
             codeInput: null
         };
@@ -22,13 +22,9 @@ export class Header extends React.Component {
         this.setState({navOpen: !currentState});
     }
 
-    openRoomModal() {
-        this.setState({modalOpen: true});
+    toggleRoomPopup() {
+        this.setState({modalOpen: !this.state.modalOpen});
     }
-    closeRoomModal() {
-        this.setState({modalOpen: false});
-    }
-
     render() {
         return (
             <header className="header row">
@@ -38,9 +34,22 @@ export class Header extends React.Component {
                         <div className="bar"></div>
                         <div className="bar"></div>
                     </button>
-                    <button className="header__bar__roomcode" onClick={this.openRoomModal.bind(this)}>
-                        <h3>{this.state.roomcode !== "" ? this.state.roomcode : "xxxxx"}</h3>
-                    </button>
+                    <div className="header__bar__roomcode">
+                        <button className="button" onClick={this.toggleRoomPopup.bind(this)}>
+                            <h3>{this.state.roomcode !== "" ? this.state.roomcode : "xxxxx"}</h3>
+                        </button>
+
+                        {this.state.modalOpen &&
+                            <div className="roomcode__tooltip">
+                                <input type="text" placeholder={"sessiecode"} className={"input"} ref={this.roomInput}/>
+                                <button className="button confirm" onClick={()=>{
+                                    this.props.switchRoomHook(this.roomInput.current.value, this.roomInput.current);
+                                }}>ga</button>
+                            </div>
+                        }
+
+                    </div>
+
                 </div>
 
                 <div className={"nav " +
@@ -80,17 +89,6 @@ export class Header extends React.Component {
                     </ul>
                 </div>
 
-                {this.state.modalOpen &&
-                    <Modal opened="true" hasCloseButton={"true"} onCloseHook={this.closeRoomModal.bind(this)}>
-                        <h2>Voer de code van een kamer in</h2>
-                        <div>
-                            <input type="text" className={"input"} ref={this.roomInput}/>
-                            <button className="button confirm" onClick={()=>{
-                                this.props.switchRoomHook(this.roomInput.current.value, this.roomInput.current);
-                            }}>gereed</button>
-                        </div>
-                    </Modal>
-                }
 
             </header>
         );

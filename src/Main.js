@@ -17,7 +17,7 @@ export class Main extends React.Component {
         super(props);
         this.state = {
             roomcode: "",
-            window: "home",
+            window: "admin",
         };
     }
 
@@ -53,7 +53,7 @@ export class Main extends React.Component {
 
         } catch (err) {
             //user feedback
-            queryElement.value = "geen kamer";
+            queryElement.value = "geen sessie";
             queryElement.classList.add("failure");
         }
 

@@ -79,10 +79,10 @@
         }
     }
 
-    &__actions {
+    & .actions {
         display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
         align-items: center;
 
         &__button {
@@ -102,19 +102,7 @@
                 filter: invert(100%);
             }
 
-            &--save {
-                &:hover {
-                    background-color: $button-green;
-
-                    & > .icon {
-                        filter: invert(100%);
-                    }
-                }
-            }
-
             &--deleteCheck {
-                margin-left: 1rem;
-
                 &:hover {
                     background-color: $button-red;
 
@@ -127,7 +115,7 @@
             //delete confirm/cancel buttons
             &--deleteConfirm {
                 z-index: 3;
-                margin-left: 1rem;
+                margin-right: 1rem;
 
                 &:hover {
                     background-color: $button-green;

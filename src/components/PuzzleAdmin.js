@@ -45,18 +45,19 @@ export class PuzzleAdmin extends React.Component {
 
     }
 
-    async handleSave(puzzleName) {
+    async handleSave(puzzleName, element) {
+        if (this.state.data === undefined) return
         try {
             let response = await DATABASE.updateData("puzzles/" + puzzleName, this.state.data)
 
             //pop up succes feedback
-            this.setState({ saveSuccesful: true });
+            element.classList.add("success");
             setTimeout(() => {
-                this.setState({saveSuccesful: false})
+                element.classList.remove("success")
             }, 1000);
 
         } catch (err) {
-            window.alert("Er is iets fout gegaan bij het opslaan, probeer het later opnieuw of refresh de pagina en kijk of de opdracht nog bestaat");
+            //window.alert("Er is iets fout gegaan bij het opslaan, probeer het later opnieuw of refresh de pagina en kijk of de opdracht nog bestaat");
             console.error(err)
         }
     }
@@ -73,31 +74,31 @@ export class PuzzleAdmin extends React.Component {
                     <div className="puzzlecard__value puzzlecard__value--name col-6 order-2 order-lg-1">
                         <label htmlFor="name" className="puzzlecard__value__label">Naam</label>
                         <input id={"name"} name={"name"} type="text" className="puzzlecard__value__input puzzlecard__value--name__input"
-                               defaultValue={name} onChange={this.handleChange}/>
+                               defaultValue={name}
+                               onChange={this.handleChange}
+                               onBlur={(e)=>{this.handleSave(this.props.puzzleID, e.target)}}/>
                     </div>
                     <div className="puzzlecard__value col-6 col-lg-4 order-3 order-lg-2">
                         <label htmlFor="worth" className="puzzlecard__value__label">Puntenwaarde opdracht</label>
                         <input id={"worth"} name={"worth"} type="number" className="puzzlecard__value__input"
-                               defaultValue={worth} onChange={this.handleChange}/>
+                               defaultValue={worth}
+                               onChange={this.handleChange}
+                               onBlur={(e)=>{this.handleSave(this.props.puzzleID, e.target)}}/>
                     </div>
                     <div className="actions col-4 offset-8 col-lg-2 mb-5 order offset-lg-0 mb-lg-0 order-1 order-lg-3">
-                        {this.state.deleteCheck == false
-                            ? <button title={"sla veranderingen op"} className={"room__actions__button room__actions__button--save"}
-                                      onClick={this.handleSave.bind(this, this.props.puzzleID)}>
-                                <img className={"icon"} src={iconSave} alt="save icon"/>
-                            </button>
-                            : <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"}
+                        {this.state.deleteCheck &&
+                            <button title={"verwijder sessie niet"} className={"actions__button actions__button--deleteCancel"}
                                       onClick={()=>{this.setState({deleteCheck: false})}}>
                                 <img className={"icon"} src={iconCancel} alt="cancel icon"/>
                             </button>
                         }
 
                         {this.state.deleteCheck == false
-                            ? <button title={"verwijder deze sessie"} className={"room__actions__button room__actions__button--deleteCheck"}
+                            ? <button title={"verwijder deze sessie"} className={"actions__button actions__button--deleteCheck"}
                                       onClick={()=>{this.setState({deleteCheck: true})}}>
                                 <img className={"icon"} src={iconDelete} alt="delete icon"/>
                             </button>
-                            : <button title={"verwijder sessie wel"} className={"room__actions__button room__actions__button--deleteConfirm"}
+                            : <button title={"verwijder sessie wel"} className={"actions__button actions__button--deleteConfirm"}
                                       onClick={this.handleDelete.bind(this, this.props.puzzleID)}>
                                 <img className={"icon"} src={iconConfirm} alt="confirm delete icon"/>
                             </button>
@@ -110,7 +111,9 @@ export class PuzzleAdmin extends React.Component {
                         <label htmlFor="" className="puzzlecard__description__value__label">Uitleg opdracht</label>
                         <textarea name="description" id="description"
                                   className={"puzzlecard__description__value__input"}
-                                  defaultValue={description} onChange={this.handleChange}></textarea>
+                                  defaultValue={description}
+                                  onChange={this.handleChange}
+                                  onBlur={(e)=>{this.handleSave(this.props.puzzleID, e.target)}}/>
                     </div>
                 </div>
 

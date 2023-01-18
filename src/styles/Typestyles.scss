@@ -8,6 +8,13 @@ font-family: 'Open Sans', sans-serif;
 font-family: 'Prata', serif;
 */
 
+@mixin setting-name {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: $black;
+}
+
 @mixin material {
     font-family:  'Fredericka the Great', cursive;
     font-size: 3.2rem;

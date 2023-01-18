@@ -1,0 +1,56 @@
+@import "Colors";
+@import "interactables";
+@import "Typestyles";
+
+.setting {
+    padding: 5rem 3rem;
+
+    position: relative;
+
+    &:nth-of-type(even) {
+        background-color: $primary-transparent;
+    }
+
+    &.saveSuccesful {
+        @include stateNotification($succes, "Veranderingen opgeslagen")
+    }
+
+    &__info {
+        position: relative;
+        display: block;
+
+        p {
+            @include setting-name;
+            margin-bottom: 0;
+            margin-top: 1rem;
+        }
+    }
+
+    &__value {
+        position: relative;
+        padding: 0rem 1rem;
+
+        &:has(&__input:focus) &__label {
+            transform: translateY(-1.5rem);
+            color: $black;
+        }
+
+
+        &__label {
+            position: absolute;
+            left: 1rem;
+            top: -.5rem;
+
+            transition: .4s transform, .4s color;
+
+            @include paragraph;
+            color: $off-black;
+            font-size: 1.2rem;
+        }
+
+        &__input {
+            @include input;
+        }
+
+    }
+}

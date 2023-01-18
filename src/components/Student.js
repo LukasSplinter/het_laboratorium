@@ -4,7 +4,6 @@ import textData from "../data/data.json";
 
 import { VoltaicPile } from "./VoltaicPile";
 import { ProgressBar } from "./ProgressBar";
-import { SpeechBubble } from "./SpeechBubble";
 
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
