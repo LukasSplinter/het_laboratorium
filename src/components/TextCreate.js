@@ -5,18 +5,12 @@ import * as DATABASE from "../Database";
 import "../styles/PuzzleCreate.scss";
 import "../styles/PuzzleCard.scss";
 
-import iconSave from "../assets/icon-save.svg";
-import iconCancel from "../assets/icon-cancel.svg";
-import iconDelete from "../assets/icon-delete.svg";
-import iconConfirm from "../assets/icon-checkmark.svg";
-
 export class TextCreate extends React.Component {
     constructor(props) {
         super(props);
-        this.inputOrder = React.createRef();
         this.inputText = React.createRef();
         this.state = {
-            data: {}
+            data: {order: -1}
         }
 
         // Bind the event handlers to this component
@@ -55,15 +49,14 @@ export class TextCreate extends React.Component {
             let response = DATABASE.pushChild("text/" + this.props.path, this.state.data);
 
             //refresh puzzles
-            this.props.refreshTextHook(response.key);
+            this.props.refreshTextHook();
 
             //pop up succes feedback
             this.setState({ saveSuccesful: true });
             setTimeout(() => {
-                this.setState({saveSuccesful: false, data:{}});
+                this.setState({saveSuccesful: false, data:{order: -1}});
 
                 this.inputText.current.value = "";
-                this.inputOrder.current.value = "";
             }, 1000);
 
         } catch (err) {
@@ -79,14 +72,6 @@ export class TextCreate extends React.Component {
             }>
                 <div className="row">
                     <h1 className="title">Voeg een tekstartikel toe:</h1>
-                </div>
-
-                <div className="row">
-                    <div className="puzzlecard__value col-4">
-                        <label htmlFor="order" className="puzzlecard__value__label">Nummer van volgorde</label>
-                        <input id={"order"} name={"order"} type="number" className="puzzlecard__value__input"
-                               onChange={this.handleChange.bind(this)} ref={this.inputOrder}/>
-                    </div>
                 </div>
 
                 <div className="row puzzlecard__description">

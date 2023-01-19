@@ -2,73 +2,123 @@
 @import "interactables";
 
 .textItem {
-    padding: 5rem 3rem;
+    padding: 2rem 3rem;
 
     position: relative;
 
-    &:nth-of-type(even) {
-        background-color: $primary-transparent;
+    & .drag {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        &__icon {
+            cursor: grab;
+
+            transition: 500ms transform;
+
+            &:active {
+                cursor: grabbing;
+                transform: scale(0);
+            }
+        }
     }
 
     & .value {
         position: relative;
+        padding: 0rem;
 
-        &:has(&__input:focus) &__label {
+        &:has(.input:focus) .label {
             transform: translateY(-1.5rem);
-            color: $black;
+            color: $primary;
         }
 
-        &__label {
-            position: absolute;
-            left: 1rem;
-            top: -.5rem;
-
-            transition: .4s transform, .4s color;
-
-            @include paragraph;
+        & .label {
+            transform: translateY(0rem);
             color: $off-black;
-            font-size: 1.2rem;
+            transition: .4s transform, .4s color;
         }
 
-        &__input {
+        & .input {
             @include input;
-            padding-top: 1rem;
-        }
-    }
+            font-size: 1.4rem;
 
-
-    & .controlbar {
-
-        & .value {
-            width: 8rem;
-
-            &__input {
-                width: 100%;
-            }
-        }
-
-        &__actions {
-
-        }
-    }
-
-    & .content {
-        padding-top: 2rem;
-
-        .value {
+            display: block;
             width: 100%;
+            resize: none;
 
-            &__input {
-                @include input;
-                text-transform: none;
-                letter-spacing: normal;
-                padding-top: 1rem;
+            text-transform: none;
+            letter-spacing: normal;
+            padding: 1rem 0 0 0;
+            text-align: left;
+        }
+    }
 
-                width: 100%;
 
-                text-align: left;
-                resize: none;
+    & .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        &__button {
+            border-radius: .4rem;
+            width: 4rem;
+            height: 4rem;
+
+            position: relative;
+            z-index: 3;
+            background-color: $primary;
+
+            transition: .4s background-color;
+
+            & > .icon {
+                transition: .4s filter;
+                pointer-events: none;
+                filter: invert(100%);
+            }
+
+            &--deleteCheck {
+                &:hover {
+                    background-color: $button-red;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
+            }
+
+            //delete confirm/cancel buttons
+            &--deleteConfirm {
+                z-index: 3;
+                margin-right: 1rem;
+
+                &:hover {
+                    background-color: $button-green;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
+            }
+            &--deleteCancel {
+                z-index: 3;
+
+                &:hover {
+                    background-color: $button-red;
+
+                    & > .icon {
+                        filter: invert(100%);
+                    }
+                }
             }
         }
     }
+
+
+    //states
+    &.deleteCheck {
+        @include stateNotification($black-transparent, "Weet je zeker dat je deze tekst wilt verwijderen?");
+    }
+
 }

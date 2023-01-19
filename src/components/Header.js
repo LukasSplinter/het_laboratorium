@@ -1,4 +1,5 @@
 import React from 'react';
+import { getData } from "../Database";
 
 import { Modal } from "./Modal";
 
@@ -13,8 +14,28 @@ export class Header extends React.Component {
             navOpen: false,
             modalOpen: this.props.activeWindow === "home" ? true : false,
             activeWindow: this.props.activeWindow,
-            codeInput: null
+            codeInput: null,
+            school: "",
+            classname: ""
         };
+    }
+
+    componentDidMount() {
+        if (this.state.roomcode !== "") this.fetchSchoolData();
+    }
+
+
+    async fetchSchoolData() {
+        try {
+            let response = await getData("rooms/" + this.state.roomcode);
+
+            this.setState({
+                school: response.school,
+                classname: response.name
+            });
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     toggleNav() {
@@ -25,6 +46,7 @@ export class Header extends React.Component {
     toggleRoomPopup() {
         this.setState({modalOpen: !this.state.modalOpen});
     }
+
     render() {
         return (
             <header className="header row">
@@ -35,6 +57,10 @@ export class Header extends React.Component {
                         <div className="bar"></div>
                     </button>
                     <div className="header__bar__roomcode">
+                        <p className={"information"}>
+                            <span className={"information__school"}>{this.state.school}</span>
+                            <span className={"information__class"}>{this.state.classname}</span>
+                        </p>
                         <button className="button" onClick={this.toggleRoomPopup.bind(this)}>
                             <h3>{this.state.roomcode !== "" ? this.state.roomcode : "xxxxx"}</h3>
                         </button>

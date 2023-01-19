@@ -23,6 +23,7 @@
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-reorder": "^3.0.0-alpha.7",
     "react-scroll": "^1.8.9",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1"

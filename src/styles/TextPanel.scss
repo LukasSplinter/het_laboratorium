@@ -1,4 +1,5 @@
 @import "Typestyles";
+@import "Colors";
 
 .textPanel {
     padding-top: 2rem;
@@ -12,5 +13,28 @@
         font-size: 2.8rem;
 
         border-bottom: .2rem solid $primary;
+    }
+
+    & .textItems {
+
+        & .dragcontainer {
+
+            &:nth-of-type(even) {
+                background-color: $primary-transparent;
+            }
+
+            &.dragged {
+                opacity: 1;
+
+                & > .textItem {
+                    transform: scale(.5);
+                    border: .2rem solid $primary;
+                }
+            }
+
+            &.drag-placeholder {
+                border: .1rem solid $off-black;
+            }
+        }
     }
 }

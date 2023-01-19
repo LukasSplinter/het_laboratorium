@@ -76,6 +76,26 @@
         &__roomcode {
             position: relative;
 
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .information {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-end;
+
+                margin-bottom: 0;
+                margin-right: 1rem;
+
+                @include label;
+                color: $white;
+                font-size: 1.2rem;
+
+                text-align: right;
+            }
+
             .button {
                 padding: 1rem 4rem;
                 border: .2rem solid $white;
