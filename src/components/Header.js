@@ -12,7 +12,7 @@ export class Header extends React.Component {
         this.state = {
             roomcode: (this.props.roomcode ? this.props.roomcode : ""),
             navOpen: false,
-            modalOpen: this.props.activeWindow === "home" ? true : false,
+            modalOpen: this.props.activeWindow === "home" && !this.props.roomcode ? true : false,
             activeWindow: this.props.activeWindow,
             codeInput: null,
             school: "",

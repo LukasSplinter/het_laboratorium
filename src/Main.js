@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import * as DATABASE from "./Database";
 
 //components
@@ -16,8 +15,8 @@ export class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomcode: "",
-            window: "admin",
+            roomcode: "20121",
+            window: "teacher",
         };
     }
 

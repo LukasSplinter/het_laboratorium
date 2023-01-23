@@ -155,6 +155,10 @@
                 color: $white;
                 border-bottom: .3rem solid $white;
 
+                &::placeholder {
+                    color: transparentize($white, .5)
+                }
+
                 &:focus {
                     color: $primary;
                     border-bottom: .3rem solid $primary;

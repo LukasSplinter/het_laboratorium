@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { ref, child, get, update} from "firebase/database";
+import textData from "../data/data.json";
 
 // import "../styles/xx.scss";
 import "../styles/controlPanel.scss";
@@ -69,8 +67,9 @@ export class ControlPanel extends React.Component {
                     awardPointsHook={()=>{this.changeScore(parseInt(this.state.score) + parseInt(item.worth))}}/>
             })
             //set array as state
-            this.setState({puzzles: puzzleArray})
+            this.setState({puzzles: puzzleArray});
         } catch (err) {
+            this.setState({puzzles: []});
             window.alert("Geen puzzles in de database gevonden, controleer het adminpaneel");
             console.error(err)
         }
@@ -104,8 +103,12 @@ export class ControlPanel extends React.Component {
                     </div>
 
                     <div className="col-12 col-md-6">
-                        <button className="pointButton pointButton--decrease" onClick={()=>{this.changeScore(this.state.score - 1)}}> </button>
-                        <button className="pointButton pointButton--increase" onClick={()=>{this.changeScore(this.state.score + 1)}}> </button>
+                        <button className="pointButton pointButton--decrease"
+                                onClick={()=>{this.changeScore(this.state.score - 1)}}
+                                title={textData.teacherscreen.buttons.decreaseScore}> </button>
+                        <button className="pointButton pointButton--increase"
+                                onClick={()=>{this.changeScore(this.state.score + 1)}}
+                                title={textData.teacherscreen.buttons.increaseScore}> </button>
                     </div>
 
                 </div>

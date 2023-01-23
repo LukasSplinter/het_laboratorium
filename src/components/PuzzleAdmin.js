@@ -34,15 +34,11 @@ export class PuzzleAdmin extends React.Component {
     async handleDelete(puzzleName) {
         try {
             let result = await DATABASE.removeNode("puzzles/" + puzzleName);
-
-            //function resolves true if delete succesful
-            if (result == true) {
-                    this.props.refreshPuzzlesHook();
-            }
         } catch (err) {
             console.error(err)
         }
 
+        this.props.refreshPuzzlesHook();
     }
 
     async handleSave(puzzleName, element) {

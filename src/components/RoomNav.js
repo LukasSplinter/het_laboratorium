@@ -1,5 +1,7 @@
 import React from 'react';
 import textData from "../data/data.json";
+import * as Scroll from 'react-scroll';
+
 
 import * as DATABASE from "../Database";
 
@@ -25,6 +27,8 @@ export class RoomNav extends React.Component {
             let roomCode = await DATABASE.createRoom(className, schoolName);
 
             this.props.joinRoomHook(roomCode, this.joinSchoolname.current);
+
+            Scroll.animateScroll.scrollToTop({duration: 1000, smooth: "linear"})
         } catch (err) {
             console.error(err)
         }

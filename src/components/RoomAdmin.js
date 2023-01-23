@@ -35,14 +35,11 @@ export class RoomAdmin extends React.Component {
     async handleDelete(roomKey) {
         try {
             let result = await DATABASE.removeNode("rooms/" + roomKey);
-
-            //function resolves true if delete succesful
-            if (result == true) {
-                this.props.refreshRoomsHook();
-            }
         } catch (err) {
             console.error(err)
         }
+
+        this.props.refreshRoomsHook();
 
     }
 

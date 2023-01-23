@@ -1,13 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
+import * as DATABASE from "../Database";
 
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
-import { ModalRoom } from './ModalRoom';
 import { Title } from './Title';
 import { ControlPanel } from './ControlPanel';
-import {ProgressBar} from "./ProgressBar";
-import * as DATABASE from "../Database";
+
+import {Tabs} from "./Tabs";
+import {TextControl} from "./TextControl";
 
 
 
@@ -22,8 +23,12 @@ export class Teacher extends React.Component {
     render() {
         return (
             <section className="Teacher screen">
-                <Title />
-                <ControlPanel roomcode={this.state.roomcode}/>
+                <Title/>
+                <Tabs tabTitles={["Tekstbediening", "Puntenbediening"]}>
+                    <TextControl roomcode={this.state.roomcode}/>
+                    <ControlPanel roomcode={this.state.roomcode}/>
+                </Tabs>
+
             </section>
         );
     }

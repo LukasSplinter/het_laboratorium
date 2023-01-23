@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 // import "../styles/xx.scss";
 import { Modal } from "./Modal"

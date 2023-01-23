@@ -12,12 +12,13 @@ import { PuzzleAdmin } from "./PuzzleAdmin";
 import { PuzzleCreate } from "./PuzzleCreate";
 import { TextPanel } from "./TextPanel";
 import { SettingAdmin } from "./SettingAdmin";
-import {LoadingIcon} from "./LoadingIcon";
+import { LoadingIcon } from "./LoadingIcon";
+import { NoContent } from "./NoContent";
+
 
 export class Admin extends React.Component {
     constructor(props) {
         super(props);
-        this.roomList = [];
         this.state = {
             roomcode: this.props.roomcode,
             rooms: [],
@@ -26,6 +27,21 @@ export class Admin extends React.Component {
             text: []
         };
     }
+
+
+    // googleSignIn = async (response) => {
+    //     try {
+    //          const { id_token } = response;
+    //          const provider = new firebase.auth.GoogleAuthProvider();
+    //          provider.setCustomParameters({ id_token });
+    //
+    //          const { user } = await firebase.auth().signInWithPopup(provider);
+    //         console.log("user:", user);
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
+
 
     componentDidMount(){
         this.fetchRooms();
@@ -49,6 +65,7 @@ export class Admin extends React.Component {
             });
             this.setState({rooms: roomList})
         } catch (err) {
+            this.setState({rooms: []})
             console.error(err)
         }
     }
@@ -70,8 +87,8 @@ export class Admin extends React.Component {
             });
 
             this.setState({puzzles: puzzleList});
-
         } catch (err) {
+            this.setState({puzzles: []});
             console.error(err);
         }
     }
@@ -90,6 +107,7 @@ export class Admin extends React.Component {
 
             this.setState({settings: settings});
         } catch (err) {
+            this.setState({settings: []});
             console.error(err)
         }
     }
@@ -111,17 +129,13 @@ export class Admin extends React.Component {
 
                         {this.state.puzzles.length > 0
                             ? this.state.puzzles
-                            : <div>
-                                <p>{textData.adminscreen.puzzles_empty}</p>
-                            </div>
+                            : <NoContent text={textData.adminscreen.puzzles_empty} />
                         }
                     </div>
                     <div className={"edit edit--rooms"}>
                         {this.state.rooms.length > 0
                             ? this.state.rooms
-                            : <div>
-                                <p>{textData.adminscreen.rooms_empty}</p>
-                            </div>
+                            : <NoContent text={textData.adminscreen.rooms_empty} />
                         }
                     </div>
                     <div className={"edit edit--text"}>

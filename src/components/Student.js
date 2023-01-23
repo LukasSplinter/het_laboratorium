@@ -86,6 +86,7 @@ export class Student extends React.Component {
 
             this.setState({text: parsedText});
         } catch (err) {
+            this.setState({text: {}});
             console.error(err)
         }
     }

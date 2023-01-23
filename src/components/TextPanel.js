@@ -11,6 +11,7 @@ import "../styles/TextPanel.scss";
 import { TextItem } from "./TextItem";
 import {LoadingIcon} from "./LoadingIcon";
 import {TextCreate} from "./TextCreate";
+import {NoContent} from "./NoContent";
 
 export class TextPanel extends React.Component {
     constructor(props) {
@@ -18,8 +19,7 @@ export class TextPanel extends React.Component {
         this.path = this.props.path;
         this.state = {
             textItems: [],
-            loading: true,
-            fetchFailure: false,
+            loading: true
         };
 
         this.placeholder = <div className="textItem dragcontainer"><h2>Verplaats tekstelement</h2></div>
@@ -56,7 +56,7 @@ export class TextPanel extends React.Component {
             })
 
         } catch (err) {
-            this.setState({fetchFailure: false});
+            this.setState({textItems: []});
             console.error(err)
         }
     }
@@ -103,27 +103,30 @@ export class TextPanel extends React.Component {
                 </div>
 
 
-                <Reorder
-                    className={"textItems"}
-                    reorderId={"text-items-" + this.props.path}
-                    placeholderClassName="drag-placeholder"
-                    draggedClassName="dragged"
-                    lock="horizontal"
-                    touchHoldTime={250}
-                    mouseHoldTime={100}
-                    onReorder={this.onReorder.bind(this)}
-                    placeholder={this.placeholder}>
+                {this.state.textItems.length > 0
+                    ? <Reorder
+                        className={"textItems"}
+                        reorderId={"text-items-" + this.props.path}
+                        placeholderClassName="drag-placeholder"
+                        draggedClassName="dragged"
+                        lock="horizontal"
+                        touchHoldTime={250}
+                        mouseHoldTime={150}
+                        onReorder={this.onReorder.bind(this)}
+                        placeholder={this.placeholder}>
 
-                    {
-                        this.state.textItems.map((item) => {
-                            return <li className={"dragcontainer"} key={item.key}>
-                                {item}
-                            </li>
-                        })
-                    }
+                        {
+                            this.state.textItems.map((item) => {
+                                return <li className={"dragcontainer"} key={item.key}>
+                                    {item}
+                                </li>
+                            })
+                        }
+                    </Reorder>
+                    : <NoContent text={textData.adminscreen.text_empty} />
+                }
 
 
-                </Reorder>
             </section>
         );
     }

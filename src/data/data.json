@@ -1,12 +1,18 @@
 {
   "room_template": {
-    "introductionIndex": "0",
-    "startLessonIndex": "0",
-    "endLessonIndex": "0",
-    "score": "0",
+    "lessonIndex": 0,
+    "score": 0,
     "school": "",
     "name": "",
     "date": ""
+  },
+  "teacherscreen" : {
+    "buttons": {
+      "decreaseLessonIndex": "Terug naar het vorige tekstartikel",
+      "increaseLessonIndex": "Naar het volgende tekstartikel",
+      "decreaseScore": "Haal een punt van de score af",
+      "increaseScore": "Voeg een punt toe bij de score"
+    }
   },
   "studentscreen": {
     "volta_lines" : {

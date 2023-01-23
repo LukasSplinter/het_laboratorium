@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { ref, child, get, set} from "firebase/database";
 
 import { Modal } from "./Modal";
 

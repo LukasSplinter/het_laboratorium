@@ -24,14 +24,10 @@ export class TextItem extends React.Component {
     async handleDelete() {
         try {
             let response = await DATABASE.removeNode("text/" + this.props.path + "/" + this.props.id);
-
-            //function resolves true if delete succesful
-            if (response == true) {
-                this.props.refreshTextHook();
-            }
         } catch (err) {
             console.error(err)
         }
+        this.props.refreshTextHook();
     }
 
     handleChange(event) {
