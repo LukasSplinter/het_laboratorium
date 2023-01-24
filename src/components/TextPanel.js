@@ -37,6 +37,9 @@ export class TextPanel extends React.Component {
             let data = Object.values(response);
 
             let textElements = data
+                .filter((item) => {
+                    return item.hasOwnProperty("text");
+                })
                 .sort((a,b)=>{return parseInt(a.order) - parseInt(b.order)})
                 .map((item, index) => {
                 let id = Object.keys(response)[index];

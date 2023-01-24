@@ -32,12 +32,14 @@ export class VoltaPortrait extends React.Component {
 
     render() {
         return (
-            <div className={"VoltaPortrait" +
+            <div className={"VoltaPortrait " +
                 (this.state.focussed ? "focussed" : "")}>
                 <img className={"img"}
                      src={VoltaImage} alt="portrait of Alessandro Volta"/>
 
-                <SpeechBubble color={this.state.dialogueColor ? this.state.dialogueColor : ""}>{this.state.dialogue}</SpeechBubble>
+                {this.state.dialogue !== "" &&
+                    <SpeechBubble color={this.state.dialogueColor ? this.state.dialogueColor : ""}>{this.state.dialogue}</SpeechBubble>
+                }
             </div>
         );
     }

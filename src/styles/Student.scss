@@ -21,20 +21,50 @@
         background-color: $black-transparent;
         backdrop-filter: blur(3rem);
 
-        & .score {
-            @include label;
-            font-size: 3.6rem;
-
+        & .scoreCounter {
             position: absolute;
-            top: 3rem;
             left: 50%;
+            top: 1rem;
 
-            transform: translate(-50%, -50%);
+            transform: translate(-50%);
+
+            & > span {
+                font-family: 'Prata', sans-serif;
+                font-size: 4.6rem;
+
+                text-shadow: #ff4d00 0 0 112px, #ffa916 0 0 48px, #ef9700 0 0 24px, #ef9700 0 0 16px, #ef9700 0 0 4px;
+                opacity: 1;
+                color: #ffdb9e;
+
+                &:nth-of-type(1){
+                    animation: 10s ease-in-out 0s infinite nixie-glow ;
+                }
+                &:nth-of-type(2){
+                    animation: 10s ease-in-out 4.2s infinite nixie-glow ;
+                }
+                &:nth-of-type(3){
+                    animation: 10s ease-in-out 1.6s infinite nixie-glow ;
+                }
+            }
         }
     }
 
     .VoltaPortrait {
         left: 50%;
         bottom: 0;
+    }
+}
+
+@keyframes nixie-glow {
+    0%, 10%, 100% {
+        text-shadow: #ff4d00 0 0 112px, #ffa916 0 0 48px, #ef9700 0 0 24px, #ef9700 0 0 16px, #ef9700 0 0 4px;
+        opacity: 1;
+    }
+    2%, 7% {
+        opacity: 0.3;
+    }
+    5% {
+        text-shadow: #ff4d00 0 0 150px, #ffa916 0 0 100px, #ef9700 0 0 50px, #ef9700 0 0 32px, #ef9700 0 0 10px;
+        opacity: 1;
     }
 }

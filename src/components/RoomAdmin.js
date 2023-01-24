@@ -86,14 +86,14 @@ export class RoomAdmin extends React.Component {
                            onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
 
-                <div className="room__value col-6 col-lg-3">
+                <div className="room__value col-6 col-lg-3 mt-5 mt-lg-0">
                     <label className={"room__value__label"} htmlFor="score">aantal punten</label>
                     <input id={"score"} className={"room__value__input"} name="score" defaultValue={score}
                            onChange={this.handleChange}
                            onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
 
-                <div className="room__actions col-6 col-lg-2 offset-lg-1">
+                <div className="room__actions col-6 col-lg-2 offset-lg-1 mt-5 mt-lg-0">
                     {this.state.deleteCheck &&
                         <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"} onClick={()=>{this.setState({deleteCheck: false})}}>
                             <img className={"icon"} src={iconCancel} alt="cancel icon"/>

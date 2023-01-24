@@ -72,7 +72,7 @@ export class TextItem extends React.Component {
                               onBlur={(e)=>{this.handleSave(e.target)}}/>
                 </div>
 
-                <div className="actions col-6 offset-6 col-lg-2 offset-lg-0">
+                <div className="actions col-6 offset-6 col-lg-2 offset-lg-0 mt-5 mt-lg-0">
                     {this.state.deleteCheck &&
                         <button className="actions__button actions__button--deleteConfirm"
                                 onClick={this.handleDelete.bind(this)}

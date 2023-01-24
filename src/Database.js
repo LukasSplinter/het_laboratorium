@@ -175,7 +175,7 @@ export const getData = (path) => {
             if (snapshot.exists()) {
                 resolve(snapshot.val());
             } else {
-                reject("data not found")
+                resolve({empty: true});
             }
         })
     })

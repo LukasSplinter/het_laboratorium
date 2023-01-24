@@ -55,6 +55,8 @@ export class TextControl extends React.Component {
                         return a.order - b.order
                         //and returns text string
                     }).map((text) => {
+                        if (!text.hasOwnProperty("text")) return;
+
                         totalTextLength++;
                         categorySize++;
 
@@ -88,9 +90,10 @@ export class TextControl extends React.Component {
             console.error(err)
         }
     }
-    
-    
+
+
     updateVisualProgress(textIndex) {
+        textIndex++;
         //value used for tracking css width - later used in rendering
         let newProgressWidth = 0;
 
@@ -138,19 +141,25 @@ export class TextControl extends React.Component {
             <section className="textControl container">
                 <div className="progression">
                     <div name={"welcome"} className="checkpoint">
-                        <label htmlFor="welcome">Welkom</label>
+                        <label htmlFor="welcome">1</label>
                     </div>
                     <div name={"introduction"} className="checkpoint">
-                        <label htmlFor="introduction">Begin introductie</label>
+                        <label htmlFor="introduction">2</label>
                     </div>
                     <div name={"lessonStart"} className="checkpoint">
-                        <label htmlFor="lessonStart">Begin les</label>
+                        <label htmlFor="lessonStart">3</label>
                     </div>
                     <div name={"lessonEnd"} className="checkpoint">
-                        <label htmlFor="lessonEnd">Einde les</label>
+                        <label htmlFor="lessonEnd">4</label>
                     </div>
                     <div className="bar" style={{width: this.state.progressionBarWidth}}></div>
                 </div>
+                <ol className="checkpointList">
+                    <li>1: Welkom</li>
+                    <li>2: Begin introductie</li>
+                    <li>3: Begin les</li>
+                    <li>4: Einde les</li>
+                </ol>
                 <div className="controlButtons">
                     <button className={"button button--decrease"}
                             onClick={()=>{this.updateLessonIndex(-1)}}

@@ -15,7 +15,8 @@ export class Student extends React.Component {
         super(props);
         this.progressBar = React.createRef();
         this.state = {
-            dialogue: textData.studentscreen.volta_lines.start,
+            dialogueFocussed: true,
+            dialogue: "",
             text: {},
             roomcode: this.props.roomcode,
             score: 0,
@@ -25,24 +26,55 @@ export class Student extends React.Component {
     }
 
     componentDidMount(){
-        this.unsubscribeScore = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
-            (score) => {this.updateScore(score)});
-        // this.unsubscribeIntroduction
-
-        this.fetchText();
+        this.fetchText().then((response) => {
+            this.unsubscribeProgress = DATABASE.attachListener("rooms/" + this.state.roomcode + "/lessonIndex",
+                (lessonIndex) => {this.updateText(lessonIndex)});
+        });
 
         this.fetchDuration();
-        this.setState({startTimer: true});
 
-        this.hintInterval = setInterval(()=>{
-                this.setState({dialogue: textData.studentscreen.volta_lines.hint[
-                    Math.floor(Math.random() * textData.studentscreen.volta_lines.hint.length)]})
-            }, 30000)
+        this.unsubscribeScore = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
+            (score) => {this.updateScore(score)});
+
+
+        // this.setState({startTimer: true});
+        //
+        // this.hintInterval = setInterval(()=>{
+        //         this.setState({dialogue: textData.studentscreen.volta_lines.hint[
+        //             Math.floor(Math.random() * textData.studentscreen.volta_lines.hint.length)]})
+        //     }, 30000)
     }
 
     componentWillUnmount() {
         this.unsubscribeScore();
-        clearInterval(this.hintInterval);
+        this.unsubscribeProgress();
+        // clearInterval(this.hintInterval);
+    }
+
+
+    updateText(lessonIndex) {
+        let categories = {...this.state.text};
+        let allText = [];
+        Object.keys(categories).forEach((category, index) => {
+            let categoryText = categories[category];
+
+            for (let i = 0; i < categoryText.length; i++) {
+                if (categoryText[i] !== undefined) {
+                    allText.push(categoryText[i]);
+                } else {
+                    allText.push("");
+                }
+            }
+        });
+        this.setState({dialogue: allText[lessonIndex]})
+
+        //when introductiontext is finished
+        if (lessonIndex >= this.state.text["introductionText"].length - 1) {
+            this.setState({
+                dialogueFocussed: false,
+                startTimer: true
+            });
+        }
     }
 
 
@@ -103,17 +135,22 @@ export class Student extends React.Component {
 
 
     render() {
+        let scoreSplit = this.state.score.toString().padStart(3, "0").split("");
         return (
             <section className="student screen">
                 <ProgressBar duration={this.state.duration} start={this.state.startTimer}/>
                 <div className="voltaContainer">
-                    <div className="score">{this.state.score}</div>
+                    <div className="scoreCounter">
+                        <span>{scoreSplit[0]}</span>
+                        <span>{scoreSplit[1]}</span>
+                        <span>{scoreSplit[2]}</span>
+                    </div>
                     <VoltaicPile score={this.state.score} getLastLayerHook={this.getLastLayerHook.bind(this)}/>
                 </div>
 
 
 
-                <VoltaPortrait dialogue={this.state.dialogue} />
+                <VoltaPortrait focussed={this.state.dialogueFocussed} dialogue={this.state.dialogue} />
 
                 <section className="unlockable">
                 </section>
