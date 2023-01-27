@@ -1,8 +1,6 @@
 import React from 'react';
 import { getData } from "../Database";
 
-import { Modal } from "./Modal";
-
 import "../styles/Header.scss";
 
 export class Header extends React.Component {

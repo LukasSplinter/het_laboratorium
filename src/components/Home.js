@@ -20,16 +20,12 @@ export class Home extends React.Component {
             <section className="home screen">
                 <Title />
 
-                <div className="row">
-                    <p className={"paragraph introduction col-12 col-lg-4"}>Het docentportaal voor de interactieve introductie voor het onderwijsprogramma 'stroom geeft energie'.</p>
-                </div>
-                <div className="row">
-                    <div className="scrollDown col-2">
-                        <img className={"scrollDown__icon"} src={iconScrolldown} alt="scroll down icon"/>
+                <div className="introduction row">
+                    <p className={"paragraph col-12 col-lg-4"}>Het docentportaal voor de interactieve introductie voor het onderwijsprogramma 'stroom geeft energie'.</p>
+                    <div className="col-12 col-lg-4 introduction__cta">
+                        <RoomNav joinRoomHook={this.props.switchRoomHook.bind(this)}/>
                     </div>
                 </div>
-
-                <RoomNav joinRoomHook={this.props.switchRoomHook.bind(this)}/>
 
                 <div className="row">
                     <p className={"paragraph introduction col-12 col-lg-4"}>{textData.homescreen.room_explanation}</p>

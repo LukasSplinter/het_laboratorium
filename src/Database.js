@@ -244,7 +244,7 @@ export const createRoom = async (className, schoolName) => {
         let newRoom = {... data.room_template};
         newRoom.name = className;
         newRoom.school = schoolName;
-        newRoom.data = new Date().toLocaleDateString();
+        newRoom.date = new Date().toLocaleDateString();
 
         set(child(dbRef, "rooms/" + key), newRoom).then(() => {
             resolve(key);

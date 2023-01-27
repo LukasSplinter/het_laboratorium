@@ -4,11 +4,18 @@ import textData from "../data/data.json";
 
 import { VoltaicPile } from "./VoltaicPile";
 import { ProgressBar } from "./ProgressBar";
+import {VoltaPortrait} from "./VoltaPortrait";
 
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
 import "../styles/Student.scss";
-import {VoltaPortrait} from "./VoltaPortrait";
+
+import itemShelf from "../assets/art_shelf.svg";
+import itemLamp from "../assets/art_lamp.svg";
+import itemPlasma from "../assets/art_plasmaball.svg";
+import itemPile from "../assets/art_voltaic.svg";
+import itemStratingh from "../assets/art_stratingh.svg";
+import itemDoor from "../assets/art_door.svg";
 
 export class Student extends React.Component {
     constructor(props) {
@@ -81,7 +88,7 @@ export class Student extends React.Component {
     async fetchDuration() {
         try {
             let duration = await DATABASE.getData("settings/duration");
-            this.setState({duration: duration});
+            this.setState({duration: duration.value});
         } catch (err) {
             console.error(err)
         }
@@ -153,6 +160,26 @@ export class Student extends React.Component {
                 <VoltaPortrait focussed={this.state.dialogueFocussed} dialogue={this.state.dialogue} />
 
                 <section className="unlockable">
+                    {/*todo tomorrow 28-1-23: unlocked classes maybe better?*/}
+                    <article className="unlockable__item unlockable__item--door">
+                        <img className={"item " + (this.state.score > 0 ? "unlocked " : "")} src={itemDoor} alt="een getekende oude deur"/>
+                    </article>
+                    <article className="unlockable__item unlockable__item--voltaic">
+                        <img className={"shelf " + (this.state.score > 3 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 6 ? "unlocked " : "")} src={itemPile} alt="een getekende zuil van volta"/>
+                    </article>
+                    <article className="unlockable__item unlockable__item--plasma">
+                        <img className={"shelf " + (this.state.score > 9 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 12 ? "unlocked " : "")} src={itemPlasma} alt="een getekende plasmabol"/>
+                    </article>
+                    <article className="unlockable__item unlockable__item--stratingh">
+                        <img className={"shelf " + (this.state.score > 21 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 23 ? "unlocked " : "")} src={itemStratingh} alt="een getekent wagentje van stratingh"/>
+                    </article>
+                    <article className="unlockable__item unlockable__item--lamp">
+                        <img className={"shelf " + (this.state.score > 30 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 33 ? "unlocked " : "")} src={itemLamp} alt="een getekende oude lamp"/>
+                    </article>
                 </section>
             </section>
         );

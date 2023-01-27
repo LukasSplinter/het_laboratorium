@@ -1,0 +1,23 @@
+@import 'Typestyles';
+@import 'breakpoints';
+
+.Teacher {
+    .explanation {
+        &__title {
+            @include title;
+            font-size: 2.4rem;
+
+            color: $primary;
+
+            margin-top: 3rem;
+        }
+
+        &__text {
+            @include paragraph;
+            font-size: 1.6rem;
+
+            color: $off-black;
+
+        }
+    }
+}

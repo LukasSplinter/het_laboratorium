@@ -1,10 +1,16 @@
 @import 'Typestyles';
+@import 'breakpoints';
 
 .title {
     display: block;
+    padding-left: 2rem;
+
+    @include lg {
+        padding-left: 0;
+    }
 
     h1 {
-        @include title;
+        @include logo-title;
         color: $white;
 
         display: block;
@@ -24,6 +30,10 @@
         }
         &:nth-of-type(3)::after{
             content: "ENERGIE";
+        }
+
+        @include lg {
+            padding: 0;
         }
     }
 }

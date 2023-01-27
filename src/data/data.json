@@ -7,6 +7,9 @@
     "date": ""
   },
   "teacherscreen" : {
+    "explanation": "Dit is het docentenscherm. Hier kan u als (museum)docent de digitale applicatie besturen, waaronder de getoonde tekst en de verkregen punten. U kan op de tabbladen boven klikken om naar de verschillende secties van het controlepaneel te navigeren.",
+    "explain_textcontrols": "Op dit scherm kan de tekst van het studentenscherm bestuurt worden. Op de tijdlijn is te zien hoeveel tekststukken er te tonen zijn per sectie van de introductie. U kan door deze tekststukken navigeren door de pijltjestoetsen. \n-Welkom/introductie\n-Einde van introductie/begin les\n-Einde van de les/afscheid.",
+    "explain_pointcontrols": "Tijdens de introductie zijn er verschillende opdrachten die de leerlingen maken - die punten geven. Deze kan u in dit gedeelte geven. Elke opdracht is enkele punten waard, en er wordt aangeraden extra punten te geven voor goede inzet en creatieve antwoorden - of antwoorden die goed onderbouwd zijn.",
     "buttons": {
       "decreaseLessonIndex": "Terug naar het vorige tekstartikel",
       "increaseLessonIndex": "Naar het volgende tekstartikel",
@@ -19,7 +22,7 @@
       "start": "Hallo leerlingen! Helpen jullie mij met wat onderzoek?",
       "copper": "Er is een laagje van koper bij gekomen! Wat goed!",
       "zinc": "Jullie hebben een laagje gemaakt van zink gevonden!",
-      "foil": "Wat is dit? Een stuk folie met zuur, net zoals een citroen!",
+      "foil": "Wat is dit? Een stuk textiel met zuur, net zoals een citroen!",
       "hint": [
         "Zuur, koper en zink - dat doet me denken aan een proefje met een citroen!",
         "Wat zijn jullie goed bezig! Valt jullie wat op aan alle laagjes?",

@@ -37,7 +37,7 @@ export class PuzzleControl extends React.Component {
                     setTimeout(()=>{this.setState({pointsClicked: false})}, 1000);
                     }}>Keur goed</button>
 
-                <button className="puzzleControl__info col-1 offset-1 col-lg-1 offset-lg-0"
+                <button className="puzzleControl__info col-1 offset-0 col-lg-1 offset-lg-0"
                 onClick={this.openPuzzleInformation.bind(this)}>
                     <img src={iconInformation} alt="information icon"/>
                 </button>

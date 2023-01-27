@@ -1,6 +1,7 @@
 @import 'colors';
 @import 'Typestyles';
 @import 'Scrollbar';
+@import "breakpoints";
 
 #root {
     background-color: $secondary;
@@ -15,10 +16,21 @@
 
             .paragraph {
                 @include paragraph;
+                font-size: 1.6rem;
+
+                @include lg {
+                    font-size: 2rem;
+                }
             }
 
             .introduction {
                 margin-top: 16.1rem;
+
+                &__cta {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
             }
 
             .scrollDown {
@@ -44,6 +56,15 @@
                     font-size: 1.8rem;
                     margin: 0;
                 }
+            }
+        }
+
+        .screen.home {
+            @include lg {
+                background-image: url("../assets/art_homepage.svg");
+                background-size: contain;
+                background-position: 100% 10%;
+                background-repeat: no-repeat;
             }
         }
     }

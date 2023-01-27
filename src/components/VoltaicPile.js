@@ -21,10 +21,10 @@ export class VoltaicPile extends React.Component {
         let newScore = parseInt(this.props.score);
 
         let newBolts = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 1; i < 20; i++) {
             newBolts.push(<div className={"lightning-bolt"}
                                    key={i}
-                                   style={{opacity: (this.state.score > i * 2 ? "1" : "0")}} />)
+                                   style={{opacity: (this.state.score >= i * 3 ? "1" : "0")}} />)
         }
 
         this.updateLayers(newScore);

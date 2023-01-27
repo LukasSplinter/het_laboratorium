@@ -154,12 +154,6 @@ export class TextControl extends React.Component {
                     </div>
                     <div className="bar" style={{width: this.state.progressionBarWidth}}></div>
                 </div>
-                <ol className="checkpointList">
-                    <li>1: Welkom</li>
-                    <li>2: Begin introductie</li>
-                    <li>3: Begin les</li>
-                    <li>4: Einde les</li>
-                </ol>
                 <div className="controlButtons">
                     <button className={"button button--decrease"}
                             onClick={()=>{this.updateLessonIndex(-1)}}
@@ -172,7 +166,12 @@ export class TextControl extends React.Component {
                         <img src={iconArrow} alt="arrow icon" className="icon"/>
                     </button>
                 </div>
-
+                <ol className="checkpointList">
+                    <li>1: Welkom</li>
+                    <li>2: Begin introductie</li>
+                    <li>3: Begin les</li>
+                    <li>4: Einde les</li>
+                </ol>
             </section>
         );
     }

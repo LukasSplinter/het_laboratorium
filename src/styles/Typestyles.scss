@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'breakpoints';
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Lato:wght@300;400&family=Londrina+Solid&family=Open+Sans:wght@400..800&family=Prata&display=swap');
 /*
 font-family: 'Fredericka the Great', cursive;
@@ -30,9 +31,16 @@ font-family: 'Prata', serif;
     color: $white;
 }
 
+@mixin counter-number {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+}
+
 @mixin shadow-orange {
     font-family: 'Open Sans', sans-serif;
-    font-size: 6.8rem;
+    font-size: 3.8rem;
     font-weight: 800;
     color: transparent;
 
@@ -43,18 +51,25 @@ font-family: 'Prata', serif;
     left: 1rem;
     top: .75rem;
     z-index: -1;
+
+    @include lg {
+        font-size: 6.8rem;
+    }
 }
 
-@mixin counter-number {
+@mixin logo-title {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.8rem;
+    font-size: 3.6rem;
     font-weight: 800;
-    color: #fff;
+    color: $white;
+
+    @include lg {
+        font-size: 6.4rem;
+    }
 }
 
 @mixin title {
     font-family: 'Open Sans', sans-serif;
-    font-size: 6.4rem;
     font-weight: 800;
     color: $white;
 }

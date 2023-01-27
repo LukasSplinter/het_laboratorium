@@ -4,13 +4,13 @@
 
 .tabs {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
 
     margin: 6rem 0;
 
     &__list {
         display: flex;
+        flex-wrap: wrap;
         list-style: none;
 
         padding: 0;
@@ -22,10 +22,9 @@
             margin-right: .5rem;
 
             padding: 1.25rem 2rem 1rem;
-            border-radius: 1.25rem 1.25rem 0rem 0rem;
 
             background-color: $primary;
-            border: .1rem solid $primary;
+            border: .1rem solid $secondary;
             border-bottom: none;
             color: $white;
 
@@ -35,8 +34,14 @@
             transition: .4s border, .4s color, .4s background-color;
 
             flex-grow: 1;
+            width: 100%;
+
             @include md {
+                width: fit-content;
                 flex-grow: initial;
+
+                border-radius: 1.25rem 1.25rem 0rem 0rem;
+                border: .1rem solid $primary;
             }
 
             &.selected {

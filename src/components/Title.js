@@ -1,7 +1,6 @@
 import React from 'react';
 
 import "../styles/title.scss";
-import { Modal } from "./Modal"
 
 export class Title extends React.Component {
     constructor(props) {
