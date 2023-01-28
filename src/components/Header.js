@@ -1,7 +1,10 @@
 import React from 'react';
-import { getData } from "../Database";
+import * as DATABASE from "../Database";
 
 import "../styles/Header.scss";
+
+import iconLogin from "../assets/icon-login.svg";
+import iconLogout from "../assets/icon-logout.svg";
 
 export class Header extends React.Component {
     constructor(props) {
@@ -9,6 +12,7 @@ export class Header extends React.Component {
         this.roomInput = React.createRef();
         this.state = {
             roomcode: (this.props.roomcode ? this.props.roomcode : ""),
+            user_logged_in: this.props.userLoggedIn,
             navOpen: false,
             modalOpen: this.props.activeWindow === "home" && !this.props.roomcode ? true : false,
             activeWindow: this.props.activeWindow,
@@ -20,12 +24,52 @@ export class Header extends React.Component {
 
     componentDidMount() {
         if (this.state.roomcode !== "") this.fetchSchoolData();
+
+        this.fetchLoginData()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props) return;
+
+        this.setState({
+            roomcode: this.props.roomcode,
+            user_logged_in: this.props.userLoggedIn
+        })
     }
 
 
+    async login() {
+        try {
+            let response = await DATABASE.signInWithGoogle();
+            this.props.loginHook(response)
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
+
+    async logout() {
+        try {
+            let response = await DATABASE.userSignOut();
+            this.props.logoutHook();
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
+
+    async fetchLoginData() {
+        let authState = DATABASE.auth.onAuthStateChanged(user => {
+            //user already logged in
+            if (user) {
+                this.props.loginHook(user);
+            }
+        })
+    }
+
     async fetchSchoolData() {
         try {
-            let response = await getData("rooms/" + this.state.roomcode);
+            let response = await DATABASE.getData("rooms/" + this.state.roomcode);
 
             this.setState({
                 school: response.school,
@@ -62,6 +106,22 @@ export class Header extends React.Component {
                         <button className="button" onClick={this.toggleRoomPopup.bind(this)}>
                             <h3>{this.state.roomcode !== "" ? this.state.roomcode : "xxxxx"}</h3>
                         </button>
+
+                        <div className="login">
+                            <p className="text">{this.state.user_logged_in ? "log uit" : "log in"}</p>
+                            {this.state.user_logged_in
+                                ? <button className="login__button login__button--logout"
+                                          title={"log uit"}
+                                          onClick={this.logout.bind(this)}>
+                                    <img className={"icon"} src={iconLogout} alt="log uit icoon"/>
+                                </button>
+                                :<button className="login__button login__button--login"
+                                         title={"log in"}
+                                         onClick={this.login.bind(this)}>
+                                    <img className={"icon"} src={iconLogin} alt="log in icoon"/>
+                                </button>
+                            }
+                        </div>
 
                         {this.state.modalOpen &&
                             <div className="roomcode__tooltip">

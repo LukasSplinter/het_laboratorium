@@ -21,7 +21,6 @@ export class ControlPanel extends React.Component {
 
 
     componentDidMount() {
-        console.log(this.state.roomcode)
         this.fetchScore();
         this.fetchPuzzles();
         this.fetchDuration();
@@ -48,7 +47,6 @@ export class ControlPanel extends React.Component {
         try {
             let response = await DATABASE.getData("rooms/" + this.state.roomcode + "/score");
             this.setState({score: response});
-            console.log(response)
         } catch (err) {
             console.error(err)
         }
@@ -57,7 +55,6 @@ export class ControlPanel extends React.Component {
     async fetchPuzzles() {
         try {
             let response = await DATABASE.getData("puzzles");
-            console.log(response)
 
             //create array with puzzle data as elements
             let puzzleData = Object.values(response);

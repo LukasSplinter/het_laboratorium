@@ -1,4 +1,7 @@
 {
+  "settings": {
+    "login_language": "nl"
+  },
   "room_template": {
     "lessonIndex": 0,
     "score": 0,

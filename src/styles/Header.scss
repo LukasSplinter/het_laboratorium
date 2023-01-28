@@ -189,6 +189,40 @@
                 border-bottom: 2rem solid $tertiary;
             }
         }
+
+        .login {
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+
+            padding-left: 3rem;
+
+            & .text {
+                @include label;
+                color: $white;
+                font-size: 1.2rem;
+
+                text-align: right;
+                margin: 0 1rem 0 0;
+            }
+
+            &__button {
+
+                & .icon {
+                    filter: invert(100%);
+
+                    transition: .4s filter, .4s scale;
+                }
+
+                &:hover {
+                    & .icon {
+                        filter: invert(74%) sepia(66%) saturate(4957%) hue-rotate(3deg) brightness(95%) contrast(104%);
+                    }
+                }
+            }
+        }
     }
 
     .nav {

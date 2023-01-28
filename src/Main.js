@@ -15,11 +15,42 @@ export class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_logged_in: false,
+            user_data: {},
             roomcode: "20121",
-            window: "student",
+            window: "home",
         };
     }
 
+
+    /**
+     * Hook for user login succes
+     * Sets state values to user data
+     * @param data
+     */
+    userLoggedInHook(data) {
+        this.setState({
+            user_logged_in: true,
+            user_data: data
+        });
+    }
+
+    /**
+     * Hook for user logout succes
+     * clears state values
+     */
+    userLoggedOutHook() {
+        this.setState({
+            user_logged_in: false,
+            user_data: {}
+        })
+    }
+
+    /**
+     * Hook for screen navigation
+     * checks if room is in allowedscreen array, navigates to it if called
+     * @param navigateTo
+     */
     screenNavigationHook (navigateTo) {
         if (allowedScreens.includes(navigateTo)) {
             this.setState({window: navigateTo});
@@ -69,7 +100,10 @@ export class Main extends React.Component {
                 <Header key={this.state.roomcode} roomcode={this.state.roomcode}
                         navigationHook={this.screenNavigationHook.bind(this)}
                         switchRoomHook={this.switchRoomHook.bind(this)}
-                        activeWindow={this.state.window}/>
+                        loginHook={this.userLoggedInHook.bind(this)}
+                        logoutHook={this.userLoggedOutHook.bind(this)}
+                        activeWindow={this.state.window}
+                        userLoggedIn={this.state.user_logged_in}/>
 
                 {this.state.window === "home" && <Home roomcode={this.state.roomcode}
                                                        switchRoomHook={this.switchRoomHook.bind(this)}/>}

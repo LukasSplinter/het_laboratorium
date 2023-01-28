@@ -4,7 +4,11 @@ import data from "./data/data.json";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {getDatabase, ref, get, set, child, update, onValue, remove, push} from "firebase/database";
+import { getDatabase, ref, get, set, child, update, onValue, remove, push } from "firebase/database";
+
+//auth
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
@@ -22,6 +26,55 @@ export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 export const database = getDatabase();
 export const dbRef = ref(database);
+
+//initialize Firebase auth
+export const auth = getAuth(app);
+auth.languageCode = data.settings.login_language;
+export const provider = new GoogleAuthProvider();
+provider.setCustomParameters({"login_hint": "gebruiker@rijksmuseumboerhaave.nl"})
+
+/**
+ * handles sign in google Firebase Auth
+ */
+export const signInWithGoogle = () => {
+    return new Promise((resolve, reject) => {
+        signInWithPopup(auth, provider).then((response) => {
+            const credential = GoogleAuthProvider.credentialFromResult(response);
+            const token = credential.accessToken;
+            const user = response.user;
+
+            let userData = {
+                emailDomain: user.email.split("@")[1],
+                ...
+                    user
+            }
+            resolve(userData);
+
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+
+            reject(errorCode)
+        });
+    })
+}
+
+/**
+ * handles firebase auth signout
+ * @returns {Promise<unknown>} returns true on succes
+ */
+export const userSignOut = () => {
+    return new Promise((resolve, reject) => {
+        signOut(auth).then(() => {
+            resolve(true);
+        }).catch((error) => {
+            reject(error);
+            console.error(error)
+        })
+    })
+}
 
 
 /**
@@ -273,3 +326,5 @@ const generateKey = () => {
 
     return parseInt(key);
 }
+
+
