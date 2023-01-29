@@ -15,7 +15,8 @@ export class PuzzleAdmin extends React.Component {
         this.state = {
             deleteCheck: false,
             saveSuccesful: false,
-            data: this.props.data
+            data: this.props.data,
+            user_logged_in: this.props.user_logged_in
         }
 
         // Bind the event handlers to this component
@@ -71,6 +72,7 @@ export class PuzzleAdmin extends React.Component {
                         <label htmlFor="name" className="puzzlecard__value__label">Naam</label>
                         <input id={"name"} name={"name"} type="text" className="puzzlecard__value__input puzzlecard__value--name__input"
                                defaultValue={name}
+                               disabled={!this.state.user_logged_in}
                                onChange={this.handleChange}
                                onBlur={(e)=>{this.handleSave(this.props.puzzleID, e.target)}}/>
                     </div>
@@ -78,12 +80,14 @@ export class PuzzleAdmin extends React.Component {
                         <label htmlFor="worth" className="puzzlecard__value__label">Puntenwaarde opdracht</label>
                         <input id={"worth"} name={"worth"} type="number" className="puzzlecard__value__input"
                                defaultValue={worth}
+                               disabled={!this.state.user_logged_in}
                                onChange={this.handleChange}
                                onBlur={(e)=>{this.handleSave(this.props.puzzleID, e.target)}}/>
                     </div>
                     <div className="actions col-4 offset-8 col-lg-2 mb-5 order offset-lg-0 mb-lg-0 order-1 order-lg-3">
                         {this.state.deleteCheck &&
                             <button title={"verwijder sessie niet"} className={"actions__button actions__button--deleteCancel"}
+                                    disabled={!this.state.user_logged_in}
                                       onClick={()=>{this.setState({deleteCheck: false})}}>
                                 <img className={"icon"} src={iconCancel} alt="cancel icon"/>
                             </button>
@@ -91,10 +95,12 @@ export class PuzzleAdmin extends React.Component {
 
                         {this.state.deleteCheck == false
                             ? <button title={"verwijder deze sessie"} className={"actions__button actions__button--deleteCheck"}
+                                      disabled={!this.state.user_logged_in}
                                       onClick={()=>{this.setState({deleteCheck: true})}}>
                                 <img className={"icon"} src={iconDelete} alt="delete icon"/>
                             </button>
                             : <button title={"verwijder sessie wel"} className={"actions__button actions__button--deleteConfirm"}
+                                      disabled={!this.state.user_logged_in}
                                       onClick={this.handleDelete.bind(this, this.props.puzzleID)}>
                                 <img className={"icon"} src={iconConfirm} alt="confirm delete icon"/>
                             </button>
@@ -106,6 +112,7 @@ export class PuzzleAdmin extends React.Component {
                     <div className="puzzlecard__description__value col-12">
                         <label htmlFor="" className="puzzlecard__description__value__label">Uitleg opdracht</label>
                         <textarea name="description" id="description"
+                                  disabled={!this.state.user_logged_in}
                                   className={"puzzlecard__description__value__input"}
                                   defaultValue={description}
                                   onChange={this.handleChange}

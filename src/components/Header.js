@@ -1,4 +1,5 @@
 import React from 'react';
+import textData from "../data/data.json";
 import * as DATABASE from "../Database";
 
 import "../styles/Header.scss";
@@ -12,7 +13,7 @@ export class Header extends React.Component {
         this.roomInput = React.createRef();
         this.state = {
             roomcode: (this.props.roomcode ? this.props.roomcode : ""),
-            user_logged_in: this.props.userLoggedIn,
+            user_logged_in: this.props.user_logged_in,
             navOpen: false,
             modalOpen: this.props.activeWindow === "home" && !this.props.roomcode ? true : false,
             activeWindow: this.props.activeWindow,
@@ -33,7 +34,7 @@ export class Header extends React.Component {
 
         this.setState({
             roomcode: this.props.roomcode,
-            user_logged_in: this.props.userLoggedIn
+            user_logged_in: this.props.user_logged_in
         })
     }
 
@@ -135,6 +136,19 @@ export class Header extends React.Component {
                     </div>
 
                 </div>
+
+                {
+                    (this.state.activeWindow === "teacher" || this.state.activeWindow === "admin") &&
+                    (!this.state.user_logged_in) &&
+                    <div className="header__login-cta col-12">
+                        <p className="header__login-cta__text">
+                            {textData.general.login_message}
+                            <span className="link"
+                                  onClick={this.login.bind(this)}>log in</span>
+                        </p>
+                    </div>
+                }
+
 
                 <div className={"nav " +
                     (this.state.navOpen ? "open " : "")}>

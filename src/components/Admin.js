@@ -24,23 +24,10 @@ export class Admin extends React.Component {
             rooms: [],
             puzzles: [],
             settings: [],
-            text: []
+            text: [],
+            user_logged_in: this.props.user_logged_in
         };
     }
-
-
-    // googleSignIn = async (response) => {
-    //     try {
-    //          const { id_token } = response;
-    //          const provider = new firebase.auth.GoogleAuthProvider();
-    //          provider.setCustomParameters({ id_token });
-    //
-    //          const { user } = await firebase.auth().signInWithPopup(provider);
-    //         console.log("user:", user);
-    //     } catch (err) {
-    //         console.error(err)
-    //     }
-    // }
 
 
     componentDidMount(){
@@ -57,6 +44,7 @@ export class Admin extends React.Component {
             let roomList = roomData.map((item, index) => {
                 let roomKey = Object.keys(response)[index];
                 return <RoomAdmin
+                    user_logged_in={this.state.user_logged_in}
                     key={roomKey}
                     roomKey={roomKey}
                     data={item}
@@ -79,6 +67,7 @@ export class Admin extends React.Component {
                 let puzzleID = Object.keys(response)[index];
 
                 return <PuzzleAdmin
+                    user_logged_in={this.state.user_logged_in}
                     key={puzzleID}
                     data={item}
                     puzzleID={puzzleID}
@@ -100,6 +89,7 @@ export class Admin extends React.Component {
 
             let settings = settingNames.map((item, index) => {
                 return <SettingAdmin
+                    user_logged_in={this.state.user_logged_in}
                     key={item}
                     id={item}
                     data={{name: response[item].name, value: response[item].value}}/>
@@ -124,6 +114,7 @@ export class Admin extends React.Component {
                 <Tabs tabTitles={['opdrachten', 'sessies', 'tekst', 'algemeen']}>
                     <div className={"edit edit--puzzles"}>
                         <PuzzleCreate
+                            user_logged_in={this.state.user_logged_in}
                             refreshPuzzlesHook={this.fetchPuzzles.bind(this)}
                         />
 
@@ -139,9 +130,18 @@ export class Admin extends React.Component {
                         }
                     </div>
                     <div className={"edit edit--text"}>
-                        <TextPanel title={textData.adminscreen.start_introduction_title} path={"introduction"}/>
-                        <TextPanel title={textData.adminscreen.start_lesson_title} path={"startLesson"}/>
-                        <TextPanel title={textData.adminscreen.end_lesson_title} path={"endLesson"}/>
+                        <TextPanel
+                            user_logged_in={this.state.user_logged_in}
+                            title={textData.adminscreen.start_introduction_title}
+                            path={"introduction"}/>
+                        <TextPanel
+                            user_logged_in={this.state.user_logged_in}
+                            title={textData.adminscreen.start_lesson_title}
+                            path={"startLesson"}/>
+                        <TextPanel
+                            user_logged_in={this.state.user_logged_in}
+                            title={textData.adminscreen.end_lesson_title}
+                            path={"endLesson"}/>
                     </div>
                     <div className="edit edit--settings">
                         {this.state.settings.length > 0

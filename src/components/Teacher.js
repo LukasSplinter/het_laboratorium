@@ -18,7 +18,8 @@ export class Teacher extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomcode: this.props.roomcode
+            roomcode: this.props.roomcode,
+            user_logged_in: this.props.user_logged_in
         };
     }
 
@@ -35,8 +36,8 @@ export class Teacher extends React.Component {
                         <h2 className="explanation__title">Puntenbediening</h2>
                         <p className="explanation__text">{textData.teacherscreen.explain_pointcontrols}</p>
                     </article>
-                    <TextControl roomcode={this.state.roomcode}/>
-                    <ControlPanel roomcode={this.state.roomcode}/>
+                    <TextControl user_logged_in={this.state.user_logged_in} roomcode={this.state.roomcode}/>
+                    <ControlPanel user_logged_in={this.state.user_logged_in} roomcode={this.state.roomcode}/>
                 </Tabs>
 
             </section>

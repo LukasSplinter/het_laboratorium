@@ -12,6 +12,7 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_logged_in: this.props.user_logged_in
         };
     }
 
@@ -21,9 +22,9 @@ export class Home extends React.Component {
                 <Title />
 
                 <div className="introduction row">
-                    <p className={"paragraph col-12 col-lg-4"}>Het docentportaal voor de interactieve introductie voor het onderwijsprogramma 'stroom geeft energie'.</p>
-                    <div className="col-12 col-lg-4 introduction__cta">
-                        <RoomNav joinRoomHook={this.props.switchRoomHook.bind(this)}/>
+                    <p className={"paragraph col-12 col-lg-4"}>{textData.homescreen.intro}</p>
+                    <div className="col-12 col-lg-4 offset-lg-1 introduction__cta">
+                        <RoomNav user_logged_in={this.state.user_logged_in} joinRoomHook={this.props.switchRoomHook.bind(this)}/>
                     </div>
                 </div>
 

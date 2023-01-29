@@ -86,6 +86,10 @@
                         filter: invert(100%);
                     }
                 }
+
+                &:disabled, &:disabled:hover {
+                    background-color: $grey-5;
+                }
             }
 
             //delete confirm/cancel buttons

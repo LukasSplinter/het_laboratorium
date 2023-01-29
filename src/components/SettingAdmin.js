@@ -11,7 +11,8 @@ export class SettingAdmin extends React.Component {
         super(props);
         this.state = {
             saveSuccesful: false,
-            data: this.props.data
+            data: this.props.data,
+            user_logged_in: this.props.user_logged_in
         }
 
         // Bind the event handlers to this component
@@ -59,6 +60,7 @@ export class SettingAdmin extends React.Component {
                     <label className={"setting__value__label"} htmlFor="value">Waarde:</label>
                     <input id={"value"} className={"setting__value__input"} name="value" defaultValue={value}
                            type={"number"}
+                           disabled={!this.state.user_logged_in}
                            onChange={this.handleChange}
                            onBlur={(e)=>{this.handleSave(this.props.id, e.target)}}/>
                 </div>

@@ -17,6 +17,7 @@ export class PuzzleCreate extends React.Component {
         this.inputWorth = React.createRef();
         this.inputDescription = React.createRef();
         this.state = {
+            user_logged_in: this.props.user_logged_in,
             data: {}
         }
 
@@ -91,11 +92,13 @@ export class PuzzleCreate extends React.Component {
                     <div className="puzzlecard__value puzzlecard__value--name col-6">
                         <label htmlFor="name" className="puzzlecard__value__label">Naam</label>
                         <input id={"name"} name={"name"} type="text" className="puzzlecard__value__input puzzlecard__value--name__input"
+                               disabled={!this.state.user_logged_in}
                                onChange={this.handleChange} ref={this.inputName}/>
                     </div>
                     <div className="puzzlecard__value col-4">
                         <label htmlFor="worth" className="puzzlecard__value__label">Puntenwaarde opdracht</label>
                         <input id={"worth"} name={"worth"} type="number" className="puzzlecard__value__input"
+                               disabled={!this.state.user_logged_in}
                                onChange={this.handleChange} ref={this.inputWorth}/>
                     </div>
                 </div>
@@ -105,11 +108,13 @@ export class PuzzleCreate extends React.Component {
                         <label htmlFor="" className="puzzlecard__description__value__label">Uitleg opdracht</label>
                         <textarea name="description" id="description" ref={this.inputDescription}
                                   className={"puzzlecard__description__value__input"}
+                                  disabled={!this.state.user_logged_in}
                                   onChange={this.handleChange}></textarea>
                     </div>
                 </div>
 
                 <button className="confirm button"
+                        disabled={!this.state.user_logged_in}
                         onClick={this.createPuzzle.bind(this)}>
                     Voeg opdracht toe
                 </button>

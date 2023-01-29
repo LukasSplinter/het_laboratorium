@@ -17,6 +17,7 @@
             .paragraph {
                 @include paragraph;
                 font-size: 1.6rem;
+                color: $off-black;
 
                 @include lg {
                     font-size: 2rem;
@@ -60,11 +61,15 @@
         }
 
         .screen.home {
+            background-image: url("../assets/art_homepage--blur.svg");
+            background-size: 100% auto;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+
             @include lg {
                 background-image: url("../assets/art_homepage.svg");
                 background-size: contain;
                 background-position: 100% 10%;
-                background-repeat: no-repeat;
             }
         }
     }

@@ -133,6 +133,22 @@
             }
         }
     }
+
+
+    &.ending {
+        & .voltaContainer {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        & .VoltaPortrait {
+            left: 10%;
+        }
+
+        & .unlockable {
+            opacity: 0;
+        }
+    }
 }
 
 @keyframes nixie-glow {

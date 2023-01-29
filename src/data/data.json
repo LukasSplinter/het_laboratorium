@@ -9,6 +9,9 @@
     "name": "",
     "date": ""
   },
+  "general": {
+    "login_message": "U bent nog niet ingelogd. U kan de gegevens bekijken - maar alleen aanpassen als u ingelogd bent met een @rijksmuseumboerhaave.nl account."
+  },
   "teacherscreen" : {
     "explanation": "Dit is het docentenscherm. Hier kan u als (museum)docent de digitale applicatie besturen, waaronder de getoonde tekst en de verkregen punten. U kan op de tabbladen boven klikken om naar de verschillende secties van het controlepaneel te navigeren.",
     "explain_textcontrols": "Op dit scherm kan de tekst van het studentenscherm bestuurt worden. Op de tijdlijn is te zien hoeveel tekststukken er te tonen zijn per sectie van de introductie. U kan door deze tekststukken navigeren door de pijltjestoetsen. \n-Welkom/introductie\n-Einde van introductie/begin les\n-Einde van de les/afscheid.",
@@ -33,7 +36,9 @@
     }
   },
   "homescreen": {
-    "room_explanation": "Maak de sessie in op het apparaat waarmee de museumdocent werkt - en vol deze code in op de schermen in het lokaal."
+    "intro": "Het docentportaal voor de interactieve introductie voor het onderwijsprogramma 'stroom geeft energie'. Deze applicatie wordt gebruikt tijdens de introductie om de interesse van de leerlingen op te wekken in een interactieve en moderne omgeving.",
+    "room_explanation": "Maak de sessie aan met de schoolnaam en klasnaam van de groep leerlingen - en gebruik de verkregen code om alle schermen te verbinden.\n\nDeze code kan ingevuld worden voor de geprojecteerde schermen in de lokalen, waarna er naar \"Leerlingenscherm\" genavigeerd kan worden.\nOp de tablets of mobiele apparaten van de museumdocenten kan de code ingevoerd worden en genavigeerd worden naar \"Docentenscherm\".",
+    "login_cta": "Inloggen vereist"
   },
   "adminscreen": {
     "explanation": "Dit is het beheerscherm! Hier kunnen de verschillende aspecten van de applicatie aangepast en onderhouden worden. ",

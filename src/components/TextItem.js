@@ -16,7 +16,8 @@ export class TextItem extends React.Component {
             deleteCheck: false,
             data: {
                 text: this.props.text,
-                order: this.props.order
+                order: this.props.order,
+                user_logged_in: this.props.user_logged_in
             }
         };
     }
@@ -60,13 +61,16 @@ export class TextItem extends React.Component {
                      name={this.props.id}>
 
                 <div className="drag col-2 col-lg-1">
-                    <img className={"drag__icon"} src={iconReorder} alt="drag reorder icon" title={"sleep om de volgorde te veranderen"}/>
+                    {this.state.user_logged_in &&
+                        <img className={"drag__icon"} src={iconReorder} alt="drag reorder icon" title={"sleep om de volgorde te veranderen"}/>
+                    }
                 </div>
 
                 <div className="value col-9 col-lg-9">
                     <label htmlFor="text" className="label">Tekst</label>
                     <textarea className={"input input--textarea"}
                               name={"text"}
+                              disabled={!this.state.user_logged_in}
                               defaultValue={this.props.text}
                               onChange={this.handleChange.bind(this)}
                               onBlur={(e)=>{this.handleSave(e.target)}}/>
@@ -75,6 +79,7 @@ export class TextItem extends React.Component {
                 <div className="actions col-6 offset-6 col-lg-2 offset-lg-0 mt-5 mt-lg-0">
                     {this.state.deleteCheck &&
                         <button className="actions__button actions__button--deleteConfirm"
+                                disabled={!this.state.user_logged_in}
                                 onClick={this.handleDelete.bind(this)}
                                 title={"Verwijder"}>
                             <img src={iconConfirm} alt="confirm icon" className="icon"/>
@@ -83,12 +88,14 @@ export class TextItem extends React.Component {
                     {this.state.deleteCheck
                         ?
                         <button className="actions__button actions__button--deleteCancel"
+                                disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.setState({deleteCheck: false})}}
                                 title={"Niet verwijderen"}>
                             <img src={iconCancel} alt="cancel icon" className="icon"/>
                         </button>
                         :
                         <button className="actions__button actions__button--deleteCheck"
+                                disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.setState({deleteCheck: true})}}
                                 title={"Verwijder deze tekst"}>
                             <img src={iconDelete} alt="delete icon" className="icon"/>

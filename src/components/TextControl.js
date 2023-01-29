@@ -16,7 +16,8 @@ export class TextControl extends React.Component {
             progressionBarWidth: "0%",
             lessonIndex: 0,
             roomcode: this.props.roomcode,
-            text: {}
+            text: {},
+            user_logged_in: this.props.user_logged_in
         };
     }
 
@@ -156,11 +157,13 @@ export class TextControl extends React.Component {
                 </div>
                 <div className="controlButtons">
                     <button className={"button button--decrease"}
+                            disabled={!this.state.user_logged_in}
                             onClick={()=>{this.updateLessonIndex(-1)}}
                             tite={textData.teacherscreen.buttons.increaseLessonIndex}>
                         <img src={iconArrow} alt="arrow icon" className="icon"/>
                     </button>
                     <button className={"button button--increase"}
+                            disabled={!this.state.user_logged_in}
                             onClick={()=>{this.updateLessonIndex(1)}}
                             tite={textData.teacherscreen.buttons.decreaseLessonIndex}>
                         <img src={iconArrow} alt="arrow icon" className="icon"/>

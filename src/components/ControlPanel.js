@@ -15,7 +15,8 @@ export class ControlPanel extends React.Component {
         this.state = {
             roomcode: this.props.roomcode,
             puzzles: null,
-            score: 0
+            score: 0,
+            user_logged_in: this.props.user_logged_in
         };
     }
 
@@ -64,6 +65,7 @@ export class ControlPanel extends React.Component {
                     counter={index + 1}
                     name={item.name}
                     data={item}
+                    user_logged_in={this.state.user_logged_in}
                     awardPointsHook={()=>{this.changeScore(parseInt(this.state.score) + parseInt(item.worth))}}/>
             })
             //set array as state
@@ -104,9 +106,11 @@ export class ControlPanel extends React.Component {
 
                     <div className="col-12 col-md-6 mt-5 mt-md-0">
                         <button className="pointButton pointButton--decrease"
+                                disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.changeScore(this.state.score - 1)}}
                                 title={textData.teacherscreen.buttons.decreaseScore}> </button>
                         <button className="pointButton pointButton--increase"
+                                disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.changeScore(this.state.score + 1)}}
                                 title={textData.teacherscreen.buttons.increaseScore}> </button>
                     </div>

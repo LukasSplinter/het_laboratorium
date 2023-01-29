@@ -16,6 +16,7 @@ export class RoomNav extends React.Component {
         this.joinSchoolname = React.createRef();
         this.state = {
             joinType: null,
+            user_logged_in: this.props.user_logged_in
         };
     }
 
@@ -27,8 +28,18 @@ export class RoomNav extends React.Component {
             let roomCode = await DATABASE.createRoom(className, schoolName);
 
             this.props.joinRoomHook(roomCode, this.joinSchoolname.current);
+            this.joinSchoolname.current.classList.add("success");
+            this.joinClassname.current.classList.add("success");
 
-            Scroll.animateScroll.scrollToTop({duration: 1000, smooth: "linear"})
+            //timeout with feedback clear
+            setTimeout(()=>{
+                this.joinSchoolname.current.classList.remove("success", "failure");
+                this.joinSchoolname.current.value = "";
+                this.joinClassname.current.classList.remove("success", "failure");
+                this.joinClassname.current.value = "";
+
+                Scroll.animateScroll.scrollToTop({duration: 1000, smooth: "linear"})
+            }, 1000);
         } catch (err) {
             console.error(err)
         }
@@ -38,17 +49,21 @@ export class RoomNav extends React.Component {
     render() {
         return (
             <section className={"roomNav"}>
-                <button className={"roomNav__button primary"} onClick={()=>{
-                    this.setState({joinType: "create"});
-                }}>{textData.buttons.create_room}</button>
-
-                {this.state.joinType === "create" &&
-                    <div className="input input--create">
-                        <input type="text" placeholder={"schoolnaam"} ref={this.joinSchoolname}/>
-                        <input type="text" placeholder={"klas"} ref={this.joinClassname}/>
-                        <button className={"submit"} onClick={this.createRoom.bind(this)}></button>
-                    </div>
+                <h2 className="title">{textData.buttons.create_room}</h2>
+                {!this.state.user_logged_in &&
+                    <span className="login-cta">{textData.homescreen.login_cta}</span>
                 }
+                <div className="input input--create">
+                    <input type="text" placeholder={"schoolnaam"}
+                           disabled={!this.state.user_logged_in}
+                           ref={this.joinSchoolname}/>
+                    <input type="text" placeholder={"klas"}
+                           disabled={!this.state.user_logged_in}
+                           ref={this.joinClassname}/>
+                    <button className={"submit"}
+                            disabled={!this.state.user_logged_in}
+                            onClick={this.createRoom.bind(this)}></button>
+                </div>
             </section>
         );
     }

@@ -19,7 +19,8 @@ export class TextPanel extends React.Component {
         this.path = this.props.path;
         this.state = {
             textItems: [],
-            loading: true
+            loading: true,
+            user_logged_in: this.props.user_logged_in
         };
 
         this.placeholder = <div className="textItem dragcontainer"><h2>Verplaats tekstelement</h2></div>
@@ -100,14 +101,16 @@ export class TextPanel extends React.Component {
             <section className={"textPanel"}>
                 <h3 className="title">{this.props.title}</h3>
 
-                <div className="textCreate">
-                    <TextCreate refreshTextHook={this.fetchText.bind(this)}
-                                path={this.props.path.toString()} />
-                </div>
-
+                {this.state.user_logged_in &&
+                    <div className="textCreate">
+                        <TextCreate refreshTextHook={this.fetchText.bind(this)}
+                                    path={this.props.path.toString()} />
+                    </div>
+                }
 
                 {this.state.textItems.length > 0
                     ? <Reorder
+                        disabled={!this.props.user_logged_in}
                         className={"textItems"}
                         reorderId={"text-items-" + this.props.path}
                         placeholderClassName="drag-placeholder"

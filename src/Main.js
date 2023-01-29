@@ -17,7 +17,7 @@ export class Main extends React.Component {
         this.state = {
             user_logged_in: false,
             user_data: {},
-            roomcode: "20121",
+            roomcode: "",
             window: "home",
         };
     }
@@ -103,13 +103,14 @@ export class Main extends React.Component {
                         loginHook={this.userLoggedInHook.bind(this)}
                         logoutHook={this.userLoggedOutHook.bind(this)}
                         activeWindow={this.state.window}
-                        userLoggedIn={this.state.user_logged_in}/>
+                        user_logged_in={this.state.user_logged_in}/>
 
                 {this.state.window === "home" && <Home roomcode={this.state.roomcode}
+                                                       user_logged_in={this.state.user_logged_in}
                                                        switchRoomHook={this.switchRoomHook.bind(this)}/>}
-                {this.state.window === "teacher" && <Teacher roomcode={this.state.roomcode}/>}
+                {this.state.window === "teacher" && <Teacher roomcode={this.state.roomcode} user_logged_in={this.state.user_logged_in}/>}
                 {this.state.window === "student" && <Student roomcode={this.state.roomcode}/>}
-                {this.state.window === "admin" && <Admin />}
+                {this.state.window === "admin" && <Admin user_logged_in={this.state.user_logged_in}/>}
 
                 {this.state.window === "fallback" && < Home/>}
             </main>

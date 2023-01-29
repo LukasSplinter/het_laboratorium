@@ -10,7 +10,8 @@ export class PuzzleControl extends React.Component {
         super(props);
         this.state = {
             pointsClicked: false,
-            description: "closed"
+            description: "closed",
+            user_logged_in: this.props.user_logged_in
         };
     }
 
@@ -29,7 +30,7 @@ export class PuzzleControl extends React.Component {
                 <div className="puzzleControl__counter col-4 col-lg-2"><span>{this.props.counter}</span></div>
                 <h3 className="puzzleControl__name col-7 offset-1 col-lg-5 offset-lg-0">{this.props.name}</h3>
 
-                <button disabled={this.state.pointsClicked}
+                <button disabled={this.state.pointsClicked || !this.state.user_logged_in}
                 className={"puzzleControl__reward col-10 col-lg-4 " + (this.state.pointsClicked ? "success" : "")}
                 onClick={ () => {
                     this.props.awardPointsHook(this.props.data.worth);

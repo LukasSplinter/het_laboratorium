@@ -16,7 +16,8 @@ export class RoomAdmin extends React.Component {
         this.state = {
             deleteCheck: false,
             saveSuccesful: false,
-            data: this.props.data
+            data: this.props.data,
+            user_logged_in: this.props.user_logged_in
         }
 
         // Bind the event handlers to this component
@@ -75,6 +76,7 @@ export class RoomAdmin extends React.Component {
                 <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="name">klasnaam</label>
                     <input id={"name"} className={"room__value__input"} name="naam" defaultValue={name}
+                           disabled={!this.state.user_logged_in}
                            onChange={this.handleChange}
                            onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
@@ -82,6 +84,7 @@ export class RoomAdmin extends React.Component {
                 <div className="room__value col-6 col-lg-3">
                     <label className={"room__value__label"} htmlFor="school">schoolnaam</label>
                     <input id={"school"} className={"room__value__input"} name="school" defaultValue={school}
+                           disabled={!this.state.user_logged_in}
                            onChange={this.handleChange}
                            onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
@@ -89,22 +92,29 @@ export class RoomAdmin extends React.Component {
                 <div className="room__value col-6 col-lg-3 mt-5 mt-lg-0">
                     <label className={"room__value__label"} htmlFor="score">aantal punten</label>
                     <input id={"score"} className={"room__value__input"} name="score" defaultValue={score}
+                           disabled={!this.state.user_logged_in}
                            onChange={this.handleChange}
                            onBlur={(e)=>{this.handleSave(this.props.roomKey, e.target)}}/>
                 </div>
 
                 <div className="room__actions col-6 col-lg-2 offset-lg-1 mt-5 mt-lg-0">
                     {this.state.deleteCheck &&
-                        <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"} onClick={()=>{this.setState({deleteCheck: false})}}>
+                        <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"}
+                                onClick={()=>{this.setState({deleteCheck: false})}}
+                                disabled={!this.state.user_logged_in}>
                             <img className={"icon"} src={iconCancel} alt="cancel icon"/>
                         </button>
                     }
 
                     {this.state.deleteCheck == false
-                        ? <button title={"verwijder deze sessie"} className={"room__actions__button room__actions__button--deleteCheck"} onClick={()=>{this.setState({deleteCheck: true})}}>
+                        ? <button title={"verwijder deze sessie"} className={"room__actions__button room__actions__button--deleteCheck"}
+                                  disabled={!this.state.user_logged_in}
+                                  onClick={()=>{this.setState({deleteCheck: true})}}>
                             <img className={"icon"} src={iconDelete} alt="delete icon"/>
                         </button>
-                        : <button title={"verwijder sessie wel"} className={"room__actions__button room__actions__button--deleteConfirm"} onClick={this.handleDelete.bind(this, this.props.roomKey)}>
+                        : <button title={"verwijder sessie wel"} className={"room__actions__button room__actions__button--deleteConfirm"}
+                                  disabled={!this.state.user_logged_in}
+                                  onClick={this.handleDelete.bind(this, this.props.roomKey)}>
                             <img className={"icon"} src={iconConfirm} alt="confirm delete icon"/>
                         </button>
                     }

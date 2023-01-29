@@ -12,3 +12,9 @@ html {
     border: none;
     list-style: none;
 }
+
+button, input {
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
