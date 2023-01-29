@@ -137,7 +137,6 @@ export const changeScore = (roomcode, score) => {
 
 
 /**
- * TODO: room template incorporation, move to abstract function?
  * updates a room, given roomnumber and data
  * @param roomcode
  * @param data
@@ -147,10 +146,11 @@ export const updateRoom = (roomcode, data) => {
     return new Promise((resolve, reject) => {
         let newData = {};
         newData['rooms/' + roomcode] = {
-            introductionIndex: data.introductionIndex,
+            lessonIndex: data.lessonIndex,
             name: data.name,
             school: data.school,
-            score: data.score
+            score: data.score,
+            date: data.date
         };
 
         update(dbRef, newData).then(() => {

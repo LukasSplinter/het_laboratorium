@@ -42,14 +42,6 @@ export class Student extends React.Component {
 
         this.unsubscribeScore = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
             (score) => {this.updateScore(score)});
-
-
-        // this.setState({startTimer: true});
-        //
-        // this.hintInterval = setInterval(()=>{
-        //         this.setState({dialogue: textData.studentscreen.volta_lines.hint[
-        //             Math.floor(Math.random() * textData.studentscreen.volta_lines.hint.length)]})
-        //     }, 30000)
     }
 
     componentWillUnmount() {
@@ -75,11 +67,23 @@ export class Student extends React.Component {
         });
         this.setState({dialogue: allText[lessonIndex]})
 
-        //when introductiontext is finished
-        if (lessonIndex >= this.state.text["introductionText"].length - 1) {
+        //when lesson is ending
+        if (lessonIndex >= (this.state.text["introductionText"].length + this.state.text["startLessonText"].length)) {
+            this.setState({
+                ending: true
+            });
+
+            //todo score?
+            // let endInterval = setInterval(() => {
+            //     let newScore = Math.max(this.state.score - 3, 0);
+            //     this.setState({score: newScore})
+            // }, 2000)
+        }
+        //when introduction assignments are starting / introduction begin
+        else if (lessonIndex >= this.state.text["introductionText"].length - 1) {
             this.setState({
                 dialogueFocussed: false,
-                startTimer: true
+                startTimer: true,
             });
         }
     }
@@ -133,6 +137,8 @@ export class Student extends React.Component {
 
     updateScore(score) {
         this.setState({score: score});
+
+
     }
 
 
@@ -144,7 +150,8 @@ export class Student extends React.Component {
     render() {
         let scoreSplit = this.state.score.toString().padStart(3, "0").split("");
         return (
-            <section className="student screen">
+            <section className={"student screen " +
+                (this.state.ending ? "ending " : "")}>
                 <ProgressBar duration={this.state.duration} start={this.state.startTimer}/>
                 <div className="voltaContainer">
                     <div className="scoreCounter">
@@ -160,7 +167,6 @@ export class Student extends React.Component {
                 <VoltaPortrait focussed={this.state.dialogueFocussed} dialogue={this.state.dialogue} />
 
                 <section className="unlockable">
-                    {/*todo tomorrow 28-1-23: unlocked classes maybe better?*/}
                     <article className="unlockable__item unlockable__item--door">
                         <img className={"item " + (this.state.score > 0 ? "unlocked " : "")} src={itemDoor} alt="een getekende oude deur"/>
                     </article>
@@ -180,6 +186,10 @@ export class Student extends React.Component {
                         <img className={"shelf " + (this.state.score > 30 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
                         <img className={"item " + (this.state.score > 33 ? "unlocked " : "")} src={itemLamp} alt="een getekende oude lamp"/>
                     </article>
+                </section>
+
+                <section className="endingPlasma">
+                    <img className={"img"} src={itemPlasma} alt="plasmabol"/>
                 </section>
             </section>
         );

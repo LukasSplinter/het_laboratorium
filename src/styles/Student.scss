@@ -26,6 +26,8 @@
         background-color: $black-transparent;
         backdrop-filter: blur(3rem);
 
+        transition: 2s left;
+
         & .scoreCounter {
             position: absolute;
             left: 50%;
@@ -58,6 +60,8 @@
         z-index: 2;
         left: 50%;
         bottom: 0;
+
+        transition: 2s left;
     }
 
     .unlockable {
@@ -69,6 +73,8 @@
         height: 100%;
 
         overflow: hidden;
+
+        transition: 2s opacity;
 
 
         &__item {
@@ -134,19 +140,48 @@
         }
     }
 
+    .endingPlasma {
+        position: absolute;
+        left: 60%;
+        bottom: 0;
+
+        width: 35rem;
+
+        opacity: 0;
+        transition: 2s opacity;
+
+        & > .img {
+            width: 100%;
+        }
+    }
+
 
     &.ending {
         & .voltaContainer {
             left: 50%;
             transform: translateX(-50%);
+
+            & .layer {
+                &::before, &::after {
+                    content: none !important;
+                }
+            }
         }
 
         & .VoltaPortrait {
             left: 10%;
+
+            & .img {
+                transform: rotateY(0deg);
+            }
         }
 
         & .unlockable {
             opacity: 0;
+        }
+
+        & .endingPlasma {
+            opacity: 1;
         }
     }
 }

@@ -118,8 +118,8 @@
         .lightning-bolt {
             position: absolute;
 
-            min-width: 4rem;
-            min-height: 6rem;
+            min-width: 3rem;
+            min-height: 5rem;
 
             background-image: url("../assets/lightning-bolt1.svg");
             background-repeat: no-repeat;
@@ -145,12 +145,12 @@
                     //flip half the bolts
                     @if $i % 2 == 0 {
                         &:nth-of-type(#{$i}) {
-                            right: 1.5rem - ($i * 0.3rem);
+                            right: 1.5rem - ($i * 0.3rem) + random(2);
                             animation: 3s linear $delay infinite bolt-shake;
                         }
                     } @else {
                         &:nth-of-type(#{$i}) {
-                            left: 1.5rem - ($i * 0.3rem);
+                            left: 1.5rem - ($i * 0.3rem) + random(2);
 
                             transform: scaleX(-1);
                             animation: 3s linear $delay infinite bolt-shake-mirrored;
