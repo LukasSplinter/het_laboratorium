@@ -25,6 +25,14 @@ export class RoomAdmin extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props ) return;
+
+        this.setState({
+            user_logged_in: this.props.user_logged_in
+        });
+    }
+
     handleChange(event) {
         // Update the state with the new value for the field being edited
         let { name, value } = event.target;

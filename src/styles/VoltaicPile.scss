@@ -182,13 +182,13 @@
         transform: rotate(0deg) translate3d(0, 0, 0);
     }
     25% {
-        transform: rotate(5deg) translate3d(0, .5rem, 0);
+        transform: rotate(5deg) translate3d(1.5rem, .5rem, 0);
     }
     50% {
         transform: rotate(0deg) translate3d(0, 0, 0);
     }
     75% {
-        transform: rotate(-5deg) translate3d(0, -.5rem, 0);
+        transform: rotate(-5deg) translate3d(-1.5rem, -.5rem, 0);
     }
     100% {
         transform: rotate(0deg) translate3d(0, 0, 0);
@@ -199,13 +199,13 @@
         transform: scaleX(-1) rotate(0deg) translate3d(0, 0, 0);
     }
     25% {
-        transform: scaleX(-1) rotate(5deg) translate3d(0, .5rem, 0);
+        transform: scaleX(-1) rotate(5deg) translate3d(1.5rem, .5rem, 0);
     }
     50% {
         transform: scaleX(-1) rotate(0deg) translate3d(0, 0, 0);
     }
     75% {
-        transform: scaleX(-1) rotate(-5deg) translate3d(0, -.5rem, 0);
+        transform: scaleX(-1) rotate(-5deg) translate3d(-1.5rem, -.5rem, 0);
     }
     100% {
         transform: scaleX(-1) rotate(0deg) translate3d(0, 0, 0);

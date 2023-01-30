@@ -16,6 +16,7 @@ import itemPlasma from "../assets/art_plasmaball.svg";
 import itemPile from "../assets/art_voltaic.svg";
 import itemStratingh from "../assets/art_stratingh.svg";
 import itemDoor from "../assets/art_door.svg";
+import itemPlasmaArc from "../assets/plasmaball_arc.svg";
 
 export class Student extends React.Component {
     constructor(props) {
@@ -168,28 +169,31 @@ export class Student extends React.Component {
 
                 <section className="unlockable">
                     <article className="unlockable__item unlockable__item--door">
-                        <img className={"item " + (this.state.score > 0 ? "unlocked " : "")} src={itemDoor} alt="een getekende oude deur"/>
+                        <img className={"item " + (this.state.score > 0 || this.state.ending ? "unlocked " : "")} src={itemDoor} alt="een getekende oude deur"/>
                     </article>
                     <article className="unlockable__item unlockable__item--voltaic">
-                        <img className={"shelf " + (this.state.score > 3 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
-                        <img className={"item " + (this.state.score > 6 ? "unlocked " : "")} src={itemPile} alt="een getekende zuil van volta"/>
-                    </article>
-                    <article className="unlockable__item unlockable__item--plasma">
-                        <img className={"shelf " + (this.state.score > 9 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
-                        <img className={"item " + (this.state.score > 12 ? "unlocked " : "")} src={itemPlasma} alt="een getekende plasmabol"/>
+                        <img className={"shelf " + (this.state.score > 3 || this.state.ending ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 6 || this.state.ending ? "unlocked " : "")} src={itemPile} alt="een getekende zuil van volta"/>
                     </article>
                     <article className="unlockable__item unlockable__item--stratingh">
-                        <img className={"shelf " + (this.state.score > 21 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
-                        <img className={"item " + (this.state.score > 23 ? "unlocked " : "")} src={itemStratingh} alt="een getekent wagentje van stratingh"/>
+                        <img className={"shelf " + (this.state.score > 21 || this.state.ending ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 23 || this.state.ending ? "unlocked " : "")} src={itemStratingh} alt="een getekent wagentje van stratingh"/>
                     </article>
                     <article className="unlockable__item unlockable__item--lamp">
-                        <img className={"shelf " + (this.state.score > 30 ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
-                        <img className={"item " + (this.state.score > 33 ? "unlocked " : "")} src={itemLamp} alt="een getekende oude lamp"/>
+                        <img className={"shelf " + (this.state.score > 30 || this.state.ending ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 33 || this.state.ending ? "unlocked " : "")} src={itemLamp} alt="een getekende oude lamp"/>
+                    </article>
+                    <article className="unlockable__item unlockable__item--plasma">
+                        <img className={"shelf " + (this.state.score > 9 || this.state.ending ? "unlocked " : "")} src={itemShelf} alt="een getekende plank" />
+                        <img className={"item " + (this.state.score > 12 || this.state.ending ? "unlocked " : "")} src={itemPlasma} alt="een getekende plasmabol"/>
                     </article>
                 </section>
 
                 <section className="endingPlasma">
                     <img className={"img"} src={itemPlasma} alt="plasmabol"/>
+                    <div className="arc">
+                        <img className={"img"} src={itemPlasmaArc} alt="plasmabol stroom"/>
+                    </div>
                 </section>
             </section>
         );

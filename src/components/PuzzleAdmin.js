@@ -24,6 +24,14 @@ export class PuzzleAdmin extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props ) return;
+
+        this.setState({
+            user_logged_in: this.props.user_logged_in
+        });
+    }
+
     handleChange(event) {
         // Update the state with the new value for the field being edited
         let { name, value } = event.target;
@@ -36,6 +44,7 @@ export class PuzzleAdmin extends React.Component {
         try {
             let result = await DATABASE.removeNode("puzzles/" + puzzleName);
         } catch (err) {
+            window.alert("Er is iets fout gegaan bij het verwijderen, probeer het later opnieuw of refresh de pagina en kijk of de opdracht nog bestaat");
             console.error(err)
         }
 
@@ -54,7 +63,7 @@ export class PuzzleAdmin extends React.Component {
             }, 1000);
 
         } catch (err) {
-            //window.alert("Er is iets fout gegaan bij het opslaan, probeer het later opnieuw of refresh de pagina en kijk of de opdracht nog bestaat");
+            window.alert("Er is iets fout gegaan bij het opslaan, probeer het later opnieuw of refresh de pagina en kijk of de opdracht nog bestaat");
             console.error(err)
         }
     }

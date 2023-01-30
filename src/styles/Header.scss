@@ -232,6 +232,8 @@
         border-radius: .4rem;
         padding: 1rem 3rem;
 
+        box-shadow: transparentize($black-transparent, 0.2) .3rem .3rem 1rem;
+
         &__text {
            @include paragraph;
             color: $white;

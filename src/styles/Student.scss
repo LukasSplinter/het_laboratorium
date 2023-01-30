@@ -10,6 +10,8 @@
     background-image: linear-gradient(0deg, rgba(0,0,0,1) 5%, rgba(0,0,0,0.5) 100%), url("../assets/art_wallpaper.svg");
     background-repeat: repeat;
 
+    overflow: hidden;
+
     .progressBar {
         z-index: 3;
     }
@@ -142,46 +144,69 @@
 
     .endingPlasma {
         position: absolute;
-        left: 60%;
+        right: 5rem;
         bottom: 0;
 
         width: 35rem;
+        height: 38rem;
 
         opacity: 0;
         transition: 2s opacity;
 
         & > .img {
+            position: absolute;
+            left: 0;
+            top: 0;
+
             width: 100%;
+        }
+
+        & .arc {
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            top: -8rem;
+
+            display: block;
+            width: 45rem;
+
+            & > .img {
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                width: 100%;
+
+                animation: 10s linear 0s infinite plasma-glow;
+
+                scale: 0;
+                transition: 4s scale;
+            }
         }
     }
 
 
     &.ending {
         & .voltaContainer {
-            left: 50%;
-            transform: translateX(-50%);
-
-            & .layer {
-                &::before, &::after {
-                    content: none !important;
+            .layer {
+                &::after, &::before {
+                    content: none;
                 }
             }
         }
 
-        & .VoltaPortrait {
-            left: 10%;
+        & .endingPlasma {
+            opacity: 1;
 
-            & .img {
-                transform: rotateY(0deg);
+            & .arc > .img {
+                scale: 1;
             }
         }
 
-        & .unlockable {
-            opacity: 0;
-        }
-
-        & .endingPlasma {
-            opacity: 1;
+        .unlockable {
+            &__item--plasma {
+                opacity: 0;
+            }
         }
     }
 }
@@ -211,5 +236,44 @@
     100% {
         opacity: 1;
         scale: 1;
+    }
+}
+
+@keyframes ending-bolt-shake {
+    0% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    25% {
+        transform: rotate(0deg) translate3d(1.5rem, 0, 0);
+    }
+    50% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    75% {
+        transform: rotate(0deg) translate3d(-1.5rem, 0, 0);
+    }
+    100% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+}
+@keyframes plasma-glow {
+    5%,15%,25%,35%,45%,55%,65%,75%,85%,95% {
+        filter: invert(80%) sepia(97%) saturate(392%) hue-rotate(146deg) brightness(93%) contrast(90%);
+
+    }
+    10%,20%,30%,40%,60%,70%,80%,90% {
+        filter: invert(49%) sepia(97%) saturate(392%) hue-rotate(146deg) brightness(93%) contrast(90%);
+    }
+    0% {
+        transform: rotateZ(0deg);
+        filter: invert(76%) sepia(49%) saturate(1034%) hue-rotate(157deg) brightness(99%) contrast(101%)
+    }
+    50% {
+        transform: rotateZ(180deg);
+        filter: invert(49%) sepia(97%) saturate(392%) hue-rotate(146deg) brightness(93%) contrast(90%);
+    }
+    100% {
+        transform: rotateZ(360deg);
+        filter: invert(76%) sepia(49%) saturate(1034%) hue-rotate(157deg) brightness(99%) contrast(101%)
     }
 }

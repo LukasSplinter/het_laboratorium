@@ -13,13 +13,21 @@ export class TextItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_logged_in: this.props.user_logged_in,
             deleteCheck: false,
             data: {
                 text: this.props.text,
                 order: this.props.order,
-                user_logged_in: this.props.user_logged_in
             }
         };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props ) return;
+
+        this.setState({
+            user_logged_in: this.props.user_logged_in
+        });
     }
 
     async handleDelete() {

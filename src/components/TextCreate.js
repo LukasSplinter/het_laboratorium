@@ -17,6 +17,7 @@ export class TextCreate extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+
     handleChange(event) {
         // Update the state with the new value for the field being edited
         let { name, value } = event.target;

@@ -29,8 +29,22 @@ export class Admin extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props) return;
+
+        this.setState({
+            roomcode: this.props.roomcode,
+            user_logged_in: this.props.user_logged_in
+        }, ()=>{
+            this.fetchAll();
+        });
+    }
 
     componentDidMount(){
+        this.fetchAll();
+    }
+
+    async fetchAll() {
         this.fetchRooms();
         this.fetchPuzzles();
         this.fetchSettings();

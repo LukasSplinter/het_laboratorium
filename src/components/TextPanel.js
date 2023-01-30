@@ -31,6 +31,16 @@ export class TextPanel extends React.Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props ) return;
+
+        this.setState({
+            user_logged_in: this.props.user_logged_in
+        }, ()=>{
+            this.fetchText();
+        });
+    }
+
 
     async fetchText() {
         try {
@@ -46,6 +56,7 @@ export class TextPanel extends React.Component {
                 let id = Object.keys(response)[index];
 
                 return <TextItem key={id}
+                                 user_logged_in={this.state.user_logged_in}
                                  path={this.props.path}
                                  id={id}
                                  order={item.order}
