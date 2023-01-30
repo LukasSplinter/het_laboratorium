@@ -21,6 +21,11 @@
       "increaseLessonIndex": "Naar het volgende tekstartikel",
       "decreaseScore": "Haal een punt van de score af",
       "increaseScore": "Voeg een punt toe bij de score"
+    },
+    "labels": {
+      "next_text": "volgende tekst:",
+      "current_text": "huidige tekst:",
+      "text_empty": "Geen tekst - dit is het einde van de les"
     }
   },
   "studentscreen": {

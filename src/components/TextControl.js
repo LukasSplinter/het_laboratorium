@@ -17,6 +17,7 @@ export class TextControl extends React.Component {
             lessonIndex: 0,
             roomcode: this.props.roomcode,
             text: {},
+            allText: [],
             user_logged_in: this.props.user_logged_in
         };
     }
@@ -28,12 +29,18 @@ export class TextControl extends React.Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props) return;
 
-    componentWillUnmount() {
+        this.setState({
+            roomcode: this.props.roomcode,
+            user_logged_in: this.props.user_logged_in
+        })
     }
 
     async fetchText() {
         try {
+            let allText = [];
             let totalTextLength = 0;
             let introductionText = await DATABASE.getData("text/introduction");
             let startLessonText = await DATABASE.getData("text/startLesson");
@@ -61,6 +68,7 @@ export class TextControl extends React.Component {
                         totalTextLength++;
                         categorySize++;
 
+                        allText.push(text.text)
                         return text.text;
                     });
 
@@ -72,7 +80,10 @@ export class TextControl extends React.Component {
             });
 
             this.maxLessonIndex = totalTextLength;
-            this.setState({text: parsedText});
+            this.setState({
+                text: parsedText,
+                allText: allText
+            });
 
         } catch (err) {
             this.setState({text: {}});
@@ -123,12 +134,14 @@ export class TextControl extends React.Component {
         try {
             //get and modify current score
             let currentScore = await DATABASE.getData(path);
-            let newIndex = Math.min(Math.max((currentScore + amount), 0), this.maxLessonIndex);
+            let newIndex = Math.min(Math.max((currentScore + amount), 0), this.maxLessonIndex - 1);
 
             //update current score
             let response = await DATABASE.setData(path, newIndex);
 
             this.updateVisualProgress(newIndex);
+
+            this.setState({lessonIndex: newIndex})
 
         } catch (err) {
             console.error(err);
@@ -137,9 +150,22 @@ export class TextControl extends React.Component {
 
 
     render() {
-
         return (
             <section className="textControl container">
+                <div className="textpreview">
+                    <span className={"textpreview__next " +
+                        ((this.state.lessonIndex >= this.maxLessonIndex - 1) ? "final" : "")}>
+                        <span className="label">{textData.teacherscreen.labels.next_text}</span>
+                        {(this.state.lessonIndex < this.maxLessonIndex - 1)
+                            ? this.state.allText[this.state.lessonIndex + 1]
+                            : textData.teacherscreen.labels.text_empty
+                        }
+                    </span>
+                    <p className="textpreview__current">
+                        <span className="label">{textData.teacherscreen.labels.current_text}</span>
+                        "{this.state.allText[this.state.lessonIndex]}"
+                    </p>
+                </div>
                 <div className="progression">
                     <div name={"welcome"} className="checkpoint">
                         <label htmlFor="welcome">1</label>

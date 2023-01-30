@@ -23,6 +23,15 @@ export class Teacher extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props) return;
+
+        this.setState({
+            roomcode: this.props.roomcode,
+            user_logged_in: this.props.user_logged_in
+        })
+    }
+
     render() {
         return (
             <section className="Teacher screen">

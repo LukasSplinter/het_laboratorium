@@ -73,12 +73,6 @@ export class Student extends React.Component {
             this.setState({
                 ending: true
             });
-
-            //todo score?
-            // let endInterval = setInterval(() => {
-            //     let newScore = Math.max(this.state.score - 3, 0);
-            //     this.setState({score: newScore})
-            // }, 2000)
         }
         //when introduction assignments are starting / introduction begin
         else if (lessonIndex >= this.state.text["introductionText"].length - 1) {

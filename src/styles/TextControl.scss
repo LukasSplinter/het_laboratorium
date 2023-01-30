@@ -5,9 +5,52 @@
 .textControl {
     position: relative;
 
-    .explanation {
-        @include paragraph;
-        font-size: 1.8rem;
+    .textpreview {
+        position: relative;
+        padding: 4rem 3rem 3rem;
+
+        background-color: $primary-transparent;
+
+        &__next {
+            position: absolute;
+            left: 3rem;
+            top: 2rem;
+
+            @include paragraph;
+            font-size: 1.2rem;
+            color: $black;
+
+            &.final {
+                color: $failure;
+            }
+
+            & > .label {
+                @include label;
+                font-size: 1rem;
+                color: $off-black;
+
+                margin-right: 2rem;
+            }
+        }
+        &__current {
+            position: relative;
+
+            padding-top: 3rem;
+
+            @include paragraph;
+            font-size: 1.6rem;
+            color: $black;
+
+            & > .label {
+                position: absolute;
+                left: 0;
+                top: 1.5rem;
+
+                @include label;
+                font-size: 1rem;
+                color: $off-black;
+            }
+        }
     }
 
     .progression {
