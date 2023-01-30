@@ -103,7 +103,8 @@ export class Main extends React.Component {
                         loginHook={this.userLoggedInHook.bind(this)}
                         logoutHook={this.userLoggedOutHook.bind(this)}
                         activeWindow={this.state.window}
-                        user_logged_in={this.state.user_logged_in}/>
+                        user_logged_in={this.state.user_logged_in}
+                        user={this.state.user_data}/>
 
                 {this.state.window === "home" && <Home roomcode={this.state.roomcode}
                                                        user_logged_in={this.state.user_logged_in}

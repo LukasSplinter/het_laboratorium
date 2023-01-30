@@ -44,6 +44,7 @@ export class Header extends React.Component {
             let response = await DATABASE.signInWithGoogle();
             this.props.loginHook(response)
         } catch(err) {
+            this.props.logoutHook();
             console.error(err);
         }
     }
@@ -109,7 +110,10 @@ export class Header extends React.Component {
                         </button>
 
                         <div className="login">
-                            <p className="text">{this.state.user_logged_in ? "log uit" : "log in"}</p>
+                            {this.state.user_logged_in
+                                ? <img className={"photo"} src={this.props.user.photoURL} referrerPolicy="no-referrer" alt="gebruiker foto"/>
+                                : <p className="text">{this.state.user_logged_in ? "log uit" : "log in"}</p>
+                            }
                             {this.state.user_logged_in
                                 ? <button className="login__button login__button--logout"
                                           title={"log uit"}

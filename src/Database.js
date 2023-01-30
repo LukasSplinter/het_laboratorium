@@ -42,13 +42,19 @@ export const signInWithGoogle = () => {
             const credential = GoogleAuthProvider.credentialFromResult(response);
             const token = credential.accessToken;
             const user = response.user;
-
+            let userDomain = user.email.split("@")[1]
             let userData = {
-                emailDomain: user.email.split("@")[1],
+                emailDomain: userDomain,
                 ...
                     user
             }
-            resolve(userData);
+            if(userDomain === "rijksmuseumboerhaave.nl" || userDomain === "museumboerhaave.nl") {
+                resolve(userData);
+            } else {
+                signOut(auth).then(() =>{
+                    reject("domain not allowed");
+                })
+            }
 
         }).catch((error) => {
             const errorCode = error.code;

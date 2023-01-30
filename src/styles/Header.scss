@@ -201,6 +201,15 @@
 
             padding-left: 3rem;
 
+            & > .photo {
+                display: block;
+                height: 3.7rem;
+                width: 3.7rem;
+                border-radius: 50%;
+
+                margin-right: 2rem;
+            }
+
             & .text {
                 @include label;
                 color: $white;
