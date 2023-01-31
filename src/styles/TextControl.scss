@@ -148,6 +148,19 @@
                 transform: scale(0.9);
             }
 
+            &:disabled {
+                background-color: transparent !important;
+                border: .2rem solid $grey-5 !important;
+
+                &:hover {
+                    transform: none;
+                }
+
+                & > .icon {
+                    filter: invert(.7);
+                }
+            }
+
             & > .icon {
                 position: relative;
                 width: 80%;

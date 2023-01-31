@@ -67,6 +67,11 @@
 
         transition: .4s background-color, .4s color;
 
+        &:disabled {
+            background-color: $grey-5 !important;
+            color: $white !important;
+        }
+
         &:not(.success):hover {
             background-color: $white;
             color: $primary;
@@ -97,8 +102,8 @@
     }
 
     &__info {
-        padding: 0rem;
-        padding-left: 2rem;
+        padding: 0rem 0rem 0rem 2rem;
+
         img {
             height: 3rem;
             width: auto;

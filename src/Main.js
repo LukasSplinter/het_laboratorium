@@ -17,8 +17,8 @@ export class Main extends React.Component {
         this.state = {
             user_logged_in: false,
             user_data: {},
-            roomcode: "20121",
-            window: "teacher",
+            roomcode: "",
+            window: "home",
         };
     }
 

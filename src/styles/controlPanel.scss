@@ -74,6 +74,19 @@
 
             position: relative;
 
+            transition: .4s transform;
+            &:hover {
+                transform: scale(0.9);
+            }
+
+            &:disabled {
+                background-color: $grey-5;
+
+                &:hover {
+                    transform: none;
+                }
+            }
+
             &::after {
                 content: '';
 
