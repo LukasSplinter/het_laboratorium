@@ -1,8 +1,7 @@
 import React from "react";
 
-import * as DATABASE from "../Database";
+import { removeNode, updateRoom } from "../Database";
 
-import iconSave from "../assets/icon-save.svg";
 import iconDelete from "../assets/icon-delete.svg";
 import iconConfirm from "../assets/icon-checkmark.svg";
 import iconCancel from "../assets/icon-cancel.svg";
@@ -43,7 +42,7 @@ export class RoomAdmin extends React.Component {
 
     async handleDelete(roomKey) {
         try {
-            let result = await DATABASE.removeNode("rooms/" + roomKey);
+            let result = await removeNode("rooms/" + roomKey);
         } catch (err) {
             console.error(err)
         }
@@ -55,7 +54,7 @@ export class RoomAdmin extends React.Component {
     async handleSave(roomKey, element) {
         if (this.state.data[element.name] === undefined) return
         try {
-            let response = await DATABASE.updateRoom(roomKey, this.state.data)
+            let response = await updateRoom(roomKey, this.state.data)
 
             //pop up succes feedback
             element.classList.add("success");
@@ -107,7 +106,8 @@ export class RoomAdmin extends React.Component {
 
                 <div className="room__actions col-6 col-lg-2 offset-lg-1 mt-5 mt-lg-0">
                     {this.state.deleteCheck &&
-                        <button title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"}
+                        <button name={"cancel verwijderen"}
+                                title={"verwijder sessie niet"} className={"room__actions__button room__actions__button--deleteCancel"}
                                 onClick={()=>{this.setState({deleteCheck: false})}}
                                 disabled={!this.state.user_logged_in}>
                             <img className={"icon"} src={iconCancel} alt="cancel icon"/>
@@ -115,12 +115,13 @@ export class RoomAdmin extends React.Component {
                     }
 
                     {this.state.deleteCheck == false
-                        ? <button title={"verwijder deze sessie"} className={"room__actions__button room__actions__button--deleteCheck"}
+                        ? <button name={"sessie verwijderen"} title={"verwijder deze sessie"} className={"room__actions__button room__actions__button--deleteCheck"}
                                   disabled={!this.state.user_logged_in}
                                   onClick={()=>{this.setState({deleteCheck: true})}}>
                             <img className={"icon"} src={iconDelete} alt="delete icon"/>
                         </button>
-                        : <button title={"verwijder sessie wel"} className={"room__actions__button room__actions__button--deleteConfirm"}
+                        : <button name={"akkoord verwijderen"}
+                                  title={"verwijder sessie wel"} className={"room__actions__button room__actions__button--deleteConfirm"}
                                   disabled={!this.state.user_logged_in}
                                   onClick={this.handleDelete.bind(this, this.props.roomKey)}>
                             <img className={"icon"} src={iconConfirm} alt="confirm delete icon"/>

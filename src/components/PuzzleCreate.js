@@ -1,14 +1,8 @@
 import React from "react";
 
-import * as DATABASE from "../Database";
-
 import "../styles/PuzzleCreate.scss";
 import "../styles/PuzzleCard.scss";
-
-import iconSave from "../assets/icon-save.svg";
-import iconCancel from "../assets/icon-cancel.svg";
-import iconDelete from "../assets/icon-delete.svg";
-import iconConfirm from "../assets/icon-checkmark.svg";
+import {setData} from "../Database";
 
 export class PuzzleCreate extends React.Component {
     constructor(props) {
@@ -65,7 +59,7 @@ export class PuzzleCreate extends React.Component {
         let internalName = this.state.data.name.replace(/[^0-9a-z]/gi, "");
 
         try {
-            let response = DATABASE.setData("puzzles/" + internalName, this.state.data);
+            let response = setData("puzzles/" + internalName, this.state.data);
 
             //refresh puzzles
             this.props.refreshPuzzlesHook();
@@ -121,7 +115,8 @@ export class PuzzleCreate extends React.Component {
                     </div>
                 </div>
 
-                <button className="confirm button"
+                <button name={"maak opdrcaht aan"}
+                        className="confirm button"
                         disabled={!this.state.user_logged_in}
                         onClick={this.createPuzzle.bind(this)}>
                     Voeg opdracht toe

@@ -1,13 +1,12 @@
 import React from 'react';
 
-import * as DATABASE from "../Database";
-
 // import "../styles/xx.scss";
 import iconDelete from "../assets/icon-delete.svg"
 import iconConfirm from "../assets/icon-checkmark.svg"
 import iconCancel from "../assets/icon-cancel.svg"
 import iconReorder from "../assets/icon-reorder.svg"
 import "../styles/TextItem.scss";
+import {removeNode, setData} from "../Database";
 
 export class TextItem extends React.Component {
     constructor(props) {
@@ -32,7 +31,7 @@ export class TextItem extends React.Component {
 
     async handleDelete() {
         try {
-            let response = await DATABASE.removeNode("text/" + this.props.path + "/" + this.props.id);
+            let response = await removeNode("text/" + this.props.path + "/" + this.props.id);
         } catch (err) {
             console.error(err)
         }
@@ -49,7 +48,7 @@ export class TextItem extends React.Component {
 
     async handleSave(element) {
         try {
-            let response = await DATABASE.setData("text/" + this.props.path + "/" + this.props.id, this.state.data);
+            let response = await setData("text/" + this.props.path + "/" + this.props.id, this.state.data);
 
             //pop up succes feedback
             element.classList.add("success");
@@ -86,7 +85,8 @@ export class TextItem extends React.Component {
 
                 <div className="actions col-6 offset-6 col-lg-2 offset-lg-0 mt-5 mt-lg-0">
                     {this.state.deleteCheck &&
-                        <button className="actions__button actions__button--deleteConfirm"
+                        <button name={"akkord verwijderen"}
+                                className="actions__button actions__button--deleteConfirm"
                                 disabled={!this.state.user_logged_in}
                                 onClick={this.handleDelete.bind(this)}
                                 title={"Verwijder"}>
@@ -95,14 +95,16 @@ export class TextItem extends React.Component {
                     }
                     {this.state.deleteCheck
                         ?
-                        <button className="actions__button actions__button--deleteCancel"
+                        <button name={"cancel verwijderen"}
+                                className="actions__button actions__button--deleteCancel"
                                 disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.setState({deleteCheck: false})}}
                                 title={"Niet verwijderen"}>
                             <img src={iconCancel} alt="cancel icon" className="icon"/>
                         </button>
                         :
-                        <button className="actions__button actions__button--deleteCheck"
+                        <button name={"tekstartikel verwijderen"}
+                                className="actions__button actions__button--deleteCheck"
                                 disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.setState({deleteCheck: true})}}
                                 title={"Verwijder deze tekst"}>

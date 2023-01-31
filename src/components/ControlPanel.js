@@ -7,7 +7,7 @@ import "../styles/controlPanel.scss";
 
 import { PuzzleControl } from "./PuzzleControl";
 import { LoadingIcon } from "./LoadingIcon";
-import * as DATABASE from "../Database";
+import {attachListener, changeScore, getData} from "../Database";
 
 export class ControlPanel extends React.Component {
     constructor(props) {
@@ -26,7 +26,7 @@ export class ControlPanel extends React.Component {
         this.fetchPuzzles();
         this.fetchDuration();
 
-        this.unsubscribe = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
+        this.unsubscribe = attachListener("rooms/" + this.state.roomcode + "/score",
             (score)=>{this.setState({score: score})});
     }
 
@@ -48,7 +48,7 @@ export class ControlPanel extends React.Component {
 
     async fetchDuration() {
         try {
-            let duration = await DATABASE.getData("settings/duration");
+            let duration = await getData("settings/duration");
             this.setState({duration: duration});
         } catch (err) {
             console.error(err)
@@ -57,7 +57,7 @@ export class ControlPanel extends React.Component {
 
     async fetchScore() {
         try {
-            let response = await DATABASE.getData("rooms/" + this.state.roomcode + "/score");
+            let response = await getData("rooms/" + this.state.roomcode + "/score");
             this.setState({score: response});
         } catch (err) {
             console.error(err)
@@ -66,7 +66,7 @@ export class ControlPanel extends React.Component {
 
     async fetchPuzzles() {
         try {
-            let response = await DATABASE.getData("puzzles");
+            let response = await getData("puzzles");
 
             //create array with puzzle data as elements
             let puzzleData = Object.values(response);
@@ -94,7 +94,7 @@ export class ControlPanel extends React.Component {
         if (score < 0) return;
 
         try {
-            let response = await DATABASE.changeScore(this.state.roomcode, score);
+            let response = await changeScore(this.state.roomcode, score);
 
             this.setState({score});
 
@@ -116,11 +116,13 @@ export class ControlPanel extends React.Component {
                     </div>
 
                     <div className="col-12 col-md-6 mt-5 mt-md-0">
-                        <button className="pointButton pointButton--decrease"
+                        <button name={"punt verwijdere "}
+                                className="pointButton pointButton--decrease"
                                 disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.changeScore(this.state.score - 1)}}
                                 title={textData.teacherscreen.buttons.decreaseScore}> </button>
-                        <button className="pointButton pointButton--increase"
+                        <button name={"punt toevoegen"}
+                                className="pointButton pointButton--increase"
                                 disabled={!this.state.user_logged_in}
                                 onClick={()=>{this.changeScore(this.state.score + 1)}}
                                 title={textData.teacherscreen.buttons.increaseScore}> </button>

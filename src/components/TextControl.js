@@ -5,8 +5,7 @@ import textData from "../data/data.json"
 import "../styles/TextControl.scss";
 import iconArrow from "../assets/icon-arrow.svg"
 
-import { LoadingIcon } from "./LoadingIcon";
-import * as DATABASE from "../Database";
+import {getData, setData} from "../Database";
 
 export class TextControl extends React.Component {
     constructor(props) {
@@ -42,9 +41,9 @@ export class TextControl extends React.Component {
         try {
             let allText = [];
             let totalTextLength = 0;
-            let introductionText = await DATABASE.getData("text/introduction");
-            let startLessonText = await DATABASE.getData("text/startLesson");
-            let endLessonText = await DATABASE.getData("text/endLesson");
+            let introductionText = await getData("text/introduction");
+            let startLessonText = await getData("text/startLesson");
+            let endLessonText = await getData("text/endLesson");
 
             let parsedText = {
                 introductionText: introductionText,
@@ -94,7 +93,7 @@ export class TextControl extends React.Component {
 
     async fetchProgress () {
         try {
-            let response = await DATABASE.getData("rooms/" + this.state.roomcode + "/lessonIndex");
+            let response = await getData("rooms/" + this.state.roomcode + "/lessonIndex");
 
             this.setState({lessonIndex: response});
             this.updateVisualProgress(response);
@@ -133,11 +132,11 @@ export class TextControl extends React.Component {
         let path = "rooms/" + this.state.roomcode + "/lessonIndex";
         try {
             //get and modify current score
-            let currentScore = await DATABASE.getData(path);
+            let currentScore = await getData(path);
             let newIndex = Math.min(Math.max((currentScore + amount), 0), this.maxLessonIndex - 1);
 
             //update current score
-            let response = await DATABASE.setData(path, newIndex);
+            let response = await setData(path, newIndex);
 
             this.updateVisualProgress(newIndex);
 
@@ -182,13 +181,15 @@ export class TextControl extends React.Component {
                     <div className="bar" style={{width: this.state.progressionBarWidth}}></div>
                 </div>
                 <div className="controlButtons">
-                    <button className={"button button--decrease"}
+                    <button name={"vorige tekst"}
+                            className={"button button--decrease"}
                             disabled={!this.state.user_logged_in}
                             onClick={()=>{this.updateLessonIndex(-1)}}
                             tite={textData.teacherscreen.buttons.increaseLessonIndex}>
                         <img src={iconArrow} alt="arrow icon" className="icon"/>
                     </button>
-                    <button className={"button button--increase"}
+                    <button name={"volgende tekst"}
+                            className={"button button--increase"}
                             disabled={!this.state.user_logged_in}
                             onClick={()=>{this.updateLessonIndex(1)}}
                             tite={textData.teacherscreen.buttons.decreaseLessonIndex}>

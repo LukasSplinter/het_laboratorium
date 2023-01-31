@@ -1,10 +1,8 @@
 import React from "react";
 
-import * as DATABASE from "../Database";
-
-import iconSave from "../assets/icon-save.svg";
 
 import "../styles/SettingAdmin.scss";
+import {updateData} from "../Database";
 
 export class SettingAdmin extends React.Component {
     constructor(props) {
@@ -37,7 +35,7 @@ export class SettingAdmin extends React.Component {
 
     async handleSave(settingname, element) {
         try {
-            let response = await DATABASE.updateData("settings/" + settingname, this.state.data);
+            let response = await updateData("settings/" + settingname, this.state.data);
 
             //pop up succes feedback
             element.classList.add("success");

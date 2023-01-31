@@ -1,5 +1,4 @@
 import React from 'react';
-import * as DATABASE from "../Database";
 import textData from "../data/data.json";
 
 import { VoltaicPile } from "./VoltaicPile";
@@ -17,6 +16,7 @@ import itemPile from "../assets/art_voltaic.svg";
 import itemStratingh from "../assets/art_stratingh.svg";
 import itemDoor from "../assets/art_door.svg";
 import itemPlasmaArc from "../assets/plasmaball_arc.svg";
+import {attachListener, getData} from "../Database";
 
 export class Student extends React.Component {
     constructor(props) {
@@ -35,27 +35,26 @@ export class Student extends React.Component {
 
     componentDidMount(){
         this.fetchText().then((response) => {
-            this.unsubscribeProgress = DATABASE.attachListener("rooms/" + this.state.roomcode + "/lessonIndex",
+            this.unsubscribeProgress = attachListener("rooms/" + this.state.roomcode + "/lessonIndex",
                 (lessonIndex) => {this.updateText(lessonIndex)});
         });
 
         this.fetchDuration();
 
-        this.unsubscribeScore = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
+        this.unsubscribeScore = attachListener("rooms/" + this.state.roomcode + "/score",
             (score) => {this.updateScore(score)});
     }
 
     componentWillUnmount() {
         this.unsubscribeScore();
         this.unsubscribeProgress();
-        // clearInterval(this.hintInterval);
     }
 
 
     updateText(lessonIndex) {
         let categories = {...this.state.text};
         let allText = [];
-        Object.keys(categories).forEach((category, index) => {
+        Object.keys(categories).forEach((category) => {
             let categoryText = categories[category];
 
             for (let i = 0; i < categoryText.length; i++) {
@@ -86,7 +85,7 @@ export class Student extends React.Component {
 
     async fetchDuration() {
         try {
-            let duration = await DATABASE.getData("settings/duration");
+            let duration = await getData("settings/duration");
             this.setState({duration: duration.value});
         } catch (err) {
             console.error(err)
@@ -96,9 +95,9 @@ export class Student extends React.Component {
 
     async fetchText() {
         try {
-            let introductionText = await DATABASE.getData("text/introduction");
-            let startLessonText = await DATABASE.getData("text/startLesson");
-            let endLessonText = await DATABASE.getData("text/endLesson");
+            let introductionText = await getData("text/introduction");
+            let startLessonText = await getData("text/startLesson");
+            let endLessonText = await getData("text/endLesson");
 
             let parsedText = {
                 introductionText: introductionText,

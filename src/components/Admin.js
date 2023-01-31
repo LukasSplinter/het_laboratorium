@@ -1,8 +1,6 @@
 import React from 'react';
 import textData from "../data/data.json";
 
-import * as DATABASE from "../Database";
-
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
 import { Title } from './Title';
@@ -14,6 +12,7 @@ import { TextPanel } from "./TextPanel";
 import { SettingAdmin } from "./SettingAdmin";
 import { LoadingIcon } from "./LoadingIcon";
 import { NoContent } from "./NoContent";
+import {getData, getRooms} from "../Database";
 
 
 export class Admin extends React.Component {
@@ -52,7 +51,7 @@ export class Admin extends React.Component {
 
     async fetchRooms() {
         try {
-            let response = await DATABASE.getRooms();
+            let response = await getRooms();
             let roomData = Object.values(response);
 
             let roomList = roomData.map((item, index) => {
@@ -74,7 +73,7 @@ export class Admin extends React.Component {
 
     async fetchPuzzles() {
         try {
-            let response = await DATABASE.getData("puzzles");
+            let response = await getData("puzzles");
             let puzzleData = Object.values(response);
 
             let puzzleList = puzzleData.map((item, index) => {
@@ -98,7 +97,7 @@ export class Admin extends React.Component {
 
     async fetchSettings() {
         try {
-            let response = await DATABASE.getData("settings");
+            let response = await getData("settings");
             let settingNames = Object.keys(response);
 
             let settings = settingNames.map((item, index) => {

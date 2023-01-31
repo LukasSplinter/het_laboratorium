@@ -12,7 +12,10 @@
         min-height: 100vh;
 
         .screen {
-            padding: 4rem 0rem;
+            padding: 4rem 1.5rem;
+            @include lg {
+                padding: 4rem 0rem;
+            }
 
             .paragraph {
                 @include paragraph;

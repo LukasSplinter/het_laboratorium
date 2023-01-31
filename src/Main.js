@@ -1,5 +1,5 @@
 import React from 'react';
-import * as DATABASE from "./Database";
+import { checkIfRoomExists } from "./Database";
 
 //components
 import { Header } from './components/Header';
@@ -72,7 +72,7 @@ export class Main extends React.Component {
         let roomExists = false;
 
         try {
-            roomExists = await DATABASE.checkIfRoomExists(roomcode);
+            roomExists = await checkIfRoomExists(roomcode);
             if (roomExists) {
                 this.setState({roomcode: roomcode});
                 //user feedback

@@ -1,13 +1,11 @@
 import React from "react";
 
-import * as DATABASE from "../Database";
-
-import iconSave from "../assets/icon-save.svg";
 import iconDelete from "../assets/icon-delete.svg";
 import iconConfirm from "../assets/icon-checkmark.svg";
 import iconCancel from "../assets/icon-cancel.svg";
 
 import "../styles/PuzzleCard.scss";
+import {removeNode, updateData} from "../Database";
 
 export class PuzzleAdmin extends React.Component {
     constructor(props) {
@@ -42,7 +40,7 @@ export class PuzzleAdmin extends React.Component {
 
     async handleDelete(puzzleName) {
         try {
-            let result = await DATABASE.removeNode("puzzles/" + puzzleName);
+            let result = await removeNode("puzzles/" + puzzleName);
         } catch (err) {
             window.alert("Er is iets fout gegaan bij het verwijderen, probeer het later opnieuw of refresh de pagina en kijk of de opdracht nog bestaat");
             console.error(err)
@@ -54,7 +52,7 @@ export class PuzzleAdmin extends React.Component {
     async handleSave(puzzleName, element) {
         if (this.state.data === undefined) return
         try {
-            let response = await DATABASE.updateData("puzzles/" + puzzleName, this.state.data)
+            let response = await updateData("puzzles/" + puzzleName, this.state.data)
 
             //pop up succes feedback
             element.classList.add("success");
@@ -95,7 +93,7 @@ export class PuzzleAdmin extends React.Component {
                     </div>
                     <div className="actions col-4 offset-8 col-lg-2 mb-5 order offset-lg-0 mb-lg-0 order-1 order-lg-3">
                         {this.state.deleteCheck &&
-                            <button title={"verwijder sessie niet"} className={"actions__button actions__button--deleteCancel"}
+                            <button name={"cancel verwijderen"} title={"verwijder sessie niet"} className={"actions__button actions__button--deleteCancel"}
                                     disabled={!this.state.user_logged_in}
                                       onClick={()=>{this.setState({deleteCheck: false})}}>
                                 <img className={"icon"} src={iconCancel} alt="cancel icon"/>
@@ -103,12 +101,13 @@ export class PuzzleAdmin extends React.Component {
                         }
 
                         {this.state.deleteCheck == false
-                            ? <button title={"verwijder deze sessie"} className={"actions__button actions__button--deleteCheck"}
+                            ? <button name={"opdracht verwijderen"}
+                                      title={"verwijder deze sessie"} className={"actions__button actions__button--deleteCheck"}
                                       disabled={!this.state.user_logged_in}
                                       onClick={()=>{this.setState({deleteCheck: true})}}>
                                 <img className={"icon"} src={iconDelete} alt="delete icon"/>
                             </button>
-                            : <button title={"verwijder sessie wel"} className={"actions__button actions__button--deleteConfirm"}
+                            : <button name={"akkoord verwijderen"} title={"verwijder sessie wel"} className={"actions__button actions__button--deleteConfirm"}
                                       disabled={!this.state.user_logged_in}
                                       onClick={this.handleDelete.bind(this, this.props.puzzleID)}>
                                 <img className={"icon"} src={iconConfirm} alt="confirm delete icon"/>

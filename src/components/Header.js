@@ -1,6 +1,6 @@
 import React from 'react';
 import textData from "../data/data.json";
-import * as DATABASE from "../Database";
+import { signInWithGoogle, userSignOut, getData, auth} from "../Database";
 
 import "../styles/Header.scss";
 
@@ -41,7 +41,7 @@ export class Header extends React.Component {
 
     async login() {
         try {
-            let response = await DATABASE.signInWithGoogle();
+            let response = await signInWithGoogle();
             this.props.loginHook(response)
         } catch(err) {
             this.props.logoutHook();
@@ -52,7 +52,7 @@ export class Header extends React.Component {
 
     async logout() {
         try {
-            let response = await DATABASE.userSignOut();
+            let response = await userSignOut();
             this.props.logoutHook();
         } catch(err) {
             console.error(err);
@@ -61,7 +61,7 @@ export class Header extends React.Component {
 
 
     async fetchLoginData() {
-        let authState = DATABASE.auth.onAuthStateChanged(user => {
+        let authState = auth.onAuthStateChanged(user => {
             //user already logged in
             if (user) {
                 this.props.loginHook(user);
@@ -71,7 +71,7 @@ export class Header extends React.Component {
 
     async fetchSchoolData() {
         try {
-            let response = await DATABASE.getData("rooms/" + this.state.roomcode);
+            let response = await getData("rooms/" + this.state.roomcode);
 
             this.setState({
                 school: response.school,
@@ -95,7 +95,7 @@ export class Header extends React.Component {
         return (
             <header className="header row">
                 <div className="header__bar col-12">
-                    <button className={"header__bar__navigation " + (this.state.navOpen ? "close" : "")} onClick={this.toggleNav.bind(this)}>
+                    <button name={"open navigatie"} className={"header__bar__navigation " + (this.state.navOpen ? "close" : "")} onClick={this.toggleNav.bind(this)}>
                         <div className="bar"></div>
                         <div className="bar"></div>
                         <div className="bar"></div>
@@ -105,7 +105,7 @@ export class Header extends React.Component {
                             <span className={"information__school"}>{this.state.school}</span>
                             <span className={"information__class"}>{this.state.classname}</span>
                         </p>
-                        <button className="button" onClick={this.toggleRoomPopup.bind(this)}>
+                        <button name={"vul sessiecode in"} className="button" onClick={this.toggleRoomPopup.bind(this)}>
                             <h3>{this.state.roomcode !== "" ? this.state.roomcode : "xxxxx"}</h3>
                         </button>
 
@@ -115,12 +115,14 @@ export class Header extends React.Component {
                                 : <p className="text">{this.state.user_logged_in ? "log uit" : "log in"}</p>
                             }
                             {this.state.user_logged_in
-                                ? <button className="login__button login__button--logout"
+                                ? <button name={"log account uit"}
+                                          className="login__button login__button--logout"
                                           title={"log uit"}
                                           onClick={this.logout.bind(this)}>
                                     <img className={"icon"} src={iconLogout} alt="log uit icoon"/>
                                 </button>
-                                :<button className="login__button login__button--login"
+                                :<button name={"log in"}
+                                         className="login__button login__button--login"
                                          title={"log in"}
                                          onClick={this.login.bind(this)}>
                                     <img className={"icon"} src={iconLogin} alt="log in icoon"/>
@@ -131,7 +133,7 @@ export class Header extends React.Component {
                         {this.state.modalOpen &&
                             <div className="roomcode__tooltip">
                                 <input type="text" placeholder={"sessiecode"} className={"input"} ref={this.roomInput}/>
-                                <button className="button confirm" onClick={()=>{
+                                <button name={"ga naar sessienummer"} className="button confirm" onClick={()=>{
                                     this.props.switchRoomHook(this.roomInput.current.value, this.roomInput.current);
                                 }}>ga</button>
                             </div>

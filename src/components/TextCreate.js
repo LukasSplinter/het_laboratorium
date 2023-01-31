@@ -1,9 +1,8 @@
-import React from "react";
-
-import * as DATABASE from "../Database";
+import React from "react";;
 
 import "../styles/PuzzleCreate.scss";
 import "../styles/PuzzleCard.scss";
+import {pushChild} from "../Database";
 
 export class TextCreate extends React.Component {
     constructor(props) {
@@ -47,7 +46,7 @@ export class TextCreate extends React.Component {
         }
 
         try {
-            let response = DATABASE.pushChild("text/" + this.props.path, this.state.data);
+            let response = pushChild("text/" + this.props.path, this.state.data);
 
             //refresh puzzles
             this.props.refreshTextHook();
@@ -84,7 +83,8 @@ export class TextCreate extends React.Component {
                     </div>
                 </div>
 
-                <button className="confirm button"
+                <button name={"maak tekstartikel aan"}
+                        className="confirm button"
                         onClick={this.createText.bind(this)}>
                     Voeg tekst toe
                 </button>

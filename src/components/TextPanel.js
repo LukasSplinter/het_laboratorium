@@ -1,7 +1,6 @@
 import React from 'react';
 import textData from "../data/data.json";
 
-import * as DATABASE from "../Database";
 
 import Reorder, { reorder } from 'react-reorder';
 
@@ -9,9 +8,9 @@ import Reorder, { reorder } from 'react-reorder';
 import "../styles/TextPanel.scss";
 
 import { TextItem } from "./TextItem";
-import {LoadingIcon} from "./LoadingIcon";
 import {TextCreate} from "./TextCreate";
 import {NoContent} from "./NoContent";
+import {getData, setData} from "../Database";
 
 export class TextPanel extends React.Component {
     constructor(props) {
@@ -44,7 +43,7 @@ export class TextPanel extends React.Component {
 
     async fetchText() {
         try {
-            let response = await DATABASE.getData("text/" + this.props.path.toString());
+            let response = await getData("text/" + this.props.path.toString());
             let data = Object.values(response);
 
             let textElements = data
@@ -98,7 +97,7 @@ export class TextPanel extends React.Component {
 
         //update database - this updates the saved data of the text order
         try {
-            let response = DATABASE.setData("text/" + this.props.path, newData);
+            let response = setData("text/" + this.props.path, newData);
 
         } catch (err) {
             console.error(err);

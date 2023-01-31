@@ -1,8 +1,6 @@
 import React from 'react';
 import textData from "../data/data.json";
 
-import * as DATABASE from "../Database";
-
 // import "../styles/xx.scss";
 import "../styles/screen.scss";
 import "../styles/teacher.scss";

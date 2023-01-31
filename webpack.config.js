@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: path.join(__dirname, "src", "index.js"),
     output: {
         path:path.resolve(__dirname, "dist"),
@@ -21,6 +21,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
+                include: path.resolve(__dirname, 'src'),
                 use: [
                     "style-loader",
                     "css-loader",
@@ -29,6 +30,7 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                include: path.resolve(__dirname, 'src'),
                 type: 'asset/resource',
             },
         ]
@@ -39,7 +41,9 @@ module.exports = {
             crypto: require.resolve("crypto-browserify"),
             buffer: require.resolve("buffer/"),
             "stream": false
-        }
+        },
+        symlinks: false,
+        cacheWithContext: false
     },
     plugins: [
         new HtmlWebpackPlugin({

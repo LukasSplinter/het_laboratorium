@@ -3,11 +3,8 @@ import textData from "../data/data.json";
 import * as Scroll from 'react-scroll';
 
 
-import * as DATABASE from "../Database";
-
-import { Modal } from "./Modal";
-
 import "../styles/roomNav.scss";
+import {createRoom} from "../Database";
 
 export class RoomNav extends React.Component {
     constructor(props) {
@@ -20,12 +17,20 @@ export class RoomNav extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props) return;
+
+        this.setState({
+            user_logged_in: this.props.user_logged_in
+        })
+    }
+
     async createRoom() {
         let className = this.joinClassname.current.value;
         let schoolName = this.joinSchoolname.current.value;
 
         try {
-            let roomCode = await DATABASE.createRoom(className, schoolName);
+            let roomCode = await createRoom(className, schoolName);
 
             this.props.joinRoomHook(roomCode, this.joinSchoolname.current);
             this.joinSchoolname.current.classList.add("success");
@@ -60,7 +65,8 @@ export class RoomNav extends React.Component {
                     <input type="text" placeholder={"klas"}
                            disabled={!this.state.user_logged_in}
                            ref={this.joinClassname}/>
-                    <button className={"submit"}
+                    <button name={"maak sessie aan"}
+                            className={"submit"}
                             disabled={!this.state.user_logged_in}
                             onClick={this.createRoom.bind(this)}></button>
                 </div>

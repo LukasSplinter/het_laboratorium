@@ -38,7 +38,7 @@ export class PuzzleControl extends React.Component {
                 <div className="puzzleControl__counter col-4 col-lg-2"><span>{this.props.counter}</span></div>
                 <h3 className="puzzleControl__name col-7 offset-1 col-lg-5 offset-lg-0">{this.props.name}</h3>
 
-                <button disabled={this.state.pointsClicked || !this.state.user_logged_in}
+                <button name={"keur opdracht goed"} disabled={this.state.pointsClicked || !this.state.user_logged_in}
                 className={"puzzleControl__reward col-10 col-lg-4 " + (this.state.pointsClicked ? "success" : "")}
                 onClick={ () => {
                     this.props.awardPointsHook(this.props.data.worth);
@@ -46,7 +46,7 @@ export class PuzzleControl extends React.Component {
                     setTimeout(()=>{this.setState({pointsClicked: false})}, 1000);
                     }}>Keur goed</button>
 
-                <button className="puzzleControl__info col-1 offset-0 col-lg-1 offset-lg-0"
+                <button name={"informatie opdracht"} className="puzzleControl__info col-1 offset-0 col-lg-1 offset-lg-0"
                 onClick={this.openPuzzleInformation.bind(this)}>
                     <img src={iconInformation} alt="information icon"/>
                 </button>

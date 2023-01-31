@@ -16,6 +16,14 @@ export class Home extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps === this.props) return;
+
+        this.setState({
+            user_logged_in: this.props.user_logged_in
+        })
+    }
+
     render() {
         return (
             <section className="home screen">

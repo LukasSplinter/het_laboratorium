@@ -1,5 +1,4 @@
 import React from 'react';
-import * as DATABASE from "../Database";
 
 // import "../styles/xx.scss";
 import "../styles/VoltaicPile.scss";
