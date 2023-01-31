@@ -146,6 +146,7 @@
         position: absolute;
         right: 5rem;
         bottom: 0;
+        z-index: 2;
 
         width: 35rem;
         height: 38rem;
@@ -169,6 +170,8 @@
 
             display: block;
             width: 45rem;
+
+            transition: 1s filter;
 
             & > .img {
                 position: absolute;

@@ -143,7 +143,12 @@ export class Student extends React.Component {
 
 
     render() {
+        let endingPlasmaShadows = "";
+        for (let i = 1; i < Math.min(this.state.score, 20); i += 5) {
+            endingPlasmaShadows += ("drop-shadow(5px 5px " + i + "px #2CEDE2bb) ")
+        }
         let scoreSplit = this.state.score.toString().padStart(3, "0").split("");
+
         return (
             <section className={"student screen " +
                 (this.state.ending ? "ending " : "")}>
@@ -185,7 +190,7 @@ export class Student extends React.Component {
 
                 <section className="endingPlasma">
                     <img className={"img"} src={itemPlasma} alt="plasmabol"/>
-                    <div className="arc">
+                    <div className="arc" style={{filter: endingPlasmaShadows}}>
                         <img className={"img"} src={itemPlasmaArc} alt="plasmabol stroom"/>
                     </div>
                 </section>
