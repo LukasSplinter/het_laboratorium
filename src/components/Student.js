@@ -68,7 +68,7 @@ export class Student extends React.Component {
         this.setState({dialogue: allText[lessonIndex]})
 
         //when lesson is ending
-        if (lessonIndex >= (this.state.text["introductionText"].length + this.state.text["startLessonText"].length)) {
+        if (lessonIndex >= (this.state.text["introductionText"].length + 1)) {
             this.setState({
                 ending: true
             });
