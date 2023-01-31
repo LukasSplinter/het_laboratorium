@@ -35,8 +35,6 @@ export class TextControl extends React.Component {
         this.setState({
             roomcode: this.props.roomcode,
             user_logged_in: this.props.user_logged_in
-        }, () => {
-            this.fetchText().then(()=>{ this.fetchProgress() });
         })
     }
 

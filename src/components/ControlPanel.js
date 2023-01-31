@@ -22,7 +22,9 @@ export class ControlPanel extends React.Component {
 
 
     componentDidMount() {
-        this.fetchAll();
+        this.fetchScore();
+        this.fetchPuzzles();
+        this.fetchDuration();
 
         this.unsubscribe = DATABASE.attachListener("rooms/" + this.state.roomcode + "/score",
             (score)=>{this.setState({score: score})});
@@ -35,19 +37,13 @@ export class ControlPanel extends React.Component {
             roomcode: this.props.roomcode,
             user_logged_in: this.props.user_logged_in
         }, ()=> {
-            this.fetchAll();
+            this.fetchPuzzles();
         })
     }
 
 
     componentWillUnmount() {
         this.unsubscribe();
-    }
-
-    async fetchAll() {
-        this.fetchScore();
-        this.fetchPuzzles();
-        this.fetchDuration();
     }
 
     async fetchDuration() {
