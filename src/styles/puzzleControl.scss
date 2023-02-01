@@ -68,11 +68,11 @@
         transition: .4s background-color, .4s color;
 
         &:disabled {
-            background-color: $grey-5 !important;
-            color: $white !important;
+            background-color: $grey-5;
+            color: $white;
         }
 
-        &:not(.success):hover {
+        &:not(.success):not([disabled]):hover {
             background-color: $white;
             color: $primary;
         }
