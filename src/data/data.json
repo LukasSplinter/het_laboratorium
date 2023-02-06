@@ -46,6 +46,7 @@
     "login_cta": "Inloggen vereist"
   },
   "adminscreen": {
+    "warning": "LET OP: Dit is voor de eigenaars van het onderwijsprogramma - pas geen veranderingen toe aan dit scherm tenzij je expliciete toestemming hebt hiervoor!",
     "explanation": "Dit is het beheerscherm! Hier kunnen de verschillende aspecten van de applicatie aangepast en onderhouden worden. ",
     "rooms_empty": "Er zijn momenteel geen sessies gevonden in de database! - probeer het later opnieuw of voeg deze toe",
     "puzzles_empty": "Er zijn momenteel geen opdrachten gevonden in de database! - probeer het later opnieuw of voeg deze toe",

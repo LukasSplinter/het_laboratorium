@@ -120,6 +120,10 @@ export class Admin extends React.Component {
             <section className="Admin screen">
                 <Title />
 
+                <div className="warning row">
+                    <p className="paragraph col-12">{textData.adminscreen.warning}</p>
+                </div>
+
                 <div className="textsection row">
                     <p className="paragraph col-12 col-lg-6">{textData.adminscreen.explanation}</p>
                 </div>

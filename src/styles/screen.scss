@@ -61,6 +61,22 @@
                     margin: 0;
                 }
             }
+
+
+            .warning {
+                margin-top: 5rem;
+                padding: 6rem 2rem;
+                background-color: transparentize($failure, 0.5);
+
+                border-radius: 1rem;
+
+                .paragraph {
+                    @include paragraph;
+                    color: $white;
+                    font-size: 1.8rem;
+                    margin: 0;
+                }
+            }
         }
 
         .screen.home {
